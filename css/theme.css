@@ -1,0 +1,31 @@
+body{
+    color: #878787;
+    font-family: "Roboto", sans-serif;
+    font-size: 14px;
+    font-style: normal;
+}
+
+.main-header{
+    margin-bottom: 0;
+    min-height: 66px;
+    padding: 0 15px 0 0;
+}
+
+.left-sidebar{
+    position: fixed;
+    top: 66px;
+    left: 0px;
+    width: 225px;
+    margin-left: 0px;
+    bottom: 0;
+    background: #ff0000
+}
+
+.center{
+    padding-right: 15px;
+    padding-left: 15px;
+    margin-right: auto;
+    margin-left: auto;
+    background: #00ff00;
+    min-height: 80px;
+}
