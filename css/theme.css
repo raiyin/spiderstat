@@ -3,6 +3,8 @@ body{
     font-family: "Roboto", sans-serif;
     font-size: 14px;
     font-style: normal;
+    margin: 0px;
+    padding: 0px;
 }
 
 header {
@@ -12,23 +14,39 @@ header {
     background:#212121;
     left: 0;
     top: 0;
-    right: 0;    
+    right: 0;  
+    margin: 0px;
+    padding: 0px;  
 }
 
 main{ 
     position: absolute;
+    height: 100%;
     background: #080808;
     left: 0;
     right: 0;
     top: 60px;
     bottom: 0;
     padding: 0px;
+    margin: 0px;
 }
 
 #left-menu{
     position: relative;
-    margin: 0;
     width: 225px;
     height: 100%;
     background: #333;
+    margin: 0px;
+    padding: 0px;
+    float: left;
+}
+
+#main-plot{
+    position: relative;
+    background:#212121;
+    width: 600px;
+    height: 400px;
+    float: left;
+    margin-top: 15px;
+    margin-left: 15px;
 }
