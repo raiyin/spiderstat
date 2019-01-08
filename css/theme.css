@@ -1,3 +1,5 @@
+@import url(https://fonts.googleapis.com/css?family=Roboto:100,300,400,500,700|Poppins:500);
+
 body{
     color: #878787;
     font-family: "Roboto", sans-serif;
@@ -31,7 +33,7 @@ main{
     margin: 0px;
 }
 
-#left-menu{
+#left-section{
     position: relative;
     width: 225px;
     height: 100%;
@@ -44,9 +46,44 @@ main{
 #main-plot{
     position: relative;
     background:#212121;
-    width: 60%;
-    height: 60%;
+    width: 800px;
+    height: 400px;
     float: left;
     margin-top: 15px;
     margin-left: 15px;
+}
+
+li.navigation-header > span{
+    padding: 11px 15px;
+    font-size: 11px;
+    font-family: "Roboto", sans-serif;
+    display: block;
+    text-transform: uppercase;
+    font-weight: 500;
+    color: #ea6c41;
+}
+
+#left-menu{
+    list-style-type: none;
+}
+
+#left-menu a{
+    padding: 11px 15px;
+    font-size: 11px;
+    font-family: "Roboto", sans-serif;
+    display: block;
+    text-transform: uppercase;
+    text-decoration: none;
+    font-weight: 500;
+    color: #ea6c41;
+}
+
+#left-menu a:hover{
+    background-color: #777;
+    border-left: 5px solid #a0bd37;
+}
+
+#left-menu li{
+    border-left: 10px solid #666666;
+    border-bottom: 1px solid #666;
 }

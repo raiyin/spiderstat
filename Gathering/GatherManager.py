@@ -7,10 +7,12 @@ from parsing import NewsruParser
 from parsing import PravdaParser
 from parsing import RbcParser
 from parsing import RgParser
+from miscellanea import MailSender
 from db import DbManager
 from Gathering import RssClient
 import time
 from datetime import datetime
+import sys
 
 
 class GatherManager:
@@ -31,6 +33,7 @@ class GatherManager:
                     self.db_manager.check_and_reconnect()
                     continue
             print("Circle done...")
+            print(datetime.now())
             time.sleep(self.pause)
 
 
@@ -84,8 +87,19 @@ if __name__ == "__main__":
     rss_clients.append(iz_rss_client)
     rss_clients.append(pravda_rss_client)
 
-    gather_manager = GatherManager(rss_clients, db_manager, 30*60)
-    gather_manager.gather()
+    gather_manager = GatherManager(rss_clients, db_manager, 30 * 60)
+
+    try:
+        gather_manager.gather()
+    except Exception as e:
+        type_, value_, traceback_ = sys.exc_info()
+        text = "Error type is:" + type_ + "\n"
+        text += "Error value is " + value_ + "\n"
+        text += "Error traceback is:" + traceback_ + "\n"
+        text += "error message is: " + str(e)
+
+        sender = MailSender.MailSender()
+        sender.send_mail("login@ya.ru", "password", "Отчет об ошибке", text)
 
 # https://www.znak.com/rss
 # https://politexpert.net/feed
