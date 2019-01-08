@@ -93,9 +93,9 @@ if __name__ == "__main__":
         gather_manager.gather()
     except Exception as e:
         type_, value_, traceback_ = sys.exc_info()
-        text = "Error type is:" + type_ + "\n"
-        text += "Error value is " + value_ + "\n"
-        text += "Error traceback is:" + traceback_ + "\n"
+        text = "Error type is:" + str(type_) + "\n"
+        text += "Error value is " + str(value_) + "\n"
+        text += "Error traceback is:" + str(traceback_) + "\n"
         text += "error message is: " + str(e)
 
         sender = MailSender.MailSender()
