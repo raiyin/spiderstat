@@ -1,12 +1,5 @@
-from parsing import BbcParser
-from parsing import IzParser
-from parsing import LentaParser
-from parsing import LifeParser
-from parsing import MailParser
-from parsing import NewsruParser
-from parsing import PravdaParser
-from parsing import RbcParser
-from parsing import RgParser
+from parsing.Russia import BbcParser, IzParser, LentaParser, LifeParser, MailParser, NewsruParser, PravdaParser, \
+    RbcParser, RgParser
 from miscellanea import MailSender
 from db import DbManager
 from Gathering import RssClient
@@ -101,9 +94,9 @@ if __name__ == "__main__":
         sender = MailSender.MailSender()
         sender.send_mail("login@ya.ru", "password", "Отчет об ошибке", text)
 
-# https://www.znak.com/rss
-# https://politexpert.net/feed
-# http://ren.tv/export/feed.xml
-# https://russian.rt.com/rss
-# http://nsn.fm/rss/
-# https://ura.news/rss
+# !!! https://www.znak.com/rss
+# !!! https://politexpert.net/feed
+# !!! http://ren.tv/export/feed.xml
+# !!! https://russian.rt.com/rss
+# !!! http://nsn.fm/rss/
+# !!! https://ura.news/rss

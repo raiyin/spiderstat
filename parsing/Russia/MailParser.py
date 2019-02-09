@@ -14,7 +14,7 @@ class MailParser:
 
             # Заголовок
             ex_classes = doc.find_class('hdr hdr_collapse hdr_bold_huge hdr_lowercase')
-            if len(ex_classes)!=0:
+            if len(ex_classes) != 0:
                 e = ex_classes.pop()
                 article_text += e.text_content()
                 e = doc.find_class('article__intro').pop()

@@ -1,7 +1,7 @@
 import feedparser
 from db import DbManager
 # for test purpose
-from parsing import IzParser
+from parsing.Russia import IzParser
 import sys
 import time
 

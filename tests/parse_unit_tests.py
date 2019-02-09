@@ -1,13 +1,6 @@
 import unittest
-from parsing import LifeParser
-from parsing import RbcParser
-from parsing import LentaParser
-from parsing import MailParser
-from parsing import NewsruParser
-from parsing import BbcParser
-from parsing import RgParser
-from parsing import IzParser
-from parsing import PravdaParser
+from parsing.Russia import BbcParser, IzParser, LentaParser, LifeParser, MailParser, NewsruParser, PravdaParser, \
+    RbcParser, RgParser
 
 
 class TestStringMethods(unittest.TestCase):
