@@ -1,9 +1,13 @@
 import sys
 import urllib.request
 from lxml.html import fromstring
+from miscellanea import Loger
 
 
 class BbcParser:
+
+    def __init__(self, loger):
+        self.loger = loger
 
     def parse(self, url):
         try:
@@ -41,15 +45,17 @@ class BbcParser:
                 return 0, ""
 
         except Exception as e:
-            print("Unexpected error in BbcParser:", sys.exc_info()[0])
-            print("error message is: " + str(e))
-            print("url is: " + url)
+            message = "Unexpected error in BbcParser: " + str(sys.exc_info()[0])
+            message += "error message is: " + str(e)
+            message += "url is: " + url
+            self.loger.write_message(message)
             return 0, ""
         return 1, article_text
 
 
 if __name__ == "__main__":
-    my_parser = BbcParser()
+    loger = Loger.Loger('', '', '', 465)
+    my_parser = BbcParser(loger)
     success, article = my_parser.parse('https://www.bbc.com/russian/features-46067230')
     # success, article = my_parser.parse('https://www.bbc.com/russian/av/media-45904959')
 
