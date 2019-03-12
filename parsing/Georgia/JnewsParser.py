@@ -1,11 +1,14 @@
-import sys
 import urllib.request
 from urllib.request import Request
 from lxml.html import fromstring
 from random import randint
+from miscellanea import FakeTestLogger
 
 
 class JnewsParser:
+
+    def __init__(self, logger):
+        self.logger = logger
 
     def parse(self, url):
         try:
@@ -30,22 +33,15 @@ class JnewsParser:
                         for r in all_p:
                             article_text += "\n"+r.text_content()
         except Exception as e:
-            print("=================================================")
-            type_, value_, traceback_ = sys.exc_info()
-            print("Error in JnewsParser")
-            print("Error type is:", type_)
-            print("Error value is ", value_)
-            print("Error traceback is:", traceback_)
-            print("error message is: " + str(e))
-
-            print("url is: " + url)
-            print("*************************************************")
+            message = self.logger.make_message("JnewsParser", e, url)
+            self.logger.write_message(message)
             return 0, ""
         return 1, article_text
 
 
 if __name__ == "__main__":
-    my_parser = JnewsParser()
+    logger = FakeTestLogger.FakeTestLogger('', '', 'smtp.yandex.ru', 465)
+    my_parser = JnewsParser(logger)
     #success, article = my_parser.parse('http://jnews.ge/?p=28857')
     success, article = my_parser.parse('http://jnews.ge/?p=28859')
     print(article)

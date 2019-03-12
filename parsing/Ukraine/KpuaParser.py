@@ -1,11 +1,14 @@
-import sys
 import urllib.request
 from urllib.request import Request
 from lxml.html import fromstring
 from random import randint
+from miscellanea import FakeTestLogger
 
 
 class KpuaParser:
+
+    def __init__(self, logger):
+        self.logger = logger
 
     def parse(self, url):
         try:
@@ -32,22 +35,15 @@ class KpuaParser:
             else:
                 return 0, ""
         except Exception as e:
-            print("=================================================")
-            type_, value_, traceback_ = sys.exc_info()
-            print("Error in KpuaParser")
-            print("Error type is:", type_)
-            print("Error value is ", value_)
-            print("Error traceback is:", traceback_)
-            print("error message is: " + str(e))
-
-            print("url is: " + url)
-            print("*************************************************")
+            message = self.logger.make_message("KpuaParser", e, url)
+            self.logger.write_message(message)
             return 0, ""
         return 1, article_text
 
 
 if __name__ == "__main__":
-    my_parser = KpuaParser()
+    logger = FakeTestLogger.FakeTestLogger('', '', 'smtp.yandex.ru', 465)
+    my_parser = KpuaParser(logger)
     success, article = my_parser.parse('https://kp.ua/culture/629471-pevytsa-yulyia-savycheva-poteriala-pervoho-rebenka')
     #success, article = my_parser.parse('https://kp.ua/politics/629469-poroshenko-soobschyl-chto-podpysal-vazhnyi'
     #                                   '-zakon-o-perekhode-k-pravoslavnoi-tserkvy-ukrayny')

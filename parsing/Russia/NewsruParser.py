@@ -1,9 +1,12 @@
-import sys
 import urllib.request
 from lxml.html import fromstring
+from miscellanea import FakeTestLogger
 
 
 class NewsruParser:
+
+    def __init__(self, logger):
+        self.logger = logger
 
     def parse(self, url):
         try:
@@ -29,14 +32,14 @@ class NewsruParser:
                 return 0, ""
 
         except Exception as e:
-            print("Unexpected error in NewsruParser:", sys.exc_info()[0])
-            print("error message is: " + str(e))
-            print("url is: " + url)
+            message = self.logger.make_message("NewsruParser", e, url)
+            self.logger.write_message(message)
             return 0, ""
         return 1, article_text
 
 
 if __name__ == "__main__":
-    my_parser = NewsruParser()
+    logger = FakeTestLogger.FakeTestLogger('', '', 'smtp.yandex.ru', 465)
+    my_parser = NewsruParser(logger)
     success, article = my_parser.parse('https://www.newsru.com/world/18oct2018/volkerussnctns.html')
     print(article)

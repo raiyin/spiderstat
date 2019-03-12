@@ -1,11 +1,14 @@
-import sys
 import urllib.request
 from urllib.request import Request
 from random import randint
 from bs4 import BeautifulSoup
+from miscellanea import FakeTestLogger
 
 
 class FactycomuaParser:
+
+    def __init__(self, logger):
+        self.logger = logger
 
     def parse(self, url):
         try:
@@ -29,22 +32,15 @@ class FactycomuaParser:
                         if el.name == 'p':
                             article_text += "\n" + str(el.text)
         except Exception as e:
-            print("=================================================")
-            type_, value_, traceback_ = sys.exc_info()
-            print("Error in FactycomuaParser")
-            print("Error type is:", type_)
-            print("Error value is ", value_)
-            print("Error traceback is:", traceback_)
-            print("error message is: " + str(e))
-
-            print("url is: " + url)
-            print("*************************************************")
+            message = self.logger.make_message("FactycomuaParser", e, url)
+            self.logger.write_message(message)
             return 0, ""
         return 1, article_text
 
 
 if __name__ == "__main__":
-    my_parser = FactycomuaParser()
+    logger = FakeTestLogger.FakeTestLogger('', '', 'smtp.yandex.ru', 465)
+    my_parser = FactycomuaParser(logger)
     #success, article = my_parser.parse('https://fakty.com.ua/ua/proisshestvija/20190203-pozhezha-na-lisovij-ye'
     #                                   '-zagroza-obvalu-konstruktsij/')
     success, article = my_parser.parse('https://fakty.com.ua/ua/ukraine/20190203-vybory-2019-poroshenko-podav'

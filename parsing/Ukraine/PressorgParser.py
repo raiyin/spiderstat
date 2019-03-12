@@ -1,11 +1,14 @@
-import sys
 import urllib.request
 from urllib.request import Request
 from lxml.html import fromstring
 from random import randint
+from miscellanea import FakeTestLogger
 
 
 class PressorgParser:
+
+    def __init__(self, logger):
+        self.logger = logger
 
     def parse(self, url):
         try:
@@ -34,22 +37,15 @@ class PressorgParser:
                         for r in all_p:
                             article_text += "\n"+r.text_content()
         except Exception as e:
-            print("=================================================")
-            type_, value_, traceback_ = sys.exc_info()
-            print("Error in PressorgParser")
-            print("Error type is:", type_)
-            print("Error value is ", value_)
-            print("Error traceback is:", traceback_)
-            print("error message is: " + str(e))
-
-            print("url is: " + url)
-            print("*************************************************")
+            message = self.logger.make_message("PressorgParser", e, url)
+            self.logger.write_message(message)
             return 0, ""
         return 1, article_text
 
 
 if __name__ == "__main__":
-    my_parser = PressorgParser()
+    logger = FakeTestLogger.FakeTestLogger('', '', 'smtp.yandex.ru', 465)
+    my_parser = PressorgParser(logger)
     success, article = my_parser.parse('http://pressorg24.com/society/4990-irin-chaple-vdokhnovenie-ne-nuzhno-zhdat')
     #success, article = my_parser.parse('http://pressorg24.com/society/4991-30-sentyabrya-musicbox-snova-soberet-zvezd'
     #                                   '-shou-biznesa-na-svoei-uzhe-vi-realnoi-premii')

@@ -1,11 +1,14 @@
-import sys
 import urllib.request
 from urllib.request import Request
 from lxml.html import fromstring
 from random import randint
+from miscellanea import FakeTestLogger
 
 
 class CapitaluaParser:
+
+    def __init__(self, logger):
+        self.logger = logger
 
     def parse(self, url):
         try:
@@ -30,24 +33,17 @@ class CapitaluaParser:
                         for r in all_p:
                             article_text += "\n"+r.text_content()
         except Exception as e:
-            print("=================================================")
-            type_, value_, traceback_ = sys.exc_info()
-            print("Error in CapitaluaParser")
-            print("Error type is:", type_)
-            print("Error value is ", value_)
-            print("Error traceback is:", traceback_)
-            print("error message is: " + str(e))
-
-            print("url is: " + url)
-            print("*************************************************")
+            message = self.logger.make_message("CapitaluaParser", e, url)
+            self.logger.write_message(message)
             return 0, ""
         return 1, article_text
 
 
 if __name__ == "__main__":
-    my_parser = CapitaluaParser()
-    success, article = my_parser.parse('https://www.capital.ua/ru/news/123892-osnovatel-kriptobirzhi-unes-s-soboy-v'
-                                       '-mogilu-dostup-k-190-mln')
-    #success, article = my_parser.parse('https://www.capital.ua/ru/news/123894-tsik-otkazala-mne-v-registratsii-po'
-    #                                   '-politicheskim-motivam-aleksandr-solovev')
+    logger = FakeTestLogger.FakeTestLogger('', '', 'smtp.yandex.ru', 465)
+    my_parser = CapitaluaParser(logger)
+    #success, article = my_parser.parse('https://www.capital.ua/ru/news/123892-osnovatel-kriptobirzhi-unes-s-soboy-v'
+    #                                   '-mogilu-dostup-k-190-mln')
+    success, article = my_parser.parse('https://www.capital.ua/ru/news/123894-tsik-otkazala-mne-v-registratsii-po'
+                                       '-politicheskim-motivam-aleksandr-solovev')
     print(article)

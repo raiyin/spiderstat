@@ -1,12 +1,15 @@
 ### Доработать
-import sys
 import urllib.request
 from urllib.request import Request
 from lxml.html import fromstring
 from random import randint
+from miscellanea import FakeTestLogger
 
 
 class ZnajParser:
+
+    def __init__(self, logger):
+        self.logger = logger
 
     def parse(self, url):
         try:
@@ -29,22 +32,16 @@ class ZnajParser:
             for p in all_p:
                 article_text += "\n" + p.text_content()
         except Exception as e:
-            print("=================================================")
-            type_, value_, traceback_ = sys.exc_info()
-            print("Error in ZnajParser")
-            print("Error type is:", type_)
-            print("Error value is ", value_)
-            print("Error traceback is:", traceback_)
-            print("error message is: " + str(e))
-
-            print("url is: " + url)
-            print("*************************************************")
+            message = self.logger.make_message("ZnajParser", e, url)
+            self.logger.write_message(message)
             return 0, ""
+        article_text = article_text.strip()
         return 1, article_text
 
 
 if __name__ == "__main__":
-    my_parser = ZnajParser()
+    logger = FakeTestLogger.FakeTestLogger('', '', 'smtp.yandex.ru', 465)
+    my_parser = ZnajParser(logger)
     #success, article = my_parser.parse('https://znaj.ua/society/206327-privatbank-potrapiv-u-zhahliviy-skandal-z'
     #                                   '-vigadanimi-borgami-takih-shahrajiv-shche-poshukati-treba')
     #success, article = my_parser.parse('https://znaj.ua/society/206325-vchiteliv-zmusyat-zdavati-zno-de-i-koli')

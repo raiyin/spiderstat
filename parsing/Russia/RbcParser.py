@@ -1,9 +1,12 @@
-import sys
 import urllib.request
 from lxml.html import fromstring
+from miscellanea import FakeTestLogger
 
 
 class RbcParser:
+
+    def __init__(self, logger):
+        self.logger = logger
 
     def parse(self, url):
         try:
@@ -27,14 +30,14 @@ class RbcParser:
                 return 0, ""
 
         except Exception as e:
-            print("Unexpected error in RbcParser:", sys.exc_info()[0])
-            print("error message is: " + str(e))
-            print("url is: " + url)
+            message = self.logger.make_message("RbcParser", e, url)
+            self.logger.write_message(message)
             return 0, ""
         return 1, article_text
 
 
 if __name__ == "__main__":
-    my_parser = RbcParser()
+    logger = FakeTestLogger.FakeTestLogger('', '', 'smtp.yandex.ru', 465)
+    my_parser = RbcParser(logger)
     success, article = my_parser.parse('https://www.rbc.ru/rbcfreenews/5bc8acd19a7947257ed65f69')
     print(article)

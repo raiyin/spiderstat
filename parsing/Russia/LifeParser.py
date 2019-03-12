@@ -1,12 +1,15 @@
-import sys
 import urllib.request
 from urllib.request import Request
 from lxml.html import fromstring
+from miscellanea import FakeTestLogger
 
 
 class LifeParser:
 
     content = ""
+
+    def __init__(self, logger):
+        self.logger = logger
 
     def parse(self, url):
         try:
@@ -60,22 +63,15 @@ class LifeParser:
 
                 return 1, article_text
             except Exception as e:
-                print("=================================================")
-                type_, value_, traceback_ = sys.exc_info()
-                print("Error in LifeParser")
-                print("Error type is:", type_)
-                print("Error value is ", value_)
-                print("Error traceback is:", traceback_)
-                print("error message is: " + str(e))
-
-                print("url is: " + url)
-                print("*************************************************")
-                return 0, ""
+            message = self.logger.make_message("LifeParser", e, url)
+            self.logger.write_message(message)
+            return 0, ""
         return 1, article_text
 
 
 if __name__ == "__main__":
-    my_parser = LifeParser()
+    logger = FakeTestLogger.FakeTestLogger('', '', 'smtp.yandex.ru', 465)
+    my_parser = LifeParser(logger)
     # success, article = my_parser.parse('https://life.ru/1165470')
     success, article = my_parser.parse('https://life.ru/t/%D0%BD%D0%BE%D0%B2%D0%BE%D1%81%D1%82%D0%B8/1166353/ekspiert_rasskazal_kak_vozmozhnoie_naznachieniie_noiiert_skazhietsia_na_otnoshieniiakh_s_rf')
     print(article)

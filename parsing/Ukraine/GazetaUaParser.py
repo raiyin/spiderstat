@@ -1,11 +1,14 @@
-import sys
 import urllib.request
 from urllib.request import Request
 from lxml.html import fromstring
 from random import randint
+from miscellanea import FakeTestLogger
 
 
 class GazetaUaParser:
+
+    def __init__(self, logger):
+        self.logger = logger
 
     def parse(self, url):
         try:
@@ -33,22 +36,15 @@ class GazetaUaParser:
             else:
                 return 0, ""
         except Exception as e:
-            print("=================================================")
-            type_, value_, traceback_ = sys.exc_info()
-            print("Error in GazetaUaParser")
-            print("Error type is:", type_)
-            print("Error value is ", value_)
-            print("Error traceback is:", traceback_)
-            print("error message is: " + str(e))
-
-            print("url is: " + url)
-            print("*************************************************")
+            message = self.logger.make_message("GazetaUaParser", e, url)
+            self.logger.write_message(message)
             return 0, ""
         return 1, article_text
 
 
 if __name__ == "__main__":
-    my_parser = GazetaUaParser()
+    logger = FakeTestLogger.FakeTestLogger('', '', 'smtp.yandex.ru', 465)
+    my_parser = GazetaUaParser(logger)
     #success, article = my_parser.parse('https://gazeta.ua/articles/donbas/_u-hmelnickomu-zhorstoko-pokarali'
     #                                   '-separatistku/882529')
     success, article = my_parser.parse('https://gazeta.ua/articles/world-life/_litaki-rf-ta-ssa-zchepilisya-v-nebi'

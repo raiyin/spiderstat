@@ -1,11 +1,14 @@
-import sys
 import urllib.request
 from urllib.request import Request
 from lxml.html import fromstring
 from random import randint
+from miscellanea import FakeTestLogger
 
 
 class IpressgeParser:
+
+    def __init__(self, logger):
+        self.logger = logger
 
     def parse(self, url):
         try:
@@ -38,22 +41,15 @@ class IpressgeParser:
                         for r in all_p:
                             article_text += "\n"+r.text_content()
         except Exception as e:
-            print("=================================================")
-            type_, value_, traceback_ = sys.exc_info()
-            print("Error in IpressgeParser")
-            print("Error type is:", type_)
-            print("Error value is ", value_)
-            print("Error traceback is:", traceback_)
-            print("error message is: " + str(e))
-
-            print("url is: " + url)
-            print("*************************************************")
+            message = self.logger.make_message("IpressgeParser", e, url)
+            self.logger.write_message(message)
             return 0, ""
         return 1, article_text
 
 
 if __name__ == "__main__":
-    my_parser = IpressgeParser()
+    logger = FakeTestLogger.FakeTestLogger('', '', 'smtp.yandex.ru', 465)
+    my_parser = IpressgeParser(logger)
     success, article = my_parser.parse('https://ipress.ge/new/elene-khoshtaria-otsneba-im-absurdamde-mivida-rom-lamis'
                                        '-beseliats-natsmodzraoba-gakhda/')
     #success, article = my_parser.parse('https://ipress.ge/new/khoshtaria-chinchaladze-gakhda-thqveni-ghmerthi'

@@ -1,11 +1,14 @@
-import sys
 import urllib.request
 from urllib.request import Request
 from lxml.html import fromstring
 from random import randint
+from miscellanea import FakeTestLogger
 
 
 class VistiproParser:
+
+    def __init__(self, logger):
+        self.logger = logger
 
     def parse(self, url):
         try:
@@ -27,22 +30,15 @@ class VistiproParser:
                 for par in ex_classes:
                     article_text += par.text_content()
         except Exception as e:
-            print("=================================================")
-            type_, value_, traceback_ = sys.exc_info()
-            print("Error in VistiproParser")
-            print("Error type is:", type_)
-            print("Error value is ", value_)
-            print("Error traceback is:", traceback_)
-            print("error message is: " + str(e))
-
-            print("url is: " + url)
-            print("*************************************************")
+            message = self.logger.make_message("VistiproParser", e, url)
+            self.logger.write_message(message)
             return 0, ""
         return 1, article_text
 
 
 if __name__ == "__main__":
-    my_parser = VistiproParser()
+    logger = FakeTestLogger.FakeTestLogger('', '', 'smtp.yandex.ru', 465)
+    my_parser = VistiproParser(logger)
     success, article = my_parser.parse('http://visti.pro/uk/ekonomika-ta-finansi/za-minuliy-rik-borgi-po-komunalci-virosli-na-23-mlrd-grn')
     #success, article = my_parser.parse('http://visti.pro/uk/podii/politvyaznyu-pavlu-gribu-viklikali-shvidku-pid-chas-sudovogo-zasidannya')
     print(article)

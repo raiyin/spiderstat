@@ -1,12 +1,15 @@
-import sys
 import urllib.request
 from urllib.request import Request
 from lxml.html import fromstring
 from random import randint
 import zlib
+from miscellanea import FakeTestLogger
 
 
 class RegnumruParser:
+
+    def __init__(self, logger):
+        self.logger = logger
 
     def parse(self, url):
         try:
@@ -36,22 +39,15 @@ class RegnumruParser:
                         for r in all_p:
                             article_text += "\n"+r.text_content()
         except Exception as e:
-            print("=================================================")
-            type_, value_, traceback_ = sys.exc_info()
-            print("Error in RegnumruParser")
-            print("Error type is:", type_)
-            print("Error value is ", value_)
-            print("Error traceback is:", traceback_)
-            print("error message is: " + str(e))
-
-            print("url is: " + url)
-            print("*************************************************")
+            message = self.logger.make_message("RegnumParser", e, url)
+            self.logger.write_message(message)
             return 0, ""
         return 1, article_text
 
 
 if __name__ == "__main__":
-    my_parser = RegnumruParser()
+    logger = FakeTestLogger.FakeTestLogger('', '', 'smtp.yandex.ru', 465)
+    my_parser = RegnumruParser(logger)
     success, article = my_parser.parse('https://regnum.ru/news/accidents/2576303.html')
     #success, article = my_parser.parse('https://regnum.ru/news/cultura/2576301.html')
     print(article)

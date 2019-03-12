@@ -1,12 +1,15 @@
-import sys
 import urllib.request
 from urllib.request import Request
 from lxml.html import fromstring
 from random import randint
 from bs4 import BeautifulSoup
+from miscellanea import FakeTestLogger
 
 
 class FactyuaParser:
+
+    def __init__(self, logger):
+        self.logger = logger
 
     def parse(self, url):
         try:
@@ -27,22 +30,15 @@ class FactyuaParser:
             for element in paragraphs:
                 article_text += str(element.text)
         except Exception as e:
-            print("=================================================")
-            type_, value_, traceback_ = sys.exc_info()
-            print("Error in FactyuaParser")
-            print("Error type is:", type_)
-            print("Error value is ", value_)
-            print("Error traceback is:", traceback_)
-            print("error message is: " + str(e))
-
-            print("url is: " + url)
-            print("*************************************************")
+            message = self.logger.make_message("FactyuaParser", e, url)
+            self.logger.write_message(message)
             return 0, ""
         return 1, article_text
 
 
 if __name__ == "__main__":
-    my_parser = FactyuaParser()
+    logger = FakeTestLogger.FakeTestLogger('', '', 'smtp.yandex.ru', 465)
+    my_parser = FactyuaParser(logger)
     #success, article = my_parser.parse('https://fakty.ua/294365-bud-ty-proklyata-vesna---2014-v-krymu-na-stende-s-gazetami-razmestili-lyubopytnoe-obyavlenie')
     success, article = my_parser.parse('https://fakty.ua/294361-v-ukraine-vtroe-snizili-normy-potrebleniya-gaza-chto-budet-s-cenami-na-kommunalku')
     print(article)

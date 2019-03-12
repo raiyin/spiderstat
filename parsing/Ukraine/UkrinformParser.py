@@ -1,11 +1,14 @@
-import sys
 import urllib.request
 from urllib.request import Request
 from lxml.html import fromstring
 from random import randint
+from miscellanea import FakeTestLogger
 
 
 class UkrinformParser:
+
+    def __init__(self, logger):
+        self.logger = logger
 
     def parse(self, url):
         try:
@@ -32,22 +35,15 @@ class UkrinformParser:
                         for r in all_p:
                             article_text += "\n"+r.text_content()
         except Exception as e:
-            print("=================================================")
-            type_, value_, traceback_ = sys.exc_info()
-            print("Error in UkrinformParser")
-            print("Error type is:", type_)
-            print("Error value is ", value_)
-            print("Error traceback is:", traceback_)
-            print("error message is: " + str(e))
-
-            print("url is: " + url)
-            print("*************************************************")
+            message = self.logger.make_message("UkrinformParser", e, url)
+            self.logger.write_message(message)
             return 0, ""
         return 1, article_text
 
 
 if __name__ == "__main__":
-    my_parser = UkrinformParser()
+    logger = FakeTestLogger.FakeTestLogger('', '', 'smtp.yandex.ru', 465)
+    my_parser = UkrinformParser(logger)
     success, article = my_parser.parse('https://www.ukrinform.ua/rubric-kyiv/2630581-zavtra-obmezat-ruh-na-pivnicnomu'
                                        '-ta-pivdennomu-mostah.html')
     #success, article = my_parser.parse('https://www.ukrinform.ua/rubric-society/2630592-ukraina-vimagae-kompleksnogo'

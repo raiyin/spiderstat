@@ -3,9 +3,13 @@ import urllib.request
 from urllib.request import Request
 from lxml.html import fromstring
 from random import randint
+from miscellanea import FakeTestLogger
 
 
 class AzsputniknewsParser:
+
+    def __init__(self, logger):
+        self.logger = logger
 
     def parse(self, url):
         try:
@@ -42,22 +46,15 @@ class AzsputniknewsParser:
                         for r in all_p:
                             article_text += "\n"+r.text_content()
         except Exception as e:
-            print("=================================================")
-            type_, value_, traceback_ = sys.exc_info()
-            print("Error in AzsputniknewsParser")
-            print("Error type is:", type_)
-            print("Error value is ", value_)
-            print("Error traceback is:", traceback_)
-            print("error message is: " + str(e))
-
-            print("url is: " + url)
-            print("*************************************************")
+            message = self.logger.make_message("AzsputniknewsParser", e, url)
+            self.logger.write_message(message)
             return 0, ""
         return 1, article_text
 
 
 if __name__ == "__main__":
-    my_parser = AzsputniknewsParser()
+    logger = FakeTestLogger.FakeTestLogger('', '', 'smtp.yandex.ru', 465)
+    my_parser = AzsputniknewsParser(logger)
     #success, article = my_parser.parse('https://az.sputniknews.ru/science/20190217/419459168/dinozavry-okamenelosti-mingjachevir.html')
     success, article = my_parser.parse('https://az.sputniknews.ru/incidents/20190217/419459741/sankt-peterburg-universitet-obrushenie-prichina.html')
     print(article)

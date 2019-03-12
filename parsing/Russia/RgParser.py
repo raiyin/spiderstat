@@ -1,9 +1,12 @@
-import sys
 import urllib.request
 from lxml.html import fromstring
+from miscellanea import FakeTestLogger
 
 
 class RgParser:
+
+    def __init__(self, logger):
+        self.logger = logger
 
     def parse(self, url):
         try:
@@ -37,15 +40,15 @@ class RgParser:
             else:
                 return 0, ""
         except Exception as e:
-            print("Unexpected error in RgParser:", sys.exc_info()[0])
-            print("error message is: " + str(e))
-            print("url is: " + url)
+            message = self.logger.make_message("RgParser", e, url)
+            self.logger.write_message(message)
             return 0, ""
         return 1, article_text
 
 
 if __name__ == "__main__":
-    my_parser = RgParser()
+    logger = FakeTestLogger.FakeTestLogger('', '', 'smtp.yandex.ru', 465)
+    my_parser = RgParser(logger)
     # success, article = my_parser.parse('https://rg.ru/2018/10/18/cb-nameren-otmenit-bankovskoe-rabstvo.html')
     success, article = my_parser.parse(
         'https://rg.ru/2018/10/30/sotni-avtomobilej-maserati-sgoreli-pri-pozhare-v-italii.html')

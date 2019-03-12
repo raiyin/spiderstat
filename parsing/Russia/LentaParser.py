@@ -1,9 +1,12 @@
-import sys
 import urllib.request
 from lxml.html import fromstring
+from miscellanea import FakeTestLogger
 
 
 class LentaParser:
+
+    def __init__(self, logger):
+        self.logger = logger
 
     def parse(self, url):
         try:
@@ -26,14 +29,14 @@ class LentaParser:
             else:
                 return 0, ""
         except Exception as e:
-            print("Unexpected error in LentaParser:", sys.exc_info()[0])
-            print("error message is: " + str(e))
-            print("url is: " + url)
+            message = self.logger.make_message("LentaParser", e, url)
+            self.logger.write_message(message)
             return 0, ""
         return 1, article_text
 
 
 if __name__ == "__main__":
-    my_parser = LentaParser()
+    logger = FakeTestLogger.FakeTestLogger('', '', 'smtp.yandex.ru', 465)
+    my_parser = LentaParser(logger)
     success, article = my_parser.parse('https://lenta.ru/news/2018/10/18/40n6/')
     print(article)

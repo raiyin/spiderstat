@@ -1,11 +1,14 @@
-import sys
 import urllib.request
 from urllib.request import Request
 from lxml.html import fromstring
 from random import randint
+from miscellanea import FakeTestLogger
 
 
 class AllnewsParser:
+
+    def __init__(self, logger):
+        self.logger = logger
 
     def parse(self, url):
         try:
@@ -30,22 +33,15 @@ class AllnewsParser:
             par = ex_classes[0]
             article_text += "\n"+par.text_content()
         except Exception as e:
-            print("=================================================")
-            type_, value_, traceback_ = sys.exc_info()
-            print("Error in AllnewsParser")
-            print("Error type is:", type_)
-            print("Error value is ", value_)
-            print("Error traceback is:", traceback_)
-            print("error message is: " + str(e))
-
-            print("url is: " + url)
-            print("*************************************************")
+            message = self.logger.make_message("AllnewsParser", e, url)
+            self.logger.write_message(message)
             return 0, ""
         return 1, article_text
 
 
 if __name__ == "__main__":
-    my_parser = AllnewsParser()
+    logger = FakeTestLogger.FakeTestLogger('', '', 'smtp.yandex.ru', 465)
+    my_parser = AllnewsParser(logger)
     #success, article = my_parser.parse('https://www.allnews.ge/sazogadoeba/163633-%E1%83%AB%E1%83%9A%E1%83%98%E1%83'
     #                                   '%94%E1%83%A0%E1%83%98-%E1%83%A5%E1%83%90%E1%83%A0%E1%83%98-%E1%83%93%E1%83%90'
     #                                   '-21-%E1%83%92%E1%83%A0%E1%83%90%E1%83%93%E1%83%A3%E1%83%A1%E1%83%98-%E1%83%A1'

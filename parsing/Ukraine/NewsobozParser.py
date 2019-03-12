@@ -1,11 +1,14 @@
-import sys
 import urllib.request
 from urllib.request import Request
 from lxml.html import fromstring
 from random import randint
+from miscellanea import FakeTestLogger
 
 
 class NewsobozParser:
+
+    def __init__(self, logger):
+        self.logger = logger
 
     def parse(self, url):
         try:
@@ -30,22 +33,15 @@ class NewsobozParser:
                         for r in all_p:
                             article_text += "\n"+r.text_content()
         except Exception as e:
-            print("=================================================")
-            type_, value_, traceback_ = sys.exc_info()
-            print("Error in NewsobozParser")
-            print("Error type is:", type_)
-            print("Error value is ", value_)
-            print("Error traceback is:", traceback_)
-            print("error message is: " + str(e))
-
-            print("url is: " + url)
-            print("*************************************************")
+            message = self.logger.make_message("NewsobozParser", e, url)
+            self.logger.write_message(message)
             return 0, ""
         return 1, article_text
 
 
 if __name__ == "__main__":
-    my_parser = NewsobozParser()
+    logger = FakeTestLogger.FakeTestLogger('', '', 'smtp.yandex.ru', 465)
+    my_parser = NewsobozParser(logger)
     success, article = my_parser.parse('http://newsoboz.org/it_tehnologii/facebook-i-twitter-blokiruyut-akkaunty'
                                        '-svyazannye-s-rf-venesueloy-01022019104431')
     #success, article = my_parser.parse('http://newsoboz.org/politika/posol-es-v-rossii-ustroil-demarsh-iz-za-ukrainy'

@@ -1,9 +1,12 @@
-import sys
 import urllib.request
 from lxml.html import fromstring
+from miscellanea import FakeTestLogger
 
 
 class MailParser:
+
+    def __init__(self, logger):
+        self.logger = logger
 
     def parse(self, url):
         try:
@@ -32,14 +35,14 @@ class MailParser:
                 return 0, ""
 
         except Exception as e:
-            print("Unexpected error in MailParser:", sys.exc_info()[0])
-            print("error message is: " + str(e))
-            print("url is: " + url)
+            message = self.logger.make_message("MailParser", e, url)
+            self.logger.write_message(message)
             return 0, ""
         return 1, article_text
 
 
 if __name__ == "__main__":
-    my_parser = MailParser()
+    logger = FakeTestLogger.FakeTestLogger('', '', 'smtp.yandex.ru', 465)
+    my_parser = MailParser(logger)
     success, article = my_parser.parse('https://news.mail.ru/society/35093981/')
     print(article)

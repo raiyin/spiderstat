@@ -1,9 +1,12 @@
-import sys
 import urllib.request
 from lxml.html import fromstring
+from miscellanea import FakeTestLogger
 
 
 class PravdaParser:
+
+    def __init__(self, logger):
+        self.logger = logger
 
     def parse(self, url):
         try:
@@ -26,14 +29,14 @@ class PravdaParser:
             else:
                 return 0, ""
         except Exception as e:
-            print("Unexpected error in PravdaParser:", sys.exc_info()[0])
-            print("error message is: " + str(e))
-            print("url is: " + url)
+            message = self.logger.make_message("PravdaParser", e, url)
+            self.logger.write_message(message)
             return 0, ""
         return 1, article_text
 
 
 if __name__ == "__main__":
-    my_parser = PravdaParser()
+    logger = FakeTestLogger.FakeTestLogger('', '', 'smtp.yandex.ru', 465)
+    my_parser = PravdaParser(logger)
     success, article = my_parser.parse('https://zoo.pravda.ru/news/zoouseful/18-10-2018/1396417-birds-0/')
     print(article)
