@@ -4,6 +4,7 @@ from lxml.html import fromstring
 from random import randint
 import zlib
 from miscellanea import FakeTestLogger
+from miscellanea.StringCleaner import StringCleaner
 
 
 class RegnumruazParser:
@@ -42,6 +43,7 @@ class RegnumruazParser:
             message = self.logger.make_message("RegnumruazParser", e, url)
             self.logger.write_message(message)
             return 0, ""
+        article_text = StringCleaner.clean(article_text)
         return 1, article_text
 
 

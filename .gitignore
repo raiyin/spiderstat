@@ -2,3 +2,7 @@
 venv/
 
 \.idea/
+
+miscellanea/__pycache__/Loger\.cpython-36\.pyc
+
+miscellanea/Loger\.py

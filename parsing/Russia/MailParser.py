@@ -1,6 +1,7 @@
 import urllib.request
 from lxml.html import fromstring
 from miscellanea import FakeTestLogger
+from miscellanea.StringCleaner import StringCleaner
 
 
 class MailParser:
@@ -38,6 +39,7 @@ class MailParser:
             message = self.logger.make_message("MailParser", e, url)
             self.logger.write_message(message)
             return 0, ""
+        article_text = StringCleaner.clean(article_text)
         return 1, article_text
 
 

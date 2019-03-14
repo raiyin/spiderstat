@@ -3,6 +3,7 @@ from urllib.request import Request
 from lxml.html import fromstring
 from random import randint
 from miscellanea import FakeTestLogger
+from miscellanea.StringCleaner import StringCleaner
 
 
 class TabulaParser:
@@ -58,6 +59,7 @@ class TabulaParser:
             message = self.logger.make_message("TabulaParser", e, url)
             self.logger.write_message(message)
             return 0, ""
+        article_text = StringCleaner.clean(article_text)
         return 1, article_text
 
 

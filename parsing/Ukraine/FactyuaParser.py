@@ -4,6 +4,7 @@ from lxml.html import fromstring
 from random import randint
 from bs4 import BeautifulSoup
 from miscellanea import FakeTestLogger
+from miscellanea.StringCleaner import StringCleaner
 
 
 class FactyuaParser:
@@ -33,6 +34,7 @@ class FactyuaParser:
             message = self.logger.make_message("FactyuaParser", e, url)
             self.logger.write_message(message)
             return 0, ""
+        article_text = StringCleaner.clean(article_text)
         return 1, article_text
 
 

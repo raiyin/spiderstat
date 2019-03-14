@@ -3,6 +3,7 @@ from urllib.request import Request
 from lxml.html import fromstring
 from random import randint
 from miscellanea import FakeTestLogger
+from miscellanea.StringCleaner import StringCleaner
 
 
 class IzvestiakievuaParser:
@@ -20,7 +21,6 @@ class IzvestiakievuaParser:
             doc = fromstring(content)
             doc.make_links_absolute(url)
             article_text = ""
-
 
             ex_classes = doc.find_class('col-lg-12 col-md-12 col-sm-12')
             if len(ex_classes) != 0:
@@ -41,6 +41,7 @@ class IzvestiakievuaParser:
             message = self.logger.make_message("IzvestiakievuaParser", e, url)
             self.logger.write_message(message)
             return 0, ""
+        article_text = StringCleaner.clean(article_text)
         return 1, article_text
 
 
