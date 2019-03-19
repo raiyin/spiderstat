@@ -24,5 +24,5 @@ class Logger:
 
 
 if __name__ == "__main__":
-    logger = Logger('raiyin@ya.ru', 'password', 'smtp.yandex.ru', 465)
+    logger = Logger('rlogin@gmail.com', 'password', 'smtp.yandex.ru', 465)
     logger.write_message("testing logger")

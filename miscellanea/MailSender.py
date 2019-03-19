@@ -27,5 +27,22 @@ class MailSender:
         msg['Importance'] = "High"
         msg.set_content(text)
 
-        # send the message via the server.
-        self.smtp_server.sendmail(msg['From'], msg['To'], msg.as_string())
+        try:
+            status = self.smtp_server.noop()[0]
+        except:
+            status = -1
+
+        if status == 250:
+            try:
+                self.smtp_server.sendmail(msg['From'], msg['To'], msg.as_string())
+            except Exception as e:
+                print("Failed to send message. Text is: " + text)
+                print("\nSending exception is:" + str(e))
+        else:
+            self.smtp_server.login(self.login, self.password)
+            # send the message via the server.
+            try:
+                self.smtp_server.sendmail(msg['From'], msg['To'], msg.as_string())
+            except Exception as e:
+                print("Failed to send message. Text is: " + text)
+                print("\nSending exception is:" + str(e))

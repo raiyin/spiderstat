@@ -4,6 +4,7 @@ from lxml.html import fromstring
 from random import randint
 from miscellanea import FakeTestLogger
 from miscellanea.StringCleaner import StringCleaner
+#ERROR
 
 
 class GazetaUaParser:
@@ -14,10 +15,16 @@ class GazetaUaParser:
     def parse(self, url):
         try:
 
-            request = Request(url, headers={'User-Agent': "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 " +
-                                                          "(KHTML, like Gecko) Chrome/"+str(randint(40, 70)) +
-                                                          ".0.2227.0 Safari/537.36"})
-            content = urllib.request.urlopen(request).read()
+            #request = Request(url, headers={'User-Agent': "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 " +
+            #                                              "(KHTML, like Gecko) Chrome/"+str(randint(40, 70)) +
+            #                                              ".0.2227.0 Safari/537.36"})
+            #content = urllib.request.urlopen(request).read()
+
+            s = Request.Session()
+            s.trust_env = False
+            response = s.get(url)
+            content = response.read()
+
             doc = fromstring(content)
             doc.make_links_absolute(url)
             article_text = ""
@@ -47,8 +54,8 @@ class GazetaUaParser:
 if __name__ == "__main__":
     logger = FakeTestLogger.FakeTestLogger('', '', 'smtp.yandex.ru', 465)
     my_parser = GazetaUaParser(logger)
-    #success, article = my_parser.parse('https://gazeta.ua/articles/donbas/_u-hmelnickomu-zhorstoko-pokarali'
-    #                                   '-separatistku/882529')
-    success, article = my_parser.parse('https://gazeta.ua/articles/world-life/_litaki-rf-ta-ssa-zchepilisya-v-nebi'
-                                       '-nad-evropoyu/882530')
+    success, article = my_parser.parse('https://gazeta.ua/articles/donbas/_u-hmelnickomu-zhorstoko-pokarali'
+                                       '-separatistku/882529')
+    #success, article = my_parser.parse('https://gazeta.ua/articles/world-life/_litaki-rf-ta-ssa-zchepilisya-v-nebi'
+    #                                   '-nad-evropoyu/882530')
     print(article)

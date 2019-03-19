@@ -15,7 +15,7 @@ class VistiproParser:
         try:
 
             request = Request(url, headers={'User-Agent': "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 " +
-                                                          "(KHTML, like Gecko) Chrome/"+str(randint(40, 70)) +
+                                                          "(KHTML, like Gecko) Chrome/" + str(randint(40, 70)) +
                                                           ".0.2227.0 Safari/537.36"})
             content = urllib.request.urlopen(request).read().decode('utf-8')
             doc = fromstring(content)
@@ -24,11 +24,11 @@ class VistiproParser:
 
             ex_classes = doc.find_class('field field--name-title field--type-string')
             par = ex_classes[0]
-            article_text += "\n"+par.text_content()
+            article_text += "\n" + par.text_content()
 
-            ex_classes = doc.find_class('clearfix text-formatted field')
+            ex_classes = doc.find_class('clearfix text-formatted field field--name-body field--type-text-with-summary field--label-hidden field__item')
             if len(ex_classes) != 0:
-                for par in ex_classes:
+                for par in ex_classes[:-3]:
                     article_text += par.text_content()
         except Exception as e:
             message = self.logger.make_message("VistiproParser", e, url)
@@ -41,6 +41,8 @@ class VistiproParser:
 if __name__ == "__main__":
     logger = FakeTestLogger.FakeTestLogger('', '', 'smtp.yandex.ru', 465)
     my_parser = VistiproParser(logger)
-    success, article = my_parser.parse('http://visti.pro/uk/ekonomika-ta-finansi/za-minuliy-rik-borgi-po-komunalci-virosli-na-23-mlrd-grn')
-    #success, article = my_parser.parse('http://visti.pro/uk/podii/politvyaznyu-pavlu-gribu-viklikali-shvidku-pid-chas-sudovogo-zasidannya')
+    success, article = my_parser.parse(
+        'http://visti.pro/uk/ekonomika-ta-finansi/za-minuliy-rik-borgi-po-komunalci-virosli-na-23-mlrd-grn')
+    # success, article = my_parser.parse('http://visti.pro/uk/podii/politvyaznyu-pavlu-gribu-viklikali-shvidku-pid
+    # -chas-sudovogo-zasidannya')
     print(article)

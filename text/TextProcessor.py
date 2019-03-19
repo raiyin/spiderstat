@@ -9,27 +9,27 @@ import numpy as np
 # Библиотеки для работы с текстом
 import pymorphy2
 from nltk.corpus import stopwords
-from gensim import corpora, models
+#from gensim import corpora, models
 
-from sklearn.model_selection import train_test_split, GridSearchCV
-from sklearn.pipeline import Pipeline
-from sklearn.feature_extraction.text import CountVectorizer, TfidfTransformer
+#from sklearn.model_selection import train_test_split, GridSearchCV
+#from sklearn.pipeline import Pipeline
+#from sklearn.feature_extraction.text import CountVectorizer, TfidfTransformer
 
-from sklearn.feature_extraction.text import CountVectorizer, TfidfTransformer, TfidfVectorizer
+#from sklearn.feature_extraction.text import CountVectorizer, TfidfTransformer, TfidfVectorizer
 
-from sklearn.linear_model import LogisticRegression
+#from sklearn.linear_model import LogisticRegression
 
 # import xgboost as xgb
 
-from sklearn.metrics import f1_score, classification_report, confusion_matrix, accuracy_score
+#from sklearn.metrics import f1_score, classification_report, confusion_matrix, accuracy_score
 
-from scipy.stats import pearsonr, chisquare
+#from scipy.stats import pearsonr, chisquare
 
-from keras.preprocessing.text import one_hot
-from keras.preprocessing import sequence
-from keras.models import Sequential
-from keras.layers import Embedding, Dense, LSTM
-from keras.callbacks import EarlyStopping, ModelCheckpoint
+#from keras.preprocessing.text import one_hot
+#from keras.preprocessing import sequence
+#from keras.models import Sequential
+#from keras.layers import Embedding, Dense, LSTM
+#from keras.callbacks import EarlyStopping, ModelCheckpoint
 
 
 from gensim.models import Word2Vec

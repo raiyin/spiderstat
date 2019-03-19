@@ -1,11 +1,10 @@
 import mysql.connector
 from datetime import datetime
-import sys
 
 
 class DbManager:
 
-    def __init__(self, user_name, password, host, database_name):
+    def __init__(self, user_name, password, host, database_name, logger):
         self.user_name = user_name
         self.password = password
         self.host = host
@@ -13,6 +12,7 @@ class DbManager:
         self.connection = mysql.connector.connect(user=self.user_name, password=self.password,
                                                   host=self.host, database=self.db_name)
         self.cursor = self.connection.cursor(buffered=True)
+        self.logger = logger
 
     def print_companies(self):
         query = "SELECT company_name FROM companies"
@@ -58,6 +58,13 @@ class DbManager:
         self.cursor.execute(query, (link,))
         return self.cursor.fetchone()[0]
 
+    def get_source_id_by_link(self, link):
+        self.check_and_reconnect()
+        query = "SELECT source_id FROM info_sources WHERE link = %s"
+        self.cursor.execute(query, (link,))
+        return self.cursor.fetchone()[0]
+
+
     def update_last_check_date(self, source_id, date):
         self.check_and_reconnect()
         query = "UPDATE info_sources SET last_check_date = %s WHERE source_id = %s"
@@ -70,13 +77,9 @@ class DbManager:
             query = "SELECT COUNT(pub_id) FROM publications WHERE guid = %s AND info_source_id = %s"
             self.cursor.execute(query, (guid, str(source_id)))
         except Exception as e:
-            print("============================================================")
-            print("Unexpected error in check_publication_in_db:", sys.exc_info()[0])
-            print("error message is: " + str(e))
-            print("guid is: " + guid)
-            print("source_id is: " + str(source_id))
-            print("query is: " + query)
-            print("************************************************************")
+            message = self.logger.make_message("Unexpected error in check_publication_in_db. Query is: " +
+                                               query + "\nsource_id is: "+str(source_id), e)
+            self.logger.write_message(message)
             return 0, ""
 
         return self.cursor.fetchone()[0] > 0

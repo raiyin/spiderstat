@@ -4,6 +4,7 @@ from lxml.html import fromstring
 from random import randint
 from miscellanea import FakeTestLogger
 from miscellanea.StringCleaner import StringCleaner
+#ERROR
 
 
 class GoloscomuaParser:
