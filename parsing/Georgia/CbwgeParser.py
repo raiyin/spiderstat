@@ -6,7 +6,7 @@ from miscellanea import FakeTestLogger
 from miscellanea.StringCleaner import StringCleaner
 
 
-class CbwgeParserParser:
+class CbwgeParser:
 
     def __init__(self, logger):
         self.logger = logger

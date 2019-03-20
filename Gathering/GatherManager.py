@@ -3,6 +3,9 @@ from parsing.Russia import BbcParser, IzParser, LentaParser, LifeParser, MailPar
 from parsing.Azerbaijan import AzsputniknewsParser, BrazParser, EchoazParser, KavkazuzelParser, MinvalazParser, \
     MisraParser, MusavatcomParser, NewsdayazParser, NewsmilliazParser, NovostiazParser, PrezidentazParser, \
     RegnumruazParser, ReportazParser, StatgovazParser, TrendazParser, VestikavkazaParser
+from parsing.Georgia import AkhalitaobaParser, AllnewsParser, ApsnygeParser, BfmParser, CbwgeParser, \
+    EuronewsgeParser, InfonineParser, IpressgeParser, JnewsParser, NewsgeParser, NewstbilisiParser, \
+    NovostgeParser, ReportioriParser, SovanewsParser, SputnikgeorgiaParser, TabulaParser
 from db import DbManager
 from Gathering import RssClient
 import time
@@ -199,15 +202,110 @@ class GatherManager:
                                                       vestikavkaza_parser, 1, logger)
         rss_clients.append(vestikavkaza_rss_client)
 
+    def add_georgian_agencies(self, rss_clients, logger):
+
+        # https://www.allnews.ge/?format=feed&type=rss
+        allnews_parser = AllnewsParser.AllnewsParser(logger)
+        allnews_rss_client = RssClient.RssClient(db_manager, 'www.allnews.ge', '0001.01.01 01:01:01',
+                                                 allnews_parser, 1, logger)
+        rss_clients.append(allnews_rss_client)
+
+        # http://akhalitaoba.ge/feed/
+        akhalitaoba_parser = AkhalitaobaParser.AkhalitaobaParser(logger)
+        akhalitaoba_rss_client = RssClient.RssClient(db_manager, 'akhalitaoba.ge', '0001.01.01 01:01:01',
+                                                     akhalitaoba_parser, 1, logger)
+        rss_clients.append(akhalitaoba_rss_client)
+
+        # https://apsny.ge/RSS.xml
+        apsnyge_parser = ApsnygeParser.ApsnygeParser(logger)
+        apsny_rss_client = RssClient.RssClient(db_manager, 'apsny.ge', '0001.01.01 01:01:01', apsnyge_parser, 1, logger)
+        rss_clients.append(apsny_rss_client)
+
+        # http://bfm.ge/feed/
+        bfm_parser = BfmParser.BfmParser(logger)
+        bfm_rss_client = RssClient.RssClient(db_manager, 'bfm.ge', '0001.01.01 01:01:01', bfm_parser, 1, logger)
+        rss_clients.append(bfm_rss_client)
+
+        # http://cbw.ge/feed/
+        cbwge_parser = CbwgeParser.CbwgeParser(logger)
+        cbwge_rss_client = RssClient.RssClient(db_manager, 'cbw.ge', '0001.01.01 01:01:01', cbwge_parser, 1, logger)
+        rss_clients.append(cbwge_rss_client)
+
+        # http://euronews.ge/feed/
+        euronewsge_parser = EuronewsgeParser.EuronewsgeParser(logger)
+        euronews_rss_client = RssClient.RssClient(db_manager, 'euronews.ge', '0001.01.01 01:01:01', euronewsge_parser,
+                                                  1, logger)
+        rss_clients.append(euronews_rss_client)
+
+        # http://feeds.feedburner.com/info9?format=xml
+        infonine_parser = InfonineParser.InfonineParser(logger)
+        infonine_rss_client = RssClient.RssClient(db_manager, 'www.info9.ge', '0001.01.01 01:01:01', infonine_parser,
+                                                  1, logger)
+        rss_clients.append(infonine_rss_client)
+
+        # https://ipress.ge/feed/rss/
+        ipressge_parser = IpressgeParser.IpressgeParser(logger)
+        ipressge_rss_client = RssClient.RssClient(db_manager, 'ipress.ge', '0001.01.01 01:01:01', ipressge_parser,
+                                                  1, logger)
+        rss_clients.append(ipressge_rss_client)
+
+        # http://jnews.ge/?feed=rss2
+        jnews_parser = JnewsParser.JnewsParser(logger)
+        jnews_rss_client = RssClient.RssClient(db_manager, 'jnews.ge', '0001.01.01 01:01:01', jnews_parser, 1, logger)
+        rss_clients.append(jnews_rss_client)
+
+        # https://news.ge/feed/
+        newsge_parser = NewsgeParser.NewsgeParser(logger)
+        newsge_rss_client = RssClient.RssClient(db_manager, 'news.ge', '0001.01.01 01:01:01', newsge_parser, 1, logger)
+        rss_clients.append(newsge_rss_client)
+
+        # https://newstbilisi.info/feed/
+        newstbilisi_parser = NewstbilisiParser.NewstbilisiParser(logger)
+        newstbilisi_rss_client = RssClient.RssClient(db_manager, 'newstbilisi.info', '0001.01.01 01:01:01',
+                                                     newstbilisi_parser, 1, logger)
+        rss_clients.append(newstbilisi_rss_client)
+
+        # http://novost.ge/feed/
+        novostge_parser = NovostgeParser.NovostgeParser(logger)
+        novostge_rss_client = RssClient.RssClient(db_manager, 'novost.ge', '0001.01.01 01:01:01', novostge_parser,
+                                                  1, logger)
+        rss_clients.append(novostge_rss_client)
+
+        # http://reportiori.ge/rss.php
+        reportiori_parser = ReportioriParser.ReportioriParser(logger)
+        reportiori_rss_client = RssClient.RssClient(db_manager, 'reportiori.ge', '0001.01.01 01:01:01',
+                                                    reportiori_parser, 1, logger)
+        rss_clients.append(reportiori_rss_client)
+
+        # https://sova.news/feed/
+        sovanews_parser = SovanewsParser.SovanewsParser(logger)
+        sovanews_rss_client = RssClient.RssClient(db_manager, 'sova.news', '0001.01.01 01:01:01', sovanews_parser,
+                                                  1, logger)
+        rss_clients.append(sovanews_rss_client)
+
+        # https://sputnik-georgia.ru/export/rss2/archive/index.xml
+        sputnikgeorgia_parser = SputnikgeorgiaParser.SputnikgeorgiaParser(logger)
+        sputnikgeorgia_rss_client = RssClient.RssClient(db_manager, 'sputnik-georgia.ru', '0001.01.01 01:01:01',
+                                                        sputnikgeorgia_parser, 1, logger)
+        rss_clients.append(sputnikgeorgia_rss_client)
+
+        # http://www.tabula.ge/rss
+        tabula_parser = TabulaParser.TabulaParser(logger)
+        tabula_rss_client = RssClient.RssClient(db_manager, 'www.tabula.ge', '0001.01.01 01:01:01', tabula_parser,
+                                                1, logger)
+        rss_clients.append(tabula_rss_client)
+
 
 if __name__ == "__main__":
     # TODO Вытаскивать учетные данные из конфига
-    logger = Logger.Logger()
+    logger = Logger.Logger('maxtestoff@ya.ru', 'maxtestoff21746', 'smtp.yandex.ru', 465)
     db_manager = DbManager.DbManager('root', '', '127.0.0.1', 'spyder_stat', logger)
     rss_clients = []
 
     gather_manager = GatherManager(rss_clients, db_manager, 30 * 60)
     gather_manager.add_russian_agencies(rss_clients, logger)
+    gather_manager.add_azerbaijani_agencies(rss_clients, logger)
+    gather_manager.add_georgian_agencies(rss_clients, logger)
 
     try:
         gather_manager.gather()

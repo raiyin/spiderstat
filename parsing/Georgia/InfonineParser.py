@@ -48,7 +48,7 @@ class InfonineParser:
 if __name__ == "__main__":
     logger = FakeTestLogger.FakeTestLogger('', '', 'smtp.yandex.ru', 465)
     my_parser = InfonineParser(logger)
-    #success, article = my_parser.parse('http://www.info9.ge/politika/203857-uzenaes-sasamarthloshi-dimitri'
+    #success, article = my_parser.parse('http://www.tabula.ge/politika/203857-uzenaes-sasamarthloshi-dimitri'
     #                                   '-gvritishvilis-kandidaturas-chemi-mkhardatcera-ar-eqneba--thamar-chugoshvili'
     #                                   '.html?lang=ka-GE&utm_source=feedburner&utm_medium=feed&utm_campaign=Feed%3A'
     #                                   '+info9+%28Info9.Ge%29&utm_content=FeedBurner')
