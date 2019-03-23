@@ -76,6 +76,8 @@ class LifeParser:
 if __name__ == "__main__":
     logger = FakeTestLogger.FakeTestLogger('', '', 'smtp.yandex.ru', 465)
     my_parser = LifeParser(logger)
-    # success, article = my_parser.parse('https://life.ru/1165470')
-    success, article = my_parser.parse('https://life.ru/t/%D0%BD%D0%BE%D0%B2%D0%BE%D1%81%D1%82%D0%B8/1166353/ekspiert_rasskazal_kak_vozmozhnoie_naznachieniie_noiiert_skazhietsia_na_otnoshieniiakh_s_rf')
+    # success, article = my_parser.parse('https://life.ru/1165470') success, article = my_parser.parse(
+    # 'https://life.ru/t/%D0%BD%D0%BE%D0%B2%D0%BE%D1%81%D1%82%D0%B8/1166353
+    # /ekspiert_rasskazal_kak_vozmozhnoie_naznachieniie_noiiert_skazhietsia_na_otnoshieniiakh_s_rf')
+    success, article = my_parser.parse('https://life.ru/t/новости/1202443/avakov_rasskazal_o_konfliktie_s_poroshienko')
     print(article)

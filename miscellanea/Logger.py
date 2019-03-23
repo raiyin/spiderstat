@@ -1,10 +1,19 @@
 from miscellanea import MailSender
+import json
 import sys
 
 
 class Logger:
 
-    def __init__(self, login, password, server, port):
+    def __init__(self, config_file):
+        with open(config_file) as json_config_data:
+            data = json.load(json_config_data)
+            smtp = data["smtp"]
+            login = smtp["login"]
+            password = smtp["password"]
+            server = smtp["server"]
+            port = smtp["port"]
+
         self.mail_server = MailSender.MailSender(login, password, server, port)
 
     def write_message(self, message):
@@ -24,5 +33,5 @@ class Logger:
 
 
 if __name__ == "__main__":
-    logger = Logger('rlogin@gmail.com', 'password', 'smtp.yandex.ru', 465)
+    logger = Logger("e:\\Projects\\spiderstat\\config.json")
     logger.write_message("testing logger")

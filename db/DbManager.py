@@ -1,14 +1,20 @@
 import mysql.connector
 from datetime import datetime
+import json
 
 
 class DbManager:
 
-    def __init__(self, user_name, password, host, database_name, logger):
-        self.user_name = user_name
-        self.password = password
-        self.host = host
-        self.db_name = database_name
+    def __init__(self, config_file, logger):
+
+        with open(config_file) as json_config_data:
+            data = json.load(json_config_data)
+            my_sql = data["mysql"]
+            self.user_name = my_sql["user"]
+            self.password = my_sql["passwd"]
+            self.host = my_sql["host"]
+            self.db_name = my_sql["db"]
+
         self.connection = mysql.connector.connect(user=self.user_name, password=self.password,
                                                   host=self.host, database=self.db_name)
         self.cursor = self.connection.cursor(buffered=True)
@@ -63,7 +69,6 @@ class DbManager:
         query = "SELECT source_id FROM info_sources WHERE link = %s"
         self.cursor.execute(query, (link,))
         return self.cursor.fetchone()[0]
-
 
     def update_last_check_date(self, source_id, date):
         self.check_and_reconnect()

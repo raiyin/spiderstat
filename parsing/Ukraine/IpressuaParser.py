@@ -22,11 +22,14 @@ class IpressuaParser:
             doc.make_links_absolute(url)
             article_text = ""
 
-            ex_classes = doc.find_class('article-content-title')
+            ex_classes = doc.find_class('readheader')
             par = ex_classes[0]
             article_text += "\n"+par.text_content()
 
-            ex_classes = doc.find_class('article-content')
+            element = doc.get_element_by_id('lead')
+            article_text += "\n" + element.text_content()
+
+            ex_classes = doc.find_class('bodylinkchange')
             if len(ex_classes) != 0:
                 for par in ex_classes:
                     all_p = par.findall("p")
@@ -44,6 +47,8 @@ class IpressuaParser:
 if __name__ == "__main__":
     logger = FakeTestLogger.FakeTestLogger('', '', 'smtp.yandex.ru', 465)
     my_parser = IpressuaParser(logger)
-    success, article = my_parser.parse('https://interfax.com.ua/news/general/562578.html')
+    success, article = my_parser.parse('https://ipress.ua/articles/otse_hepiend_bude_yakshcho_ya_strybnu_z_7_poverhu_veteranka_oksana_yakubova_pro_borotbu_z_ptsr_281374.html')
+    #success, article = my_parser.parse('https://ipress.ua/articles/na_zahysti_prav_lyudyny_284449.html')
     # success, article = my_parser.parse('https://interfax.com.ua/news/general/562562.html')
     print(article)
+
