@@ -22,20 +22,39 @@ class NvuaParser:
             doc.make_links_absolute(url)
             article_text = ""
 
-            ex_classes = doc.find_class('article__content__head__text')[0]
-            tag = ex_classes.findall('h1')[0]
-            article_text += tag.text_content()
+            need_classes = doc.find_class('article__content__head__text')
 
-            ex_classes = doc.find_class('subtitle')[0]
-            article_text += '\n' + ex_classes.text_content()
+            if len(need_classes) != 0:
+                ex_classes = need_classes[0]
+                tag = ex_classes.findall('h1')[0]
+                article_text += tag.text_content()
 
-            ex_classes = doc.find_class('content_wrapper')
-            if len(ex_classes) != 0:
-                for par in ex_classes:
-                    all_p = par.findall("p")
-                    if all_p:
-                        for r in all_p:
-                            article_text += "\n" + r.text_content()
+                ex_classes = doc.find_class('subtitle')[0]
+                article_text += '\n' + ex_classes.text_content()
+
+                ex_classes = doc.find_class('content_wrapper')
+                if len(ex_classes) != 0:
+                    for par in ex_classes:
+                        all_p = par.findall("p")
+                        if all_p:
+                            for r in all_p:
+                                article_text += "\n" + r.text_content()
+            else:
+                need_classes = doc.find_class('article__content__head')
+                ex_classes = need_classes[0]
+                tag = ex_classes.findall('h1')[0]
+                article_text += tag.text_content()
+
+                ex_classes = doc.find_class('subtitle')[0]
+                article_text += '\n' + ex_classes.text_content()
+
+                ex_classes = doc.find_class('content_wrapper')
+                if len(ex_classes) != 0:
+                    for par in ex_classes:
+                        all_p = par.findall("p")
+                        if all_p:
+                            for r in all_p:
+                                article_text += "\n" + r.text_content()
         except Exception as e:
             message = self.logger.make_message("NvuaParser", e, url)
             self.logger.write_message(message)
@@ -47,11 +66,7 @@ class NvuaParser:
 if __name__ == "__main__":
     logger = FakeTestLogger.FakeTestLogger('', '', 'smtp.yandex.ru', 465)
     my_parser = NvuaParser(logger)
-    # success, article = my_parser.parse('https://nv.ua/world/countries/v-gaage-proizoshel-moshchnyy-vzryv-50003384
-    # .html')
-    # success, article = my_parser.parse(
-    # 'https://nv.ua/ukraine/events/boeviki-odin-raz-obstrelyali-ukrainskie-pozicii-oos-50003383.html')
-    success, article = my_parser.parse('https://nv.ua/ukraine/events/sezd-po-vydvizheniju-timoshenko-deputat'
-                                       '-transhender-i-zapreshchennaja-literatura-luchshee-za-nedelju-po-versii'
-                                       '-hlavreda-nvua--2517354.html')
+    # success, article = my_parser.parse('https://nv.ua/world/countries/v-gaage-proizoshel-moshchnyy-vzryv-50003384.html')
+    success, article = my_parser.parse('https://nv.ua/ukraine/events/boeviki-odin-raz-obstrelyali-ukrainskie-pozicii-oos-50003383.html')
+    # success, article = my_parser.parse('https://style.nv.ua/blogs/kak-pridumat-neobychnoe-rezyume-i-poluchit-rabotu-50012495.html')
     print(article)
