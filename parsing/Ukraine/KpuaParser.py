@@ -23,9 +23,14 @@ class KpuaParser:
             article_text = ""
 
             ex_classes = doc.find_class('content-img')
-            e = ex_classes.pop()
-            r = e.findall("img")[0]
-            article_text += str(r.xpath('//img/@alt')[1])
+
+            if len(ex_classes) != 0:
+                e = ex_classes.pop()
+                r = e.findall("img")[0]
+                article_text += str(r.xpath('//img/@alt')[1])
+            else:
+                ex_classes = doc.find_class('content-title')
+                article_text += ex_classes[0].text_content()
 
             ex_classes = doc.find_class('content')
             if len(ex_classes) != 0:
@@ -47,6 +52,5 @@ if __name__ == "__main__":
     logger = FakeTestLogger.FakeTestLogger('', '', 'smtp.yandex.ru', 465)
     my_parser = KpuaParser(logger)
     success, article = my_parser.parse('https://kp.ua/culture/629471-pevytsa-yulyia-savycheva-poteriala-pervoho-rebenka')
-    #success, article = my_parser.parse('https://kp.ua/politics/629469-poroshenko-soobschyl-chto-podpysal-vazhnyi'
-    #                                   '-zakon-o-perekhode-k-pravoslavnoi-tserkvy-ukrayny')
+    # success, article = my_parser.parse('https://kp.ua/politics/633879/')
     print(article)
