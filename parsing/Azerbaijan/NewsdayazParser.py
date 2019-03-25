@@ -23,16 +23,31 @@ class NewsdayazParser:
             article_text = ""
 
             ex_classes = doc.find_class('caption')
-            par = ex_classes[0]
-            article_text += par.text_content()
 
-            ex_classes = doc.find_class('description')
-            if len(ex_classes) != 0:
-                for par in ex_classes:
-                    all_p = par.findall("p")
-                    if all_p:
-                        for r in all_p:
-                            article_text += "\n"+r.text_content()
+            if len(ex_classes)!=0:
+                par = ex_classes[0]
+                article_text += par.text_content()
+
+                ex_classes = doc.find_class('description')
+                if len(ex_classes) != 0:
+                    for par in ex_classes:
+                        all_p = par.findall("p")
+                        if all_p:
+                            for r in all_p:
+                                article_text += "\n"+r.text_content()
+            else:
+                ex_classes = doc.find_class('post_title')
+                par = ex_classes[0]
+                article_text += par.text_content()
+
+                ex_classes = doc.find_class('post_content')
+                if len(ex_classes) != 0:
+                    for par in ex_classes:
+                        all_p = par.findall("p")
+                        if all_p:
+                            for r in all_p:
+                                article_text += "\n"+r.text_content()
+
         except Exception as e:
             message = self.logger.make_message("NewsdayazParser", e, url)
             self.logger.write_message(message)
@@ -45,5 +60,5 @@ if __name__ == "__main__":
     logger = FakeTestLogger.FakeTestLogger('', '', 'smtp.yandex.ru', 465)
     my_parser = NewsdayazParser(logger)
     #success, article = my_parser.parse('https://news.day.az/world/1093356.html')
-    success, article = my_parser.parse('https://news.day.az/politics/1093269.html')
+    success, article = my_parser.parse('https://lady.day.az/news/guests/1104904.html')
     print(article)

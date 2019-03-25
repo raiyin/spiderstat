@@ -47,5 +47,5 @@ if __name__ == "__main__":
     logger = FakeTestLogger.FakeTestLogger('', '', 'smtp.yandex.ru', 465)
     my_parser = NsnParser(logger)
     #  success, article = my_parser.parse('http://nsn.fm/hots/inflyaciya-v-venesuele-v-2019-godu-prevysit-10000000.html')
-    success, article = my_parser.parse('http://nsn.fm/hots/lukashenko-podderzhivaet-maduro.html')
+    success, article = my_parser.parse('http://nsn.fm/society/gidrometcentr-v-marte-mozhet-sogret-tolko-dushevnoe-teplo.html')
     print(article)

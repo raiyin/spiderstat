@@ -22,7 +22,7 @@ class TsnParser:
             doc.make_links_absolute(url)
             article_text = ""
 
-            ex_classes = doc.find_class('p-name c-post-title u-uppercase js-si-title')[0]
+            ex_classes = doc.find_class('p-name c-post-title u-uppercase')[0]
             article_text += ex_classes.text_content()
 
             ex_classes = doc.find_class('p-summary c-post-lead')[0]
@@ -49,6 +49,7 @@ if __name__ == "__main__":
     my_parser = TsnParser(logger)
     #success, article = my_parser.parse('https://tsn.ua/svit/u-siriyi-naymanci-rf-ta-iranu-vlashtuvali-mizh-soboyu'
     #                                   '-perestrilku-zmi-1286781.html')
-    success, article = my_parser.parse('https://tsn.ua/ukrayina/ukrayinskiy-universitet-nadav-patriarhu-varfolomiyu'
-                                       '-zvannya-pochesnogo-doktora-1286775.html')
+    success, article = my_parser.parse('https://tsn.ua/ato/zvilneniy-pracivnik-doneckogo-viyskkomatu-perebravsya-v-ordlo-1317834.html?utm_source=page&utm_medium=lastnews')
+    #success, article = my_parser.parse('https://tsn.ua/ukrayina/na-odeschini-splyundruvali-memorial-voyinam-unr-za'
+    #                                   '-informaciyu-pro-zlochinciv-obicyayut-vinagorodu-1313817.html')
     print(article)

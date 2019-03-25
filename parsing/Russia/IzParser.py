@@ -4,6 +4,7 @@ from lxml.html import fromstring
 from random import randint
 from miscellanea import FakeTestLogger
 from miscellanea.StringCleaner import StringCleaner
+import requests
 
 
 class IzParser:
@@ -14,10 +15,13 @@ class IzParser:
     def parse(self, url):
         try:
 
-            request = Request(url, headers={'User-Agent': "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 " +
-                                                          "(KHTML, like Gecko) Chrome/"+str(randint(40, 70)) +
-                                                          ".0.2227.0 Safari/537.36"})
-            content = urllib.request.urlopen(request).read()
+            #request = Request(url, headers={'User-Agent': "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 " +
+            #                                              "(KHTML, like Gecko) Chrome/"+str(randint(40, 70)) +
+            #                                              ".0.2227.0 Safari/537.36"})
+            #content = urllib.request.urlopen(request).read()
+
+            content = requests.get(url).text
+
             doc = fromstring(content)
             doc.make_links_absolute(url)
 
@@ -42,5 +46,6 @@ if __name__ == "__main__":
     logger = FakeTestLogger.FakeTestLogger('', '', 'smtp.yandex.ru', 465)
     my_parser = IzParser(logger)
     # success, article = my_parser.parse('https://iz.ru/805117/georgii-oltarzhevskii/vzryv-pokrovov-kto-podorval-linkor-novorossiisk')
-    success, article = my_parser.parse('https://iz.ru/808585/2018-11-05/dva-zdaniia-obrushilis-v-tcentre-marselia')
+    #success, article = my_parser.parse('https://iz.ru/808585/2018-11-05/dva-zdaniia-obrushilis-v-tcentre-marselia')
+    success, article = my_parser.parse('https://iz.ru/860325/2019-03-25/vozbuzhdeno-delo-o-moshennichestve-na-1-mln-rublei-v-ogt-cheliabinska')
     print(article)
