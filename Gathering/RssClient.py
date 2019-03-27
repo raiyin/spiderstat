@@ -86,7 +86,7 @@ if __name__ == "__main__":
     local_db_manager = DbManager.DbManager('root', '', '127.0.0.1', 'spyder_stat')
 
     my_parser = IzParser.IzParser()
-    rssClient = RssClient(local_db_manager, 1, 'https://iz.ru/xml/rss/all.xml',
+    rssClient = RssClient(local_db_manager, 1, 'https://znaj.ua/feed/rss2.xml',
                           '0001.01.01 01:01:01', my_parser, 5, logger)
 
     rssClient.update_publications()

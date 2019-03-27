@@ -45,6 +45,5 @@ if __name__ == "__main__":
     my_parser = FactycomuaParser(logger)
     #success, article = my_parser.parse('https://fakty.com.ua/ua/proisshestvija/20190203-pozhezha-na-lisovij-ye'
     #                                   '-zagroza-obvalu-konstruktsij/')
-    success, article = my_parser.parse('https://fakty.com.ua/ua/ukraine/20190203-vybory-2019-poroshenko-podav'
-                                       '-dokumenty-u-tsvk/')
+    success, article = my_parser.parse('https://fakty.com.ua/ua/ukraine/20190326-pravyla-i-tabu-yak-golosuvaty-na-vyborah-2019/')
     print(article)
