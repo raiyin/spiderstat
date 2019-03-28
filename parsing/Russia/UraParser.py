@@ -44,5 +44,6 @@ if __name__ == "__main__":
     logger = FakeTestLogger.FakeTestLogger('', '', 'smtp.yandex.ru', 465)
     my_parser = UraParser(logger)
     # success, article = my_parser.parse('https://ura.news/news/1052369253')
-    success, article = my_parser.parse('https://ura.news/news/1052369293')
+    # success, article = my_parser.parse('https://ura.news/news/1052369293')
+    success, article = my_parser.parse('https://ura.news/news/1052378389')
     print(article)
