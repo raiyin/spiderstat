@@ -44,8 +44,9 @@ class NewsobozParser:
 if __name__ == "__main__":
     logger = FakeTestLogger.FakeTestLogger('', '', 'smtp.yandex.ru', 465)
     my_parser = NewsobozParser(logger)
-    success, article = my_parser.parse('http://newsoboz.org/it_tehnologii/facebook-i-twitter-blokiruyut-akkaunty'
-                                       '-svyazannye-s-rf-venesueloy-01022019104431')
+    #success, article = my_parser.parse('http://newsoboz.org/it_tehnologii/facebook-i-twitter-blokiruyut-akkaunty'
+    #                                   '-svyazannye-s-rf-venesueloy-01022019104431')
     #success, article = my_parser.parse('http://newsoboz.org/politika/posol-es-v-rossii-ustroil-demarsh-iz-za-ukrainy'
     #                                   '-01022019171600')
+    success, article = my_parser.parse('http://newsoboz.org/obshchestvo/privatbank-sdelal-vazhnoe-soobshchenie-01042019121600')
     print(article)

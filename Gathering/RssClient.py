@@ -39,15 +39,32 @@ class RssClient:
             message = self.logger.make_message("RssClient parse error", e, self.link)
             self.logger.write_message(message)
             return
+
         for pub in publications.entries:
-            # Проверяем, если данная публикация в базе
             if hasattr(pub, "id"):
                 pub_id = pub.id
             else:
                 pub_id = pub.link
+
+            # Проверяем, если данная публикация в базе
             if self.db_manager.check_publication_in_db(pub_id, self.source_id):
                 continue
             else:
+
+                if hasattr(pub, "published_parsed"):
+                    published_parsed = pub.published_parsed
+                else:
+                    now = datetime.datetime.now()
+                    Published_parsed = namedtuple("published_parsed",
+                                                "tm_year tm_mon tm_mday tm_hour tm_min tm_sec")
+                    published_parsed = Published_parsed(
+                        tm_year=str(now.year),
+                        tm_mon=str(now.month),
+                        tm_mday=str(now.day),
+                        tm_hour=str(now.hour),
+                        tm_min=str(now.minute),
+                        tm_sec=str(now.second))
+
                 # Сохраняем публикацию в базу
                 success, article = self.parser.parse(pub.link)
                 time.sleep(self.timeout)
@@ -55,7 +72,7 @@ class RssClient:
                     try:
                         self.db_manager.save_publication(pub.title, pub.link,
                                                          (pub.description if hasattr(pub, 'description') else ""),
-                                                         article, pub.published_parsed, pub_id, self.source_id)
+                                                         article, published_parsed, pub_id, self.source_id)
                     except Exception as e:
                         # ошибка в дате.
                         if str(e.__class__) == "<class 'mysql.connector.errors.DataError'>":
