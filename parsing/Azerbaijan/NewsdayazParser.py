@@ -60,5 +60,6 @@ if __name__ == "__main__":
     logger = FakeTestLogger.FakeTestLogger('', '', 'smtp.yandex.ru', 465)
     my_parser = NewsdayazParser(logger)
     #success, article = my_parser.parse('https://news.day.az/world/1093356.html')
-    success, article = my_parser.parse('https://lady.day.az/news/guests/1104904.html')
+    #success, article = my_parser.parse('https://lady.day.az/news/guests/1104904.html')
+    success, article = my_parser.parse('https://lady.day.az/news/career/1107195.html')
     print(article)

@@ -18,7 +18,7 @@ class RegnumruParser:
             request = Request(url, headers={'User-Agent': "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 " +
                                                           "(KHTML, like Gecko) Chrome/"+str(randint(40, 70)) +
                                                           ".0.2227.0 Safari/537.36"})
-            data = urllib.request.urlopen(request).read()
+            data = urllib.request.urlopen(request, timeout=80).read()
             content = zlib.decompressobj(16+zlib.MAX_WBITS).decompress(data).decode('utf-8')
             doc = fromstring(content)
             doc.make_links_absolute(url)
@@ -50,6 +50,6 @@ class RegnumruParser:
 if __name__ == "__main__":
     logger = FakeTestLogger.FakeTestLogger('', '', 'smtp.yandex.ru', 465)
     my_parser = RegnumruParser(logger)
-    success, article = my_parser.parse('https://regnum.ru/news/accidents/2576303.html')
+    success, article = my_parser.parse('https://regnum.ru/news/polit/2608206.html')
     #success, article = my_parser.parse('https://regnum.ru/news/cultura/2576301.html')
     print(article)

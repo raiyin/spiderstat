@@ -44,6 +44,7 @@ class InterfaxcomuaParser:
 if __name__ == "__main__":
     logger = FakeTestLogger.FakeTestLogger('', '', 'smtp.yandex.ru', 465)
     my_parser = InterfaxcomuaParser(logger)
-    success, article = my_parser.parse('https://interfax.com.ua/news/general/562578.html')
+    #success, article = my_parser.parse('https://interfax.com.ua/news/general/577707.html')
     # success, article = my_parser.parse('https://interfax.com.ua/news/general/562562.html')
+    success, article = my_parser.parse('https://interfax.com.ua/news/economic/579529.html')
     print(article)

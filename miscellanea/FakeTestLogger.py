@@ -6,7 +6,7 @@ class FakeTestLogger:
         pass
 
     def write_message(self, message):
-        pass
+        print(str(message))
 
     def make_message(self, parser_name, exception, url):
         pass

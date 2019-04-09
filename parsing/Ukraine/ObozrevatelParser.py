@@ -4,7 +4,9 @@ from lxml.html import fromstring
 from random import randint
 from miscellanea import FakeTestLogger
 from miscellanea.StringCleaner import StringCleaner
-#ERROR
+
+
+# ERROR
 
 class ObozrevatelParser:
 
@@ -15,23 +17,41 @@ class ObozrevatelParser:
         try:
 
             request = Request(url, headers={'User-Agent': "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 " +
-                                                          "(KHTML, like Gecko) Chrome/"+str(randint(40, 70)) +
+                                                          "(KHTML, like Gecko) Chrome/" + str(randint(40, 70)) +
                                                           ".0.2227.0 Safari/537.36"})
             content = urllib.request.urlopen(request).read()
             doc = fromstring(content)
             doc.make_links_absolute(url)
             article_text = ""
 
-            e = doc.find_class('news-full__title')[0]
-            article_text += e.text_content()
+            classes = doc.find_class('news-full__title')
+            if len(classes) != 0:
+                e = classes[0]
+                article_text += e.text_content()
 
-            ex_classes = doc.find_class('news-full__text io-article-body')
-            if len(ex_classes) != 0:
-                for par in ex_classes:
-                    all_p = par.findall("p")
-                    if all_p:
-                        for r in all_p[:-2]:
-                            article_text += "\n"+r.text_content()
+                ex_classes = doc.find_class('news-full__text io-article-body')
+                if len(ex_classes) != 0:
+                    for par in ex_classes:
+                        all_p = par.findall("p")
+                        if all_p:
+                            for r in all_p[:-2]:
+                                article_text += "\n" + r.text_content()
+            elif len(doc.find_class('news-video-full__header')) > 0:
+                classes = doc.find_class('news-video-full__header')
+                e = classes[0]
+                all_p = e.findall("h1")
+                if all_p:
+                    for r in all_p:
+                        article_text += "\n" + r.text_content()
+
+                ex_classes = doc.find_class('news-video-full__text')
+                if len(ex_classes) != 0:
+                    for par in ex_classes:
+                        all_p = par.findall("p")
+                        if all_p:
+                            for r in all_p[:-1]:
+                                article_text += "\n" + r.text_content()
+
         except Exception as e:
             message = self.logger.make_message("ObozrevatelParser", e, url)
             self.logger.write_message(message)
@@ -46,5 +66,8 @@ if __name__ == "__main__":
     # success, article = my_parser.parse('https://www.obozrevatel.com/kiyany/crime/v-kieve-nochyu-rasstrelyali-dvuh
     # -chelovek-chto-izvestno.htm')
     success, article = my_parser.parse('https://www.obozrevatel.com/sport/sport/nokaut-pervyim-udarom-emelyanenko'
-                                       '-pozorno-proigral-chempionskij-boj.htm')
+                                      '-pozorno-proigral-chempionskij-boj.htm')
+
+    #success, article = my_parser.parse(
+    #    'https://www.obozrevatel.com/tv/skandalnyij-drug-zelenskogo-snova-vsplyil-na-rostv.htm')
     print(article)

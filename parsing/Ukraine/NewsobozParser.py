@@ -48,5 +48,5 @@ if __name__ == "__main__":
     #                                   '-svyazannye-s-rf-venesueloy-01022019104431')
     #success, article = my_parser.parse('http://newsoboz.org/politika/posol-es-v-rossii-ustroil-demarsh-iz-za-ukrainy'
     #                                   '-01022019171600')
-    success, article = my_parser.parse('http://newsoboz.org/obshchestvo/privatbank-sdelal-vazhnoe-soobshchenie-01042019121600')
+    success, article = my_parser.parse('http://newsoboz.org/obshchestvo/kak-upotreblyat-kurkumu-chtoby-izbavitsya-ot-boli-v-sustavah-02042019115900')
     print(article)
