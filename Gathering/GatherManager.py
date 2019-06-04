@@ -84,9 +84,9 @@ class GatherManager:
                                                 pravda_parser, 1, logger)
         rss_clients.append(pravda_rss_client)
 
-        nsn_parser = NsnParser.NsnParser(logger)
-        nsn_rss_client = RssClient.RssClient(db_manager, 'nsn.fm', '0001.01.01 01:01:01', nsn_parser, 1, logger)
-        rss_clients.append(nsn_rss_client)
+        # nsn_parser = NsnParser.NsnParser(logger)
+        # nsn_rss_client = RssClient.RssClient(db_manager, 'nsn.fm', '0001.01.01 01:01:01', nsn_parser, 1, logger)
+        # rss_clients.append(nsn_rss_client)
 
         polit_expert_parser = PolitexpertParser.PolitexpertParser(logger)
         polit_expert_rss_client = RssClient.RssClient(db_manager, 'politexpert.net', '0001.01.01 01:01:01',

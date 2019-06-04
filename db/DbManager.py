@@ -83,7 +83,7 @@ class DbManager:
             self.cursor.execute(query, (guid, str(source_id)))
         except Exception as e:
             message = self.logger.make_message("Unexpected error in check_publication_in_db. Query is: " +
-                                               query + "\nsource_id is: "+str(source_id), e)
+                                               query + "\nsource_id is: " + str(source_id), e)
             self.logger.write_message(message)
             return 0, ""
 
@@ -94,16 +94,25 @@ class DbManager:
         query = "INSERT INTO publications (info_source_id, title, link, description, full_article, pub_date, guid)" + \
                 " VALUES (%s, %s, %s, %s, %s, %s, %s)"
 
-        self.cursor.execute(query, (str(info_source_id),
-                                    title,
-                                    link,
-                                    description,
-                                    article,
-                                    str(pub_date.tm_year) + "." + str(pub_date.tm_mon) + "." + str(
-                                        pub_date.tm_mday) + " " +
-                                    str(pub_date.tm_hour) + ":" + str(pub_date.tm_min) + ":" + str(pub_date.tm_sec),
-                                    guid))
-        self.connection.commit()
+        try:
+            self.cursor.execute(query, (str(info_source_id),
+                                        title,
+                                        link,
+                                        str(description),
+                                        article,
+                                        str(pub_date.tm_year) + "." + str(pub_date.tm_mon) + "." + str(
+                                            pub_date.tm_mday) + " " +
+                                        str(pub_date.tm_hour) + ":" + str(pub_date.tm_min) + ":" + str(pub_date.tm_sec),
+                                        guid))
+            self.connection.commit()
+        except Exception as e:
+            message = self.logger.make_message("Unexpected error in save_publication. Query is: " + query + "\n" +
+                                               "title is: " + title + "\n" +
+                                               "link is: " + link + "\n" +
+                                               "description is: " + description + "\n" +
+                                               "article is: " + article + "\n" +
+                                               "info_source_id is: " + str(info_source_id), e)
+            self.logger.write_message(message)
 
 
 if __name__ == "__main__":
