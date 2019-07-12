@@ -1,4 +1,5 @@
 from miscellanea import MailSender
+from miscellanea import FakeTestLogger
 import json
 import sys
 

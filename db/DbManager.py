@@ -1,6 +1,7 @@
 import mysql.connector
-from datetime import datetime
+from datetime import datetime, date
 import json
+from miscellanea import FakeTestLogger
 
 
 class DbManager:
@@ -114,11 +115,22 @@ class DbManager:
                                                "info_source_id is: " + str(info_source_id), e)
             self.logger.write_message(message)
 
+    def get_list_articles_by_date(self, current_date):
+        query = "SELECT full_article FROM publications WHERE DATE(pub_date) = '" + current_date.strftime("%Y-%m-%d")+"'"
+        self.cursor.execute(query)
+        articles = []
+
+        for (article) in self.cursor:
+            articles.append(article[0])
+
+        return articles
+
 
 if __name__ == "__main__":
-
-    db_client = DbManager('root', '', '127.0.0.1', 'spyder_stat')
-    mode = 'get_rss_url_by_link'
+    config_file = "e:\\Projects\\spiderstat\\config.json"
+    logger = FakeTestLogger.FakeTestLogger()
+    db_client = DbManager(config_file, logger)
+    mode = 'get_articles'
 
     if mode == 'print_companies':
         db_client.print_companies()
@@ -135,3 +147,7 @@ if __name__ == "__main__":
         print(db_client.check_publication_in_db('https://iz.ru/805396/video/kannskie-lvy-v-moskve', 1))
     elif mode == 'get_rss_url_by_link':
         print(db_client.get_rss_url_by_link('www.rbc.ru'))
+    elif mode == "get_articles":
+        check_date = date(2019, 3, 23)
+        articles = db_client.get_list_articles_by_date(check_date)
+        print(len(articles))

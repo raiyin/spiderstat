@@ -39,6 +39,8 @@ class MailSender:
                 print("Failed to send message. Text is: " + text)
                 print("\nSending exception is:" + str(e))
         else:
+            print("smtp status is " + str(status) + "\n")
+
             self.smtp_server = smtplib.SMTP_SSL(self.server, self.port)
             self.smtp_server.login(self.login, self.password)
             # send the message via the server.

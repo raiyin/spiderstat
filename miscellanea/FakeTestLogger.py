@@ -2,7 +2,7 @@
 
 class FakeTestLogger:
 
-    def __init__(self, login, password, server, port):
+    def __init__(self):
         pass
 
     def write_message(self, message):
@@ -13,5 +13,5 @@ class FakeTestLogger:
 
 
 if __name__ == "__main__":
-    logger = FakeTestLogger('raiyin@ya.ru', 'password', 'smtp.yandex.ru', 465)
+    logger = FakeTestLogger()
     logger.write_message("testing logger")
