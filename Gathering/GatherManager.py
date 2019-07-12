@@ -10,13 +10,17 @@ from parsing.Ukraine import AifuaParser, CapitaluaParser, DaykyivuaParser, Dialo
     FactyuaParser, FinanceuaParser, ForuaParser, FrazauaParser, GazetaUaParser, GoloscomuaParser, GolosuaParser, \
     InterfaxcomuaParser, IpressuaParser, IzvestiakievuaParser, KontraktyParser, KorrespondentParser, KpuaParser, \
     KratkonewsParser, NbnewscomuaParser, NewsobozParser, NuainuaParser, NvuaParser, ObozrevatelParser, \
-    OdessalifeParser, OneonetwoParser, PressorgParser, SobytiyaParser, TsnParser, UkranewsParser, UkrinformParser,\
+    OdessalifeParser, OneonetwoParser, PressorgParser, SobytiyaParser, TsnParser, UkranewsParser, UkrinformParser, \
     VestiuaParser, VestiukrParser, VistiproParser, VlastinetParser, ZahidParser, ZnajParser
+from concurrent.futures import ThreadPoolExecutor
+from multiprocessing import Process, Pool
+from threading import Thread
+
 from db import DbManager
 from Gathering import RssClient
 import time
 from datetime import datetime
-from miscellanea import Logger
+from miscellanea import Logger, FakeTestLogger
 
 
 class GatherManager:
@@ -34,6 +38,7 @@ class GatherManager:
                     rss_client.update_publications()
                     self.db_manager.update_last_check_date(rss_client.source_id, str(datetime.now()))
                     self.db_manager.check_and_reconnect()
+                    print(datetime.now())
                 except Exception as e:
                     message = self.logger.make_message("Error in gather function", e, str(rss_client))
                     self.logger.write_message(message)
@@ -183,7 +188,8 @@ class GatherManager:
 
         # https://regnum.ru/rss/foreign/caucasia/azerbaijan
         regnumruaz_parser = RegnumruazParser.RegnumruazParser(logger)
-        regnumruaz_rss_client = RssClient.RssClient(db_manager, 'regnum.ru/rss/foreign/caucasia/azerbaijan', '0001.01.01 01:01:01',
+        regnumruaz_rss_client = RssClient.RssClient(db_manager, 'regnum.ru/rss/foreign/caucasia/azerbaijan',
+                                                    '0001.01.01 01:01:01',
                                                     regnumruaz_parser, 1, logger)
         rss_clients.append(regnumruaz_rss_client)
 
@@ -476,7 +482,7 @@ class GatherManager:
         # odessalife_parser = OdessalifeParser.OdessalifeParser(logger)
         # odessalofe_rss_client = RssClient.RssClient(db_manager, 'odessa-life.od.ua', '0001.01.01 01:01:01',
         #                                             odessalife_parser, 1, logger)
-        #rss_clients.append(odessalofe_rss_client)
+        # rss_clients.append(odessalofe_rss_client)
 
         # 112.ua
         # https://112.ua/rsslist
@@ -562,18 +568,45 @@ class GatherManager:
 
 if __name__ == "__main__":
     config_file = "e:\\Projects\\spiderstat\\config.json"
-    logger = Logger.Logger(config_file)
+    # logger = Logger.Logger(config_file)
+    logger = FakeTestLogger.FakeTestLogger()
     db_manager = DbManager.DbManager(config_file, logger)
     rss_clients = []
 
     gather_manager = GatherManager(rss_clients, db_manager, 30 * 60, logger)
     gather_manager.add_russian_agencies(rss_clients, logger)
-    gather_manager.add_azerbaijani_agencies(rss_clients, logger)
-    gather_manager.add_georgian_agencies(rss_clients, logger)
-    gather_manager.add_ukrainian_agencies(rss_clients, logger)
+    #gather_manager.add_azerbaijani_agencies(rss_clients, logger)
+    #gather_manager.add_georgian_agencies(rss_clients, logger)
+    #gather_manager.add_ukrainian_agencies(rss_clients, logger)
 
     try:
-        gather_manager.gather()
+        p = Process(target=gather_manager.gather)
+        p.start()
+        # thread = Thread(target=print, args="hello")
+        # thread.start()
+        # thread.join()
+
+        # Запускаем
+        articles_prev_count = db_manager.get_articles_count()
+        # future = executor.submit(gather_manager.gather())
+        # В цикле каждые полчаса проверяем как хорошо добавляются записи в БД.
+        # Если плохо, то перезапускаем задачу.
+        while True:
+            time.sleep(30 * 60)
+            articles_now_count = db_manager.get_articles_count()
+            if articles_now_count != articles_prev_count:
+                print("Articles_prev_count = ", articles_prev_count, "articles_now_count = ", articles_now_count)
+                print("ALL GOOD")
+                articles_prev_count = articles_now_count
+                continue
+            else:
+                print("Articles_prev_count = ", articles_prev_count, "articles_now_count = ", articles_now_count)
+                print("RESTARTING...")
+                p.terminate()
+                articles_prev_count = db_manager.get_articles_count()
+                time.sleep(10)
+                p = Process(target=gather_manager.gather)
+                p.start()
     except Exception as e:
-            message = logger.make_message("Error in GatherManager", e, "")
-            logger.write_message(message)
+        message = logger.make_message("Error in GatherManager", e, "")
+        logger.write_message(message)

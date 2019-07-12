@@ -116,7 +116,8 @@ class DbManager:
             self.logger.write_message(message)
 
     def get_list_articles_by_date(self, current_date):
-        query = "SELECT full_article FROM publications WHERE DATE(pub_date) = '" + current_date.strftime("%Y-%m-%d")+"'"
+        query = "SELECT full_article FROM publications WHERE DATE(pub_date) = '" + current_date.strftime(
+            "%Y-%m-%d") + "'"
         self.cursor.execute(query)
         articles = []
 
@@ -125,12 +126,17 @@ class DbManager:
 
         return articles
 
+    def get_articles_count(self):
+        query = "SELECT COUNT(*) FROM publications"
+        self.cursor.execute(query)
+        return self.cursor.fetchone()[0]
+
 
 if __name__ == "__main__":
     config_file = "e:\\Projects\\spiderstat\\config.json"
     logger = FakeTestLogger.FakeTestLogger()
     db_client = DbManager(config_file, logger)
-    mode = 'get_articles'
+    mode = 'get_articles_count'
 
     if mode == 'print_companies':
         db_client.print_companies()
@@ -151,3 +157,6 @@ if __name__ == "__main__":
         check_date = date(2019, 3, 23)
         articles = db_client.get_list_articles_by_date(check_date)
         print(len(articles))
+    elif mode == "get_articles_count":
+        count = db_client.get_articles_count()
+        print(count)
