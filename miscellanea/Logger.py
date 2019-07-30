@@ -6,14 +6,11 @@ import sys
 
 class Logger:
 
-    def __init__(self, config_file):
-        with open(config_file) as json_config_data:
-            data = json.load(json_config_data)
-            smtp = data["smtp"]
-            login = smtp["login"]
-            password = smtp["password"]
-            server = smtp["server"]
-            port = smtp["port"]
+    def __init__(self, config_manager):
+        login = config_manager.login
+        password = config_manager.password
+        server = config_manager.server
+        port = config_manager.port
 
         self.mail_server = MailSender.MailSender(login, password, server, port)
 

@@ -52,6 +52,12 @@ class ReportProcessor:
 
         return result_dict
 
+    def parse_json(self, json_body):
+        pass
+
+    def create_json(self, data):
+        pass
+
 
 if __name__ == "__main__":
     text_processor = TextProcessor.TextProcessor()

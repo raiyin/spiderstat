@@ -1,20 +1,15 @@
 import mysql.connector
 from datetime import datetime, date
-import json
 from miscellanea import FakeTestLogger
 
 
 class DbManager:
 
-    def __init__(self, config_file, logger):
-
-        with open(config_file) as json_config_data:
-            data = json.load(json_config_data)
-            my_sql = data["mysql"]
-            self.user_name = my_sql["user"]
-            self.password = my_sql["passwd"]
-            self.host = my_sql["host"]
-            self.db_name = my_sql["db"]
+    def __init__(self, config_manager, logger):
+        self.user_name = config_manager.db_username
+        self.password = config_manager.db_password
+        self.host = config_manager.db_host
+        self.db_name = config_manager.db_name
 
         self.connection = mysql.connector.connect(user=self.user_name, password=self.password,
                                                   host=self.host, database=self.db_name)

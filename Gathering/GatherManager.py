@@ -12,9 +12,8 @@ from parsing.Ukraine import AifuaParser, CapitaluaParser, DaykyivuaParser, Dialo
     KratkonewsParser, NbnewscomuaParser, NewsobozParser, NuainuaParser, NvuaParser, ObozrevatelParser, \
     OdessalifeParser, OneonetwoParser, PressorgParser, SobytiyaParser, TsnParser, UkranewsParser, UkrinformParser, \
     VestiuaParser, VestiukrParser, VistiproParser, VlastinetParser, ZahidParser, ZnajParser
-from concurrent.futures import ThreadPoolExecutor
-from multiprocessing import Process, Pool
-from threading import Thread
+from multiprocessing import Process
+from miscellanea import ConfigManager
 
 from db import DbManager
 from Gathering import RssClient
@@ -570,32 +569,32 @@ if __name__ == "__main__":
     config_file = "e:\\Projects\\spiderstat\\config.json"
     # logger = Logger.Logger(config_file)
     logger = FakeTestLogger.FakeTestLogger()
-    db_manager = DbManager.DbManager(config_file, logger)
+
+    configManager = ConfigManager.ConfigManager()
+    configManager.read_config(config_file)
+
+    db_manager = DbManager.DbManager(configManager, logger)
+
     rss_clients = []
 
     gather_manager = GatherManager(rss_clients, db_manager, 30 * 60, logger)
     gather_manager.add_russian_agencies(rss_clients, logger)
-    #gather_manager.add_azerbaijani_agencies(rss_clients, logger)
-    #gather_manager.add_georgian_agencies(rss_clients, logger)
-    #gather_manager.add_ukrainian_agencies(rss_clients, logger)
+    gather_manager.add_azerbaijani_agencies(rss_clients, logger)
+    gather_manager.add_georgian_agencies(rss_clients, logger)
+    gather_manager.add_ukrainian_agencies(rss_clients, logger)
 
     try:
         p = Process(target=gather_manager.gather)
         p.start()
-        # thread = Thread(target=print, args="hello")
-        # thread.start()
-        # thread.join()
 
         # Запускаем
         articles_prev_count = db_manager.get_articles_count()
-        # future = executor.submit(gather_manager.gather())
-        # В цикле каждые полчаса проверяем как хорошо добавляются записи в БД.
-        # Если плохо, то перезапускаем задачу.
+        # В цикле каждые полчаса проверяем как хорошо добавляются записи в БД. Если плохо, то перезапускаем задачу.
         while True:
             time.sleep(30 * 60)
             articles_now_count = db_manager.get_articles_count()
             if articles_now_count != articles_prev_count:
-                print("Articles_prev_count = ", articles_prev_count, "articles_now_count = ", articles_now_count)
+                print("Articles_prev_count = ", articles_prev_count, ", articles_now_count = ", articles_now_count)
                 print("ALL GOOD")
                 articles_prev_count = articles_now_count
                 continue
