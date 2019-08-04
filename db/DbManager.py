@@ -79,7 +79,7 @@ class DbManager:
             self.cursor.execute(query, (guid, str(source_id)))
         except Exception as e:
             message = self.logger.make_message("Unexpected error in check_publication_in_db. Query is: " +
-                                               query + "\nsource_id is: " + str(source_id), e)
+                                               query + "\nsource_id is: " + str(source_id), e, "")
             self.logger.write_message(message)
             return 0, ""
 
@@ -107,7 +107,7 @@ class DbManager:
                                                "link is: " + link + "\n" +
                                                "description is: " + description + "\n" +
                                                "article is: " + article + "\n" +
-                                               "info_source_id is: " + str(info_source_id), e)
+                                               "info_source_id is: " + str(info_source_id), e, "")
             self.logger.write_message(message)
 
     def get_list_articles_by_date(self, current_date):

@@ -6,19 +6,23 @@ class ConfigManager:
     def __init__(self):
 
         # mysql
-        self.user_name = ""
-        self.password = ""
-        self.host = ""
+        self.db_username = ""
+        self.db_password = ""
+        self.db_host = ""
         self.db_name = ""
 
         # smtp
-        self.login = ""
-        self.password = ""
-        self.server = ""
-        self.port = ""
+        self.smtp_login = ""
+        self.smtp_password = ""
+        self.smtp_server = ""
+        self.smtp_port = ""
 
         # misc
-        self.timeout = 0
+        self.restore_work_timeout = 30 * 60
+        self.backup_enabled = True
+        self.backup_timeout = 0
+        self.backup_source_dir = ""
+        self.backup_dest_dir = ""
 
     def read_config(self, config_file):
         with open(config_file) as json_config_data:
@@ -36,7 +40,11 @@ class ConfigManager:
             self.smtp_port = smtp["port"]
 
             misc = data["misc"]
-            self.timeout = misc["timeout"]
+            self.restore_work_timeout = misc["restore_work_timeout"]
+            self.backup_timeout = misc["backup_timeout"]
+            self.backup_enabled = misc["backup_enable"]
+            self.backup_source_dir = misc["backup_source_dir"]
+            self.backup_dest_dir = misc["backup_dest_dir"]
 
     def write_config(self):
         pass

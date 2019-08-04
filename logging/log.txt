@@ -1,0 +1,1134 @@
+
+#######################################################
+2019-08-03 23:46:24.452874
+=================================================
+2019-08-03 23:46:24.451375
+Error in RegnumParser
+Error type:<class 'IndexError'>
+Error value: list index out of range
+Error traceback: <traceback object at 0x000002A43BC8E388>
+error message: list index out of range
+url: https://regnum.ru/news/society/2680506.html
+*************************************************
+
+#######################################################
+
+#######################################################
+2019-08-03 23:46:25.597715
+=================================================
+2019-08-03 23:46:25.597213
+Error in RegnumParser
+Error type:<class 'IndexError'>
+Error value: list index out of range
+Error traceback: <traceback object at 0x000002A43A41AE08>
+error message: list index out of range
+url: https://regnum.ru/news/innovatio/2680504.html
+*************************************************
+
+#######################################################
+
+#######################################################
+2019-08-03 23:46:26.741455
+=================================================
+2019-08-03 23:46:26.740964
+Error in RegnumParser
+Error type:<class 'IndexError'>
+Error value: list index out of range
+Error traceback: <traceback object at 0x000002A43BC736C8>
+error message: list index out of range
+url: https://regnum.ru/news/accidents/2680505.html
+*************************************************
+
+#######################################################
+
+#######################################################
+2019-08-03 23:46:27.910336
+=================================================
+2019-08-03 23:46:27.909835
+Error in RegnumParser
+Error type:<class 'IndexError'>
+Error value: list index out of range
+Error traceback: <traceback object at 0x000002A43BC8EA88>
+error message: list index out of range
+url: https://regnum.ru/news/society/2680501.html
+*************************************************
+
+#######################################################
+
+#######################################################
+2019-08-03 23:46:29.085202
+=================================================
+2019-08-03 23:46:29.084199
+Error in RegnumParser
+Error type:<class 'IndexError'>
+Error value: list index out of range
+Error traceback: <traceback object at 0x000002A43BC8E348>
+error message: list index out of range
+url: https://regnum.ru/news/accidents/2680503.html
+*************************************************
+
+#######################################################
+
+#######################################################
+2019-08-03 23:46:30.232575
+=================================================
+2019-08-03 23:46:30.232074
+Error in RegnumParser
+Error type:<class 'IndexError'>
+Error value: list index out of range
+Error traceback: <traceback object at 0x000002A43BC7A808>
+error message: list index out of range
+url: https://regnum.ru/news/society/2680500.html
+*************************************************
+
+#######################################################
+
+#######################################################
+2019-08-03 23:46:31.401524
+=================================================
+2019-08-03 23:46:31.400524
+Error in RegnumParser
+Error type:<class 'IndexError'>
+Error value: list index out of range
+Error traceback: <traceback object at 0x000002A43BC8E448>
+error message: list index out of range
+url: https://regnum.ru/news/accidents/2680499.html
+*************************************************
+
+#######################################################
+
+#######################################################
+2019-08-03 23:46:32.554715
+=================================================
+2019-08-03 23:46:32.554214
+Error in RegnumParser
+Error type:<class 'IndexError'>
+Error value: list index out of range
+Error traceback: <traceback object at 0x000002A43A41AE08>
+error message: list index out of range
+url: https://regnum.ru/news/it/2680496.html
+*************************************************
+
+#######################################################
+
+#######################################################
+2019-08-03 23:46:33.702494
+=================================================
+2019-08-03 23:46:33.701993
+Error in RegnumParser
+Error type:<class 'IndexError'>
+Error value: list index out of range
+Error traceback: <traceback object at 0x000002A43BC8E188>
+error message: list index out of range
+url: https://regnum.ru/news/accidents/2680498.html
+*************************************************
+
+#######################################################
+
+#######################################################
+2019-08-03 23:46:34.891858
+=================================================
+2019-08-03 23:46:34.891357
+Error in RegnumParser
+Error type:<class 'IndexError'>
+Error value: list index out of range
+Error traceback: <traceback object at 0x000002A43BC7A3C8>
+error message: list index out of range
+url: https://regnum.ru/news/polit/2679376.html
+*************************************************
+
+#######################################################
+
+#######################################################
+2019-08-03 23:46:36.042329
+=================================================
+2019-08-03 23:46:36.041829
+Error in RegnumParser
+Error type:<class 'IndexError'>
+Error value: list index out of range
+Error traceback: <traceback object at 0x000002A43BC8E188>
+error message: list index out of range
+url: https://regnum.ru/news/polit/2680495.html
+*************************************************
+
+#######################################################
+
+#######################################################
+2019-08-03 23:46:37.201345
+=================================================
+2019-08-03 23:46:37.200845
+Error in RegnumParser
+Error type:<class 'IndexError'>
+Error value: list index out of range
+Error traceback: <traceback object at 0x000002A43BC7A148>
+error message: list index out of range
+url: https://regnum.ru/news/accidents/2680494.html
+*************************************************
+
+#######################################################
+
+#######################################################
+2019-08-03 23:46:38.379048
+=================================================
+2019-08-03 23:46:38.378548
+Error in RegnumParser
+Error type:<class 'IndexError'>
+Error value: list index out of range
+Error traceback: <traceback object at 0x000002A43BC736C8>
+error message: list index out of range
+url: https://regnum.ru/news/innovatio/2680493.html
+*************************************************
+
+#######################################################
+
+#######################################################
+2019-08-03 23:46:39.555938
+=================================================
+2019-08-03 23:46:39.555449
+Error in RegnumParser
+Error type:<class 'IndexError'>
+Error value: list index out of range
+Error traceback: <traceback object at 0x000002A43BC8E188>
+error message: list index out of range
+url: https://regnum.ru/news/society/2680454.html
+*************************************************
+
+#######################################################
+
+#######################################################
+2019-08-03 23:46:40.707324
+=================================================
+2019-08-03 23:46:40.706814
+Error in RegnumParser
+Error type:<class 'IndexError'>
+Error value: list index out of range
+Error traceback: <traceback object at 0x000002A43BD50248>
+error message: list index out of range
+url: https://regnum.ru/news/society/2680491.html
+*************************************************
+
+#######################################################
+
+#######################################################
+2019-08-03 23:46:41.911888
+=================================================
+2019-08-03 23:46:41.911387
+Error in RegnumParser
+Error type:<class 'IndexError'>
+Error value: list index out of range
+Error traceback: <traceback object at 0x000002A43BC8E6C8>
+error message: list index out of range
+url: https://regnum.ru/news/society/2680489.html
+*************************************************
+
+#######################################################
+
+#######################################################
+2019-08-03 23:46:43.054312
+=================================================
+2019-08-03 23:46:43.053813
+Error in RegnumParser
+Error type:<class 'IndexError'>
+Error value: list index out of range
+Error traceback: <traceback object at 0x000002A43B3996C8>
+error message: list index out of range
+url: https://regnum.ru/news/accidents/2680492.html
+*************************************************
+
+#######################################################
+
+#######################################################
+2019-08-03 23:46:44.240307
+=================================================
+2019-08-03 23:46:44.239305
+Error in RegnumParser
+Error type:<class 'IndexError'>
+Error value: list index out of range
+Error traceback: <traceback object at 0x000002A43BC8EAC8>
+error message: list index out of range
+url: https://regnum.ru/news/accidents/2680490.html
+*************************************************
+
+#######################################################
+
+#######################################################
+2019-08-03 23:46:45.400041
+=================================================
+2019-08-03 23:46:45.399541
+Error in RegnumParser
+Error type:<class 'IndexError'>
+Error value: list index out of range
+Error traceback: <traceback object at 0x000002A43BD50F88>
+error message: list index out of range
+url: https://regnum.ru/news/sport/2680488.html
+*************************************************
+
+#######################################################
+
+#######################################################
+2019-08-03 23:46:46.574158
+=================================================
+2019-08-03 23:46:46.573657
+Error in RegnumParser
+Error type:<class 'IndexError'>
+Error value: list index out of range
+Error traceback: <traceback object at 0x000002A43BC8E2C8>
+error message: list index out of range
+url: https://regnum.ru/news/accidents/2680487.html
+*************************************************
+
+#######################################################
+
+#######################################################
+2019-08-03 23:46:47.732614
+=================================================
+2019-08-03 23:46:47.732113
+Error in RegnumParser
+Error type:<class 'IndexError'>
+Error value: list index out of range
+Error traceback: <traceback object at 0x000002A43BC8E288>
+error message: list index out of range
+url: https://regnum.ru/news/society/2680485.html
+*************************************************
+
+#######################################################
+
+#######################################################
+2019-08-03 23:46:48.887525
+=================================================
+2019-08-03 23:46:48.887025
+Error in RegnumParser
+Error type:<class 'IndexError'>
+Error value: list index out of range
+Error traceback: <traceback object at 0x000002A43BC8EA08>
+error message: list index out of range
+url: https://regnum.ru/news/polit/2680469.html
+*************************************************
+
+#######################################################
+
+#######################################################
+2019-08-03 23:46:50.049299
+=================================================
+2019-08-03 23:46:50.048798
+Error in RegnumParser
+Error type:<class 'IndexError'>
+Error value: list index out of range
+Error traceback: <traceback object at 0x000002A43BC8E388>
+error message: list index out of range
+url: https://regnum.ru/news/society/2680486.html
+*************************************************
+
+#######################################################
+
+#######################################################
+2019-08-03 23:46:51.272019
+=================================================
+2019-08-03 23:46:51.271518
+Error in RegnumParser
+Error type:<class 'IndexError'>
+Error value: list index out of range
+Error traceback: <traceback object at 0x000002A43BC8E508>
+error message: list index out of range
+url: https://regnum.ru/news/cultura/2680484.html
+*************************************************
+
+#######################################################
+
+#######################################################
+2019-08-03 23:46:52.471163
+=================================================
+2019-08-03 23:46:52.470662
+Error in RegnumParser
+Error type:<class 'IndexError'>
+Error value: list index out of range
+Error traceback: <traceback object at 0x000002A43BC8E348>
+error message: list index out of range
+url: https://regnum.ru/news/cultura/2680481.html
+*************************************************
+
+#######################################################
+
+#######################################################
+2019-08-03 23:46:53.645253
+=================================================
+2019-08-03 23:46:53.644742
+Error in RegnumParser
+Error type:<class 'IndexError'>
+Error value: list index out of range
+Error traceback: <traceback object at 0x000002A43BC8EA08>
+error message: list index out of range
+url: https://regnum.ru/news/innovatio/2680483.html
+*************************************************
+
+#######################################################
+
+#######################################################
+2019-08-03 23:46:54.852558
+=================================================
+2019-08-03 23:46:54.851556
+Error in RegnumParser
+Error type:<class 'IndexError'>
+Error value: list index out of range
+Error traceback: <traceback object at 0x000002A43BC7AF48>
+error message: list index out of range
+url: https://regnum.ru/news/polit/2680346.html
+*************************************************
+
+#######################################################
+
+#######################################################
+2019-08-03 23:46:56.029536
+=================================================
+2019-08-03 23:46:56.029026
+Error in RegnumParser
+Error type:<class 'IndexError'>
+Error value: list index out of range
+Error traceback: <traceback object at 0x000002A43BD500C8>
+error message: list index out of range
+url: https://regnum.ru/news/polit/2680480.html
+*************************************************
+
+#######################################################
+
+#######################################################
+2019-08-03 23:46:57.163118
+=================================================
+2019-08-03 23:46:57.162618
+Error in RegnumParser
+Error type:<class 'IndexError'>
+Error value: list index out of range
+Error traceback: <traceback object at 0x000002A43BC7A808>
+error message: list index out of range
+url: https://regnum.ru/news/polit/2680482.html
+*************************************************
+
+#######################################################
+
+#######################################################
+2019-08-03 23:46:58.354004
+=================================================
+2019-08-03 23:46:58.353504
+Error in RegnumParser
+Error type:<class 'IndexError'>
+Error value: list index out of range
+Error traceback: <traceback object at 0x000002A43A41AE08>
+error message: list index out of range
+url: https://regnum.ru/news/polit/2680463.html
+*************************************************
+
+#######################################################
+
+#######################################################
+2019-08-03 23:46:59.530570
+=================================================
+2019-08-03 23:46:59.530070
+Error in RegnumParser
+Error type:<class 'IndexError'>
+Error value: list index out of range
+Error traceback: <traceback object at 0x000002A43BC8E908>
+error message: list index out of range
+url: https://regnum.ru/news/polit/2680349.html
+*************************************************
+
+#######################################################
+
+#######################################################
+2019-08-03 23:47:00.687112
+=================================================
+2019-08-03 23:47:00.687112
+Error in RegnumParser
+Error type:<class 'IndexError'>
+Error value: list index out of range
+Error traceback: <traceback object at 0x000002A43BC68D08>
+error message: list index out of range
+url: https://regnum.ru/news/economy/2680352.html
+*************************************************
+
+#######################################################
+
+#######################################################
+2019-08-03 23:47:01.849177
+=================================================
+2019-08-03 23:47:01.848676
+Error in RegnumParser
+Error type:<class 'IndexError'>
+Error value: list index out of range
+Error traceback: <traceback object at 0x000002A43BC8E708>
+error message: list index out of range
+url: https://regnum.ru/news/polit/2680479.html
+*************************************************
+
+#######################################################
+
+#######################################################
+2019-08-03 23:47:03.028590
+=================================================
+2019-08-03 23:47:03.028088
+Error in RegnumParser
+Error type:<class 'IndexError'>
+Error value: list index out of range
+Error traceback: <traceback object at 0x000002A43BC7A148>
+error message: list index out of range
+url: https://regnum.ru/news/cultura/2680477.html
+*************************************************
+
+#######################################################
+
+#######################################################
+2019-08-03 23:47:04.213883
+=================================================
+2019-08-03 23:47:04.213383
+Error in RegnumParser
+Error type:<class 'IndexError'>
+Error value: list index out of range
+Error traceback: <traceback object at 0x000002A439F1CD48>
+error message: list index out of range
+url: https://regnum.ru/news/society/2680472.html
+*************************************************
+
+#######################################################
+
+#######################################################
+2019-08-03 23:47:05.357694
+=================================================
+2019-08-03 23:47:05.357193
+Error in RegnumParser
+Error type:<class 'IndexError'>
+Error value: list index out of range
+Error traceback: <traceback object at 0x000002A43BC8E908>
+error message: list index out of range
+url: https://regnum.ru/news/sport/2680476.html
+*************************************************
+
+#######################################################
+
+#######################################################
+2019-08-03 23:47:06.616284
+=================================================
+2019-08-03 23:47:06.615793
+Error in RegnumParser
+Error type:<class 'IndexError'>
+Error value: list index out of range
+Error traceback: <traceback object at 0x000002A43BC7AC48>
+error message: list index out of range
+url: https://regnum.ru/news/polit/2680478.html
+*************************************************
+
+#######################################################
+
+#######################################################
+2019-08-03 23:47:07.837047
+=================================================
+2019-08-03 23:47:07.836547
+Error in RegnumParser
+Error type:<class 'IndexError'>
+Error value: list index out of range
+Error traceback: <traceback object at 0x000002A43BC8E348>
+error message: list index out of range
+url: https://regnum.ru/news/polit/2680462.html
+*************************************************
+
+#######################################################
+
+#######################################################
+2019-08-03 23:47:08.994350
+=================================================
+2019-08-03 23:47:08.993849
+Error in RegnumParser
+Error type:<class 'IndexError'>
+Error value: list index out of range
+Error traceback: <traceback object at 0x000002A43BC7AF48>
+error message: list index out of range
+url: https://regnum.ru/news/polit/2680475.html
+*************************************************
+
+#######################################################
+
+#######################################################
+2019-08-03 23:47:10.161620
+=================================================
+2019-08-03 23:47:10.161119
+Error in RegnumParser
+Error type:<class 'IndexError'>
+Error value: list index out of range
+Error traceback: <traceback object at 0x000002A43BC8E508>
+error message: list index out of range
+url: https://regnum.ru/news/society/2680473.html
+*************************************************
+
+#######################################################
+
+#######################################################
+2019-08-03 23:47:11.322166
+=================================================
+2019-08-03 23:47:11.321164
+Error in RegnumParser
+Error type:<class 'IndexError'>
+Error value: list index out of range
+Error traceback: <traceback object at 0x000002A43BC68FC8>
+error message: list index out of range
+url: https://regnum.ru/news/polit/2680474.html
+*************************************************
+
+#######################################################
+
+#######################################################
+2019-08-03 23:47:12.465487
+=================================================
+2019-08-03 23:47:12.464987
+Error in RegnumParser
+Error type:<class 'IndexError'>
+Error value: list index out of range
+Error traceback: <traceback object at 0x000002A43BC8E508>
+error message: list index out of range
+url: https://regnum.ru/news/economy/2680322.html
+*************************************************
+
+#######################################################
+
+#######################################################
+2019-08-03 23:47:13.665464
+=================================================
+2019-08-03 23:47:13.664964
+Error in RegnumParser
+Error type:<class 'IndexError'>
+Error value: list index out of range
+Error traceback: <traceback object at 0x000002A43B3BBD48>
+error message: list index out of range
+url: https://regnum.ru/news/society/2680367.html
+*************************************************
+
+#######################################################
+
+#######################################################
+2019-08-03 23:47:14.841387
+=================================================
+2019-08-03 23:47:14.840887
+Error in RegnumParser
+Error type:<class 'IndexError'>
+Error value: list index out of range
+Error traceback: <traceback object at 0x000002A43B3BBD48>
+error message: list index out of range
+url: https://regnum.ru/news/accidents/2680471.html
+*************************************************
+
+#######################################################
+
+#######################################################
+2019-08-03 23:47:16.005080
+=================================================
+2019-08-03 23:47:16.004580
+Error in RegnumParser
+Error type:<class 'IndexError'>
+Error value: list index out of range
+Error traceback: <traceback object at 0x000002A43BC7A3C8>
+error message: list index out of range
+url: https://regnum.ru/news/cultura/2680468.html
+*************************************************
+
+#######################################################
+
+#######################################################
+2019-08-03 23:47:17.164819
+=================================================
+2019-08-03 23:47:17.163818
+Error in RegnumParser
+Error type:<class 'IndexError'>
+Error value: list index out of range
+Error traceback: <traceback object at 0x000002A43BC8E448>
+error message: list index out of range
+url: https://regnum.ru/news/polit/2680470.html
+*************************************************
+
+#######################################################
+
+#######################################################
+2019-08-03 23:47:18.328011
+=================================================
+2019-08-03 23:47:18.327512
+Error in RegnumParser
+Error type:<class 'IndexError'>
+Error value: list index out of range
+Error traceback: <traceback object at 0x000002A43BC8E388>
+error message: list index out of range
+url: https://regnum.ru/news/polit/2680461.html
+*************************************************
+
+#######################################################
+
+#######################################################
+2019-08-03 23:47:19.490777
+=================================================
+2019-08-03 23:47:19.490276
+Error in RegnumParser
+Error type:<class 'IndexError'>
+Error value: list index out of range
+Error traceback: <traceback object at 0x000002A43BC8E288>
+error message: list index out of range
+url: https://regnum.ru/news/polit/2680467.html
+*************************************************
+
+#######################################################
+
+#######################################################
+2019-08-03 23:47:20.679340
+=================================================
+2019-08-03 23:47:20.678839
+Error in RegnumParser
+Error type:<class 'IndexError'>
+Error value: list index out of range
+Error traceback: <traceback object at 0x000002A43BC8E5C8>
+error message: list index out of range
+url: https://regnum.ru/news/society/2680464.html
+*************************************************
+
+#######################################################
+
+#######################################################
+2019-08-03 23:47:21.836637
+=================================================
+2019-08-03 23:47:21.836637
+Error in RegnumParser
+Error type:<class 'IndexError'>
+Error value: list index out of range
+Error traceback: <traceback object at 0x000002A43BC8E708>
+error message: list index out of range
+url: https://regnum.ru/news/society/2680465.html
+*************************************************
+
+#######################################################
+
+#######################################################
+2019-08-03 23:47:22.981678
+=================================================
+2019-08-03 23:47:22.981177
+Error in RegnumParser
+Error type:<class 'IndexError'>
+Error value: list index out of range
+Error traceback: <traceback object at 0x000002A43BC8E388>
+error message: list index out of range
+url: https://regnum.ru/news/sport/2680466.html
+*************************************************
+
+#######################################################
+
+#######################################################
+2019-08-03 23:47:24.151748
+=================================================
+2019-08-03 23:47:24.151248
+Error in RegnumParser
+Error type:<class 'IndexError'>
+Error value: list index out of range
+Error traceback: <traceback object at 0x000002A43BC7A3C8>
+error message: list index out of range
+url: https://regnum.ru/news/polit/2680340.html
+*************************************************
+
+#######################################################
+
+#######################################################
+2019-08-03 23:47:25.311840
+=================================================
+2019-08-03 23:47:25.311342
+Error in RegnumParser
+Error type:<class 'IndexError'>
+Error value: list index out of range
+Error traceback: <traceback object at 0x000002A43BC8E6C8>
+error message: list index out of range
+url: https://regnum.ru/news/polit/2680366.html
+*************************************************
+
+#######################################################
+
+#######################################################
+2019-08-03 23:47:26.484715
+=================================================
+2019-08-03 23:47:26.484215
+Error in RegnumParser
+Error type:<class 'IndexError'>
+Error value: list index out of range
+Error traceback: <traceback object at 0x000002A43BC7AC48>
+error message: list index out of range
+url: https://regnum.ru/news/society/2680459.html
+*************************************************
+
+#######################################################
+
+#######################################################
+2019-08-03 23:47:27.634929
+=================================================
+2019-08-03 23:47:27.634929
+Error in RegnumParser
+Error type:<class 'IndexError'>
+Error value: list index out of range
+Error traceback: <traceback object at 0x000002A43BC8E288>
+error message: list index out of range
+url: https://regnum.ru/news/accidents/2680460.html
+*************************************************
+
+#######################################################
+
+#######################################################
+2019-08-03 23:47:28.790470
+=================================================
+2019-08-03 23:47:28.789979
+Error in RegnumParser
+Error type:<class 'IndexError'>
+Error value: list index out of range
+Error traceback: <traceback object at 0x000002A43B387B08>
+error message: list index out of range
+url: https://regnum.ru/news/economy/2680458.html
+*************************************************
+
+#######################################################
+
+#######################################################
+2019-08-03 23:47:29.955544
+=================================================
+2019-08-03 23:47:29.955043
+Error in RegnumParser
+Error type:<class 'IndexError'>
+Error value: list index out of range
+Error traceback: <traceback object at 0x000002A43BC8E808>
+error message: list index out of range
+url: https://regnum.ru/news/society/2680457.html
+*************************************************
+
+#######################################################
+
+#######################################################
+2019-08-03 23:47:31.172140
+=================================================
+2019-08-03 23:47:31.171632
+Error in RegnumParser
+Error type:<class 'IndexError'>
+Error value: list index out of range
+Error traceback: <traceback object at 0x000002A43BC8E188>
+error message: list index out of range
+url: https://regnum.ru/news/cultura/2680455.html
+*************************************************
+
+#######################################################
+
+#######################################################
+2019-08-03 23:47:32.372541
+=================================================
+2019-08-03 23:47:32.372041
+Error in RegnumParser
+Error type:<class 'IndexError'>
+Error value: list index out of range
+Error traceback: <traceback object at 0x000002A43BD50F88>
+error message: list index out of range
+url: https://regnum.ru/news/cultura/2680453.html
+*************************************************
+
+#######################################################
+
+#######################################################
+2019-08-03 23:47:33.527743
+=================================================
+2019-08-03 23:47:33.527242
+Error in RegnumParser
+Error type:<class 'IndexError'>
+Error value: list index out of range
+Error traceback: <traceback object at 0x000002A43BC7A148>
+error message: list index out of range
+url: https://regnum.ru/news/polit/2680456.html
+*************************************************
+
+#######################################################
+
+#######################################################
+2019-08-03 23:47:34.692423
+=================================================
+2019-08-03 23:47:34.691422
+Error in RegnumParser
+Error type:<class 'IndexError'>
+Error value: list index out of range
+Error traceback: <traceback object at 0x000002A43BD50F88>
+error message: list index out of range
+url: https://regnum.ru/news/cultura/2680412.html
+*************************************************
+
+#######################################################
+
+#######################################################
+2019-08-03 23:47:35.872406
+=================================================
+2019-08-03 23:47:35.871395
+Error in RegnumParser
+Error type:<class 'IndexError'>
+Error value: list index out of range
+Error traceback: <traceback object at 0x000002A43BC8E348>
+error message: list index out of range
+url: https://regnum.ru/news/accidents/2680452.html
+*************************************************
+
+#######################################################
+
+#######################################################
+2019-08-03 23:47:37.049752
+=================================================
+2019-08-03 23:47:37.048751
+Error in RegnumParser
+Error type:<class 'IndexError'>
+Error value: list index out of range
+Error traceback: <traceback object at 0x000002A43A41AE08>
+error message: list index out of range
+url: https://regnum.ru/news/society/2680448.html
+*************************************************
+
+#######################################################
+
+#######################################################
+2019-08-03 23:47:38.212181
+=================================================
+2019-08-03 23:47:38.211680
+Error in RegnumParser
+Error type:<class 'IndexError'>
+Error value: list index out of range
+Error traceback: <traceback object at 0x000002A43BC8EA88>
+error message: list index out of range
+url: https://regnum.ru/news/society/2680451.html
+*************************************************
+
+#######################################################
+
+#######################################################
+2019-08-03 23:47:39.365217
+=================================================
+2019-08-03 23:47:39.364216
+Error in RegnumParser
+Error type:<class 'IndexError'>
+Error value: list index out of range
+Error traceback: <traceback object at 0x000002A43A41AE08>
+error message: list index out of range
+url: https://regnum.ru/news/society/2680449.html
+*************************************************
+
+#######################################################
+
+#######################################################
+2019-08-03 23:47:40.523880
+=================================================
+2019-08-03 23:47:40.523380
+Error in RegnumParser
+Error type:<class 'IndexError'>
+Error value: list index out of range
+Error traceback: <traceback object at 0x000002A43BC8E708>
+error message: list index out of range
+url: https://regnum.ru/news/accidents/2680450.html
+*************************************************
+
+#######################################################
+
+#######################################################
+2019-08-03 23:47:41.722938
+=================================================
+2019-08-03 23:47:41.721935
+Error in RegnumParser
+Error type:<class 'IndexError'>
+Error value: list index out of range
+Error traceback: <traceback object at 0x000002A43BC7A3C8>
+error message: list index out of range
+url: https://regnum.ru/news/accidents/2680447.html
+*************************************************
+
+#######################################################
+
+#######################################################
+2019-08-03 23:47:42.920021
+=================================================
+2019-08-03 23:47:42.919521
+Error in RegnumParser
+Error type:<class 'IndexError'>
+Error value: list index out of range
+Error traceback: <traceback object at 0x000002A439F1CD48>
+error message: list index out of range
+url: https://regnum.ru/news/society/2680445.html
+*************************************************
+
+#######################################################
+
+#######################################################
+2019-08-03 23:48:46.557163
+=================================================
+2019-08-03 23:48:46.556652
+Error in RegnumParser
+Error type:<class 'IndexError'>
+Error value: list index out of range
+Error traceback: <traceback object at 0x000002C0B2539E88>
+error message: list index out of range
+url: https://regnum.ru/news/sport/2680507.html
+*************************************************
+
+#######################################################
+
+#######################################################
+2019-08-03 23:48:47.745724
+=================================================
+2019-08-03 23:48:47.744724
+Error in RegnumParser
+Error type:<class 'IndexError'>
+Error value: list index out of range
+Error traceback: <traceback object at 0x000002C0B2598548>
+error message: list index out of range
+url: https://regnum.ru/news/society/2680506.html
+*************************************************
+
+#######################################################
+
+#######################################################
+2019-08-03 23:48:48.902805
+=================================================
+2019-08-03 23:48:48.902304
+Error in RegnumParser
+Error type:<class 'IndexError'>
+Error value: list index out of range
+Error traceback: <traceback object at 0x000002C0B1C47948>
+error message: list index out of range
+url: https://regnum.ru/news/innovatio/2680504.html
+*************************************************
+
+#######################################################
+
+#######################################################
+2019-08-03 23:48:50.071538
+=================================================
+2019-08-03 23:48:50.071048
+Error in RegnumParser
+Error type:<class 'IndexError'>
+Error value: list index out of range
+Error traceback: <traceback object at 0x000002C0B1C47B08>
+error message: list index out of range
+url: https://regnum.ru/news/accidents/2680505.html
+*************************************************
+
+#######################################################
+
+#######################################################
+2019-08-03 23:48:51.265612
+=================================================
+2019-08-03 23:48:51.264599
+Error in RegnumParser
+Error type:<class 'IndexError'>
+Error value: list index out of range
+Error traceback: <traceback object at 0x000002C0B1C47D88>
+error message: list index out of range
+url: https://regnum.ru/news/society/2680501.html
+*************************************************
+
+#######################################################
+
+#######################################################
+2019-08-03 23:48:52.425762
+=================================================
+2019-08-03 23:48:52.425264
+Error in RegnumParser
+Error type:<class 'IndexError'>
+Error value: list index out of range
+Error traceback: <traceback object at 0x000002C0B2539B88>
+error message: list index out of range
+url: https://regnum.ru/news/accidents/2680503.html
+*************************************************
+
+#######################################################
+
+#######################################################
+2019-08-03 23:48:53.595519
+=================================================
+2019-08-03 23:48:53.595009
+Error in RegnumParser
+Error type:<class 'IndexError'>
+Error value: list index out of range
+Error traceback: <traceback object at 0x000002C0B1C47948>
+error message: list index out of range
+url: https://regnum.ru/news/society/2680500.html
+*************************************************
+
+#######################################################
+
+#######################################################
+2019-08-03 23:48:54.784271
+=================================================
+2019-08-03 23:48:54.783771
+Error in RegnumParser
+Error type:<class 'IndexError'>
+Error value: list index out of range
+Error traceback: <traceback object at 0x000002C0B1CCC8C8>
+error message: list index out of range
+url: https://regnum.ru/news/accidents/2680499.html
+*************************************************
+
+#######################################################
+
+#######################################################
+2019-08-03 23:48:55.973102
+=================================================
+2019-08-03 23:48:55.972612
+Error in RegnumParser
+Error type:<class 'IndexError'>
+Error value: list index out of range
+Error traceback: <traceback object at 0x000002C0B2598608>
+error message: list index out of range
+url: https://regnum.ru/news/it/2680496.html
+*************************************************
+
+#######################################################
+
+#######################################################
+2019-08-03 23:48:57.130677
+=================================================
+2019-08-03 23:48:57.130677
+Error in RegnumParser
+Error type:<class 'IndexError'>
+Error value: list index out of range
+Error traceback: <traceback object at 0x000002C0B25984C8>
+error message: list index out of range
+url: https://regnum.ru/news/accidents/2680498.html
+*************************************************
+
+#######################################################
+
+#######################################################
+2019-08-03 23:48:58.339072
+=================================================
+2019-08-03 23:48:58.338570
+Error in RegnumParser
+Error type:<class 'IndexError'>
+Error value: list index out of range
+Error traceback: <traceback object at 0x000002C0B2532348>
+error message: list index out of range
+url: https://regnum.ru/news/polit/2679376.html
+*************************************************
+
+#######################################################
+
+#######################################################
+2019-08-03 23:48:59.505476
+=================================================
+2019-08-03 23:48:59.504975
+Error in RegnumParser
+Error type:<class 'IndexError'>
+Error value: list index out of range
+Error traceback: <traceback object at 0x000002C0B1C47A88>
+error message: list index out of range
+url: https://regnum.ru/news/polit/2680495.html
+*************************************************
+
+#######################################################
+
+#######################################################
+2019-08-03 23:49:00.686750
+=================================================
+2019-08-03 23:49:00.686249
+Error in RegnumParser
+Error type:<class 'IndexError'>
+Error value: list index out of range
+Error traceback: <traceback object at 0x000002C0B1C47A48>
+error message: list index out of range
+url: https://regnum.ru/news/accidents/2680494.html
+*************************************************
+
+#######################################################

@@ -14,12 +14,14 @@ from parsing.Ukraine import AifuaParser, CapitaluaParser, DaykyivuaParser, Dialo
     VestiuaParser, VestiukrParser, VistiproParser, VlastinetParser, ZahidParser, ZnajParser
 from multiprocessing import Process
 from miscellanea import ConfigManager
+import os.path
+from pathlib import Path
 
 from db import DbManager
 from Gathering import RssClient
 import time
 from datetime import datetime
-from miscellanea import Logger, FakeTestLogger
+from miscellanea import FileLogger, FakeTestLogger, BackupManager
 
 
 class GatherManager:
@@ -566,12 +568,17 @@ class GatherManager:
 
 
 if __name__ == "__main__":
-    config_file = "e:\\Projects\\spiderstat\\config.json"
-    # logger = Logger.Logger(config_file)
-    logger = FakeTestLogger.FakeTestLogger()
+    main_dir = Path(__file__).parents[1]
+    config_file = os.path.join(main_dir, "config.json")
+
+    logging_dir = os.path.join(main_dir, "logging")
+    logger = FileLogger.FileLogger(logging_dir, "log", 500000)
 
     configManager = ConfigManager.ConfigManager()
     configManager.read_config(config_file)
+
+    backup_manager = BackupManager.BackupManager(datetime(2019, 7, 30, 0, 0, 1), configManager.backup_timeout,
+                                                 configManager.backup_source_dir, configManager.backup_dest_dir)
 
     db_manager = DbManager.DbManager(configManager, logger)
 
@@ -584,14 +591,20 @@ if __name__ == "__main__":
     gather_manager.add_ukrainian_agencies(rss_clients, logger)
 
     try:
-        p = Process(target=gather_manager.gather)
-        p.start()
+        p_gather = Process(target=gather_manager.gather)
+        p_gather.daemon = True
+        p_gather.start()
+
+        if configManager.backup_enabled:
+            p_backup = Process(target=backup_manager.start_backup)
+            p_backup.daemon = True
+            p_backup.start()
 
         # Запускаем
         articles_prev_count = db_manager.get_articles_count()
         # В цикле каждые полчаса проверяем как хорошо добавляются записи в БД. Если плохо, то перезапускаем задачу.
         while True:
-            time.sleep(30 * 60)
+            time.sleep(configManager.restore_work_timeout)
             articles_now_count = db_manager.get_articles_count()
             if articles_now_count != articles_prev_count:
                 print("Articles_prev_count = ", articles_prev_count, ", articles_now_count = ", articles_now_count)
@@ -601,11 +614,14 @@ if __name__ == "__main__":
             else:
                 print("Articles_prev_count = ", articles_prev_count, "articles_now_count = ", articles_now_count)
                 print("RESTARTING...")
-                p.terminate()
+                p_gather.terminate()
                 articles_prev_count = db_manager.get_articles_count()
                 time.sleep(10)
-                p = Process(target=gather_manager.gather)
-                p.start()
+                p_gather = Process(target=gather_manager.gather)
+                p_gather.start()
     except Exception as e:
         message = logger.make_message("Error in GatherManager", e, "")
         logger.write_message(message)
+        p_gather.terminate()
+        if configManager.backup_enabled:
+            p_backup.terminate()
