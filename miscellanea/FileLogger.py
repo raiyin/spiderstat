@@ -16,8 +16,10 @@ class FileLogger:
             os.makedirs(self.dir_out)
 
         full_file_name = os.path.join(self.dir_out, self.filename_without_ext + ".txt")
+
         if not os.path.exists(full_file_name):
             open(full_file_name, 'a').close()
+
         if os.path.getsize(full_file_name) < self.max_size_in_bytes:
             with open(full_file_name, "a") as myfile:
                 myfile.write("\n#######################################################\n")
@@ -28,18 +30,24 @@ class FileLogger:
         else:
             file_index = 1
             while True:
-                full_file_name = os.path.join(self.dir_out, self.filename_without_ext, str(file_index) + ".txt")
+
+                full_file_name = os.path.join(self.dir_out, self.filename_without_ext + "_" + str(file_index) + ".txt")
+
+                if not os.path.exists(full_file_name):
+                    open(full_file_name, 'a').close()
+
                 if os.path.getsize(full_file_name) < self.max_size_in_bytes:
                     with open(full_file_name, "a") as myfile:
                         myfile.write(str(message))
+                    break
                 else:
                     file_index += 1
 
     def make_message(self, parser_name, exception, url):
         message = "=================================================\n"
         type_, value_, traceback_ = sys.exc_info()
-        message +=str(datetime.datetime.now())
-        message +="\n"
+        message += str(datetime.datetime.now())
+        message += "\n"
         message += "Error in " + parser_name + "\n"
         message += "Error type:" + str(type_) + "\n"
         message += "Error value: " + str(value_) + "\n"
