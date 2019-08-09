@@ -24,15 +24,15 @@ class RegnumruParser:
             doc.make_links_absolute(url)
             article_text = ""
 
-            ex_classes = doc.find_class('news_detail_header')
-            par = ex_classes[0]
-            article_text += par.text_content()
+            #ex_classes = doc.find_class('news_detail_header')
+            #par = ex_classes[0]
+            #article_text += par.text_content()
 
-            ex_classes = doc.find_class('news_detail_anons')
+            ex_classes = doc.find_class('article-header')
             par = ex_classes[0]
             article_text += "\n"+par.text_content()
 
-            ex_classes = doc.find_class('news_body')
+            ex_classes = doc.find_class('article-text')
             if len(ex_classes) != 0:
                 for par in ex_classes:
                     all_p = par.findall("p")
@@ -48,8 +48,9 @@ class RegnumruParser:
 
 
 if __name__ == "__main__":
-    logger = FakeTestLogger.FakeTestLogger('', '', 'smtp.yandex.ru', 465)
+    logger = FakeTestLogger.FakeTestLogger()
     my_parser = RegnumruParser(logger)
-    success, article = my_parser.parse('https://regnum.ru/news/polit/2608206.html')
+    #success, article = my_parser.parse('https://regnum.ru/news/polit/2608206.html')
     #success, article = my_parser.parse('https://regnum.ru/news/cultura/2576301.html')
+    success, article = my_parser.parse('https://regnum.ru/news/society/2678263.html')
     print(article)
