@@ -79,5 +79,6 @@ if __name__ == "__main__":
     # success, article = my_parser.parse('https://news.day.az/world/1093356.html')
     # success, article = my_parser.parse('https://lady.day.az/news/guests/1104904.html')
     # success, article = my_parser.parse('https://lady.day.az/news/career/1107195.html')
-    success, article = my_parser.parse('https://news.day.az/azerinews/1146101.html')
+    #success, article = my_parser.parse('https://news.day.az/azerinews/1146101.html')
+    success, article = my_parser.parse('https://news.day.az/sport/1146098.html')
     print(article)

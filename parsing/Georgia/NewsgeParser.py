@@ -22,17 +22,33 @@ class NewsgeParser:
             doc.make_links_absolute(url)
             article_text = ""
 
-            ex_classes = doc.find_class('entry-title blog-entry-title')
-            par = ex_classes[0]
-            article_text += "\n"+par.text_content()
+            if len(doc.find_class('entry-title blog-entry-title')) != 0:
 
-            ex_classes = doc.find_class('entry-summary clearfix')
-            if len(ex_classes) != 0:
-                for par in ex_classes:
-                    all_p = par.findall("p")
-                    if all_p:
-                        for r in all_p:
-                            article_text += "\n"+r.text_content()
+                ex_classes = doc.find_class('entry-title blog-entry-title')
+                par = ex_classes[0]
+                article_text += "\n"+par.text_content()
+
+                ex_classes = doc.find_class('entry-summary clearfix')
+                if len(ex_classes) != 0:
+                    for par in ex_classes:
+                        all_p = par.findall("p")
+                        if all_p:
+                            for r in all_p:
+                                article_text += "\n"+r.text_content()
+
+            elif len(doc.find_class('entry-title post-title')) != 0:
+                ex_classes = doc.find_class('entry-title post-title')
+                par = ex_classes[0]
+                article_text += par.text_content()+"\n"
+
+                ex_classes = doc.find_class('entry-content entry')
+                if len(ex_classes) != 0:
+                    for par in ex_classes:
+                        all_p = par.findall("p")
+                        if all_p:
+                            for r in all_p:
+                                article_text += "\n"+r.text_content()
+
         except Exception as e:
             message = self.logger.make_message("NewsgeParser", e, url)
             self.logger.write_message(message)
@@ -42,8 +58,11 @@ class NewsgeParser:
 
 
 if __name__ == "__main__":
-    logger = FakeTestLogger.FakeTestLogger('', '', 'smtp.yandex.ru', 465)
+    logger = FakeTestLogger.FakeTestLogger()
     my_parser = NewsgeParser(logger)
+
     #success, article = my_parser.parse('https://news.ge/samushao-pirobebis-gaumjobeseba/')
-    success, article = my_parser.parse('https://news.ge/dzalian-mnishvnelovani-punktebia-rusetis-charevaze/')
+    #success, article = my_parser.parse('https://news.ge/dzalian-mnishvnelovani-punktebia-rusetis-charevaze/')
+    #success, article = my_parser.parse('https://news.ge/2019/08/09/galaxy-note10-samsung/')
+    succes, article = my_parser.parse('https://news.ge/2019/08/09/ra-uziandeba-hover-bords/')
     print(article)
