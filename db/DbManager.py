@@ -87,6 +87,16 @@ class DbManager:
 
     def save_publication(self, title, link, description, article, pub_date, guid, info_source_id):
 
+        # There are errors in pub_date
+        if pub_date.tm_year < 2000 or pub_date.tm_year > 2100:
+            pub_date.tm_year = datetime.now().year
+
+        if pub_date.tm_mon < 0 or pub_date.tm_year > 12:
+            pub_date.tm_mon = datetime.now().month
+
+        if pub_date.tm_mday < 0 or pub_date.tm_mday > 31:
+            pub_date.tm_mday = datetime.now().day
+
         query = "INSERT INTO publications (info_source_id, title, link, description, full_article, pub_date, guid)" + \
                 " VALUES (%s, %s, %s, %s, %s, %s, %s)"
 
@@ -128,6 +138,11 @@ class DbManager:
 
 
 if __name__ == "__main__":
+
+    print(datetime.now().year)
+    print(datetime.now().month)
+    print(datetime.now().day)
+
     config_file = "e:\\Projects\\spiderstat\\config.json"
     logger = FakeTestLogger.FakeTestLogger()
     db_client = DbManager(config_file, logger)
