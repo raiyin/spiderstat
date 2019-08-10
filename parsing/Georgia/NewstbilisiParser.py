@@ -22,11 +22,11 @@ class NewstbilisiParser:
             doc.make_links_absolute(url)
             article_text = ""
 
-            ex_classes = doc.find_class('name post-title entry-title')
-            par = ex_classes[0]
-            article_text += par.text_content()
+            #ex_classes = doc.find_class('name post-title entry-title')
+            #par = ex_classes[0]
+            #article_text += par.text_content()
 
-            ex_classes = doc.find_class('entry')
+            ex_classes = doc.find_class('entry-content clearfix')
             if len(ex_classes) != 0:
                 for par in ex_classes:
                     all_p = par.findall("p")
@@ -42,10 +42,11 @@ class NewstbilisiParser:
 
 
 if __name__ == "__main__":
-    logger = FakeTestLogger.FakeTestLogger('', '', 'smtp.yandex.ru', 465)
+    logger = FakeTestLogger.FakeTestLogger()
     my_parser = NewstbilisiParser(logger)
     #success, article = my_parser.parse('https://newstbilisi.info/131790-borcovskij-skandal-v-gruzii-doshel-do'
     #                                   '-parlamenta-novosti-gruziya.html')
-    success, article = my_parser.parse('https://newstbilisi.info/131794-tbilisskoe-metro-rabotaet-v-obychnom-rezhime'
-                                       '-novosti-gruziya.html')
+    #success, article = my_parser.parse('https://newstbilisi.info/131794-tbilisskoe-metro-rabotaet-v-obychnom-rezhime'
+    #                                   '-novosti-gruziya.html')
+    success, article = my_parser.parse('https://newstbilisi.info/131794-tbilisskoe-metro-rabotaet-v-obychnom-rezhime')
     print(article)

@@ -46,8 +46,9 @@ class GolosuaParser:
 
 
 if __name__ == "__main__":
-    logger = FakeTestLogger.FakeTestLogger('', '', 'smtp.yandex.ru', 465)
+    logger = FakeTestLogger.FakeTestLogger()
     my_parser = GolosuaParser(logger)
-    success, article = my_parser.parse('https://golos.ua/i/662385')
+    #success, article = my_parser.parse('https://golos.ua/i/662385')
     #success, article = my_parser.parse('https://golos.ua/i/662389')
+    succes, article = my_parser.parse('https://golos.ua/i/698501')
     print(article)
