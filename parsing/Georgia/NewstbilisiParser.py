@@ -57,8 +57,7 @@ class NewstbilisiParser:
 if __name__ == "__main__":
     logger = FakeTestLogger.FakeTestLogger()
     my_parser = NewstbilisiParser(logger)
-    success, article = my_parser.parse('https://newstbilisi.info/145529-v-gruzii-naznachili-dopolnitelnye-poezda-na'
-                                       '-koncert-thirty-seconds-to-mars-novosti-gruziya-2.html')
+    success, article = my_parser.parse('https://newstbilisi.info/145579-a-potom-my-tancevali-otkroet-krupnejshij-kinofestival-norvegii-novosti-gruziya.html')
     # success, article = my_parser.parse('https://newstbilisi.info/145531-pervyj-inklyuzivnyj-plyazh-otkrylsya-v-batumi'
     #                                   '-novosti-gruziya.html')
     print(article)

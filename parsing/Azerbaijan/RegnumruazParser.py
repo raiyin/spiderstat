@@ -18,21 +18,17 @@ class RegnumruazParser:
             request = Request(url, headers={'User-Agent': "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 " +
                                                           "(KHTML, like Gecko) Chrome/"+str(randint(40, 70)) +
                                                           ".0.2227.0 Safari/537.36"})
-            data = urllib.request.urlopen(request).read()
+            data = urllib.request.urlopen(request, timeout=80).read()
             content = zlib.decompressobj(16+zlib.MAX_WBITS).decompress(data).decode('utf-8')
             doc = fromstring(content)
             doc.make_links_absolute(url)
             article_text = ""
 
-            ex_classes = doc.find_class('news_detail_header')
-            par = ex_classes[0]
-            article_text += par.text_content()
-
-            ex_classes = doc.find_class('news_detail_anons')
+            ex_classes = doc.find_class('article-header')
             par = ex_classes[0]
             article_text += "\n"+par.text_content()
 
-            ex_classes = doc.find_class('news_body')
+            ex_classes = doc.find_class('article-text')
             if len(ex_classes) != 0:
                 for par in ex_classes:
                     all_p = par.findall("p")
@@ -48,8 +44,8 @@ class RegnumruazParser:
 
 
 if __name__ == "__main__":
-    logger = FakeTestLogger.FakeTestLogger('', '', 'smtp.yandex.ru', 465)
+    logger = FakeTestLogger.FakeTestLogger()
     my_parser = RegnumruazParser(logger)
     #success, article = my_parser.parse('https://regnum.ru/news/polit/2575439.html')
-    success, article = my_parser.parse('https://regnum.ru/news/polit/2575462.html')
+    success, article = my_parser.parse('https://regnum.ru/news/polit/2666592.html')
     print(article)

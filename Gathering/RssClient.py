@@ -1,12 +1,14 @@
 import feedparser
 from db import DbManager
-# for test purpose
-from parsing.Russia import IzParser
+from parsing.Ukraine import GolosuaParser
 import time
-from miscellanea import FakeTestLogger
 import datetime
+from miscellanea import FakeTestLogger
 from collections import namedtuple
 from random import randint
+from miscellanea import ConfigManager
+from pathlib import Path
+import os.path
 
 
 class RssClient:
@@ -21,20 +23,23 @@ class RssClient:
         self.timeout = timeout
         self.logger = logger
 
-
     def update_publications(self):
         """Проверяет наличие публикации в базе и, если ее нет, то сохраняет в БД."""
         try:
             browser_rev = str(randint(60, 66))
             publications = feedparser.parse(self.link,
-                                            request_headers={'User-Agent': "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:"+browser_rev+".0) Gecko/20100101 Firefox/"+browser_rev+".0",
-                                                             'Accept-Encoding': "gzip, deflate, br",
-                                                             'Accept-Language': "en-US,en;q=0.8,en-US;q=0.5,en;q=0.3",
-                                                             'Accept': "text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8",
-                                                             'Connection': "keep-alive",
-                                                             'Cookie': "4ad6446af5040292949818c55c0ceec4=q1m1613pr75jfdrc29pjvqctv7",
-                                                             'DNT': "1",
-                                                             'Upgrade-Insecure-Requests': "1"})
+                                            request_headers={
+                                                'User-Agent': "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:" +
+                                                              browser_rev + ".0) Gecko/20100101 Firefox/" +
+                                                              browser_rev + ".0",
+                                                'Accept-Encoding': "gzip, deflate, br",
+                                                'Accept-Language': "en-US,en;q=0.8,en-US;q=0.5,en;q=0.3",
+                                                'Accept': "text/html,application/xhtml+xml,application/xml;q=0.9,"
+                                                          "*/*;q=0.8",
+                                                'Connection': "keep-alive",
+                                                'Cookie': "4ad6446af5040292949818c55c0ceec4=q1m1613pr75jfdrc29pjvqctv7",
+                                                'DNT': "1",
+                                                'Upgrade-Insecure-Requests': "1"})
         except Exception as e:
             message = self.logger.make_message("RssClient parse error", e, self.link)
             self.logger.write_message(message)
@@ -56,7 +61,7 @@ class RssClient:
                 else:
                     now = datetime.datetime.now()
                     Published_parsed = namedtuple("published_parsed",
-                                                "tm_year tm_mon tm_mday tm_hour tm_min tm_sec")
+                                                  "tm_year tm_mon tm_mday tm_hour tm_min tm_sec")
                     published_parsed = Published_parsed(
                         tm_year=str(now.year),
                         tm_mon=str(now.month),
@@ -75,7 +80,8 @@ class RssClient:
                                                          article, published_parsed, pub_id, self.source_id)
                     except Exception as e:
                         # ошибка в дате.
-                        if str(e.__class__) == "<class 'mysql.connector.errors.DataError'>":
+                        if str(e.__class__) == "<class 'mysql.connector.errors.DataError'>" or \
+                                str(e.__class__) == "<class \'AttributeError\'>":
                             now = datetime.datetime.now()
                             Published_parsed = namedtuple("published_parsed",
                                                           "tm_year tm_mon tm_mday tm_hour tm_min tm_sec")
@@ -99,11 +105,15 @@ class RssClient:
 
 
 if __name__ == "__main__":
-    logger = FakeTestLogger.FakeTestLogger('', '', 'smtp.yandex.ru', 465)
-    local_db_manager = DbManager.DbManager('root', '', '127.0.0.1', 'spyder_stat')
+    loc_logger = FakeTestLogger.FakeTestLogger()
+    configManager = ConfigManager.ConfigManager()
 
-    my_parser = IzParser.IzParser()
-    rssClient = RssClient(local_db_manager, 1, 'https://znaj.ua/feed/rss2.xml',
-                          '0001.01.01 01:01:01', my_parser, 5, logger)
+    main_dir = Path(__file__).parents[1]
+    config_file = os.path.join(main_dir, "config.json")
+    configManager.read_config(config_file)
 
+    loc_db_manager = DbManager.DbManager(configManager, loc_logger)
+
+    my_parser = GolosuaParser.GolosuaParser(loc_logger)
+    rssClient = RssClient(loc_db_manager, 'golos.ua', '0001.01.01 01:01:01', my_parser, 5, loc_logger)
     rssClient.update_publications()

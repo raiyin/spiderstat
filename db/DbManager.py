@@ -1,6 +1,8 @@
 import mysql.connector
 from datetime import datetime, date
 from miscellanea import FakeTestLogger
+from collections import namedtuple
+import mysql.connector
 
 
 class DbManager:
@@ -88,14 +90,28 @@ class DbManager:
     def save_publication(self, title, link, description, article, pub_date, guid, info_source_id):
 
         # There are errors in pub_date
-        if pub_date.tm_year < 2000 or pub_date.tm_year > 2100:
-            pub_date.tm_year = datetime.now().year
+        is_error_in_date = False
 
-        if pub_date.tm_mon < 0 or pub_date.tm_year > 12:
-            pub_date.tm_mon = datetime.now().month
+        if int(pub_date.tm_year) < 2000 or int(pub_date.tm_year) > 2100:
+            is_error_in_date = True
 
-        if pub_date.tm_mday < 0 or pub_date.tm_mday > 31:
-            pub_date.tm_mday = datetime.now().day
+        if int(pub_date.tm_mon) < 0 or int(pub_date.tm_mon) > 12:
+            is_error_in_date = True
+
+        if int(pub_date.tm_mday) < 0 or int(pub_date.tm_mday) > 31:
+            is_error_in_date = True
+
+        if is_error_in_date:
+            now = datetime.datetime.now()
+            Published_parsed = namedtuple("published_parsed",
+                                          "tm_year tm_mon tm_mday tm_hour tm_min tm_sec")
+            pub_date = Published_parsed(
+                                tm_year=str(now.year),
+                                tm_mon=str(now.month),
+                                tm_mday=str(now.day),
+                                tm_hour=str(now.hour),
+                                tm_min=str(now.minute),
+                                tm_sec=str(now.second))
 
         query = "INSERT INTO publications (info_source_id, title, link, description, full_article, pub_date, guid)" + \
                 " VALUES (%s, %s, %s, %s, %s, %s, %s)"
