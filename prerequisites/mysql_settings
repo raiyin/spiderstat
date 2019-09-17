@@ -1,0 +1,4 @@
+# For each database:
+ALTER DATABASE spyder_stat CHARACTER SET = utf8mb4 COLLATE = utf8mb4_unicode_ci;
+# For each table:
+ALTER TABLE spyder_stat.publications CONVERT TO CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;

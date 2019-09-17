@@ -577,8 +577,8 @@ if __name__ == "__main__":
     configManager = ConfigManager.ConfigManager()
     configManager.read_config(config_file)
 
-    backup_manager = BackupManager.BackupManager(datetime(2019, 7, 30, 0, 0, 1), configManager.backup_timeout,
-                                                 configManager.backup_source_dir, configManager.backup_dest_dir)
+    # backup_manager = BackupManager.BackupManager(datetime(2019, 7, 30, 0, 0, 1), configManager.backup_timeout,
+    #                                              configManager.backup_source_dir, configManager.backup_dest_dir)
 
     db_manager = DbManager.DbManager(configManager, logger)
 
@@ -591,37 +591,38 @@ if __name__ == "__main__":
     gather_manager.add_ukrainian_agencies(rss_clients, logger)
 
     try:
-        p_gather = Process(target=gather_manager.gather)
-        p_gather.daemon = True
-        p_gather.start()
+        # p_gather = Process(target=gather_manager.gather)
+        # p_gather.daemon = True
+        # p_gather.start()
+        gather_manager.gather()
 
-        if configManager.backup_enabled:
-            p_backup = Process(target=backup_manager.start_backup)
-            p_backup.daemon = True
-            p_backup.start()
+        # if configManager.backup_enabled:
+        #     p_backup = Process(target=backup_manager.start_backup)
+        #     p_backup.daemon = True
+        #     p_backup.start()
 
         # Запускаем
         articles_prev_count = db_manager.get_articles_count()
         # В цикле каждые полчаса проверяем как хорошо добавляются записи в БД. Если плохо, то перезапускаем задачу.
-        while True:
-            time.sleep(configManager.restore_work_timeout)
-            articles_now_count = db_manager.get_articles_count()
-            if articles_now_count != articles_prev_count:
-                print("Articles_prev_count = ", articles_prev_count, ", articles_now_count = ", articles_now_count)
-                print("ALL GOOD")
-                articles_prev_count = articles_now_count
-                continue
-            else:
-                print("Articles_prev_count = ", articles_prev_count, "articles_now_count = ", articles_now_count)
-                print("RESTARTING...")
-                p_gather.terminate()
-                articles_prev_count = db_manager.get_articles_count()
-                time.sleep(10)
-                p_gather = Process(target=gather_manager.gather)
-                p_gather.start()
+        # while True:
+        #     time.sleep(configManager.restore_work_timeout)
+        #     articles_now_count = db_manager.get_articles_count()
+        #     if articles_now_count != articles_prev_count:
+        #         print("Articles_prev_count = ", articles_prev_count, ", articles_now_count = ", articles_now_count)
+        #         print("ALL GOOD")
+        #         articles_prev_count = articles_now_count
+        #         continue
+        #     else:
+        #         print("Articles_prev_count = ", articles_prev_count, "articles_now_count = ", articles_now_count)
+        #         print("RESTARTING...")
+        #         p_gather.terminate()
+        #         articles_prev_count = db_manager.get_articles_count()
+        #         time.sleep(10)
+        #         p_gather = Process(target=gather_manager.gather)
+        #         p_gather.start()
     except Exception as e:
         message = logger.make_message("Error in GatherManager", e, "")
         logger.write_message(message)
-        p_gather.terminate()
-        if configManager.backup_enabled:
-            p_backup.terminate()
+        # p_gather.terminate()
+        # if configManager.backup_enabled:
+        #     p_backup.terminate()
