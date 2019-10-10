@@ -42,7 +42,7 @@ class SovanewsParser:
 
 
 if __name__ == "__main__":
-    logger = FakeTestLogger.FakeTestLogger('', '', 'smtp.yandex.ru', 465)
+    logger = FakeTestLogger.FakeTestLogger()
     my_parser = SovanewsParser(logger)
     #success, article = my_parser.parse('https://sova.news/2019/02/08/grazhdane-gruzii-i-ukrainy-budut-ezdit-drug-k'
     #                                   '-drugu-po-id-kartam/')
