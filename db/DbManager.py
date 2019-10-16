@@ -152,6 +152,16 @@ class DbManager:
         self.cursor.execute(query)
         return self.cursor.fetchone()[0]
 
+    def get_reports(self):
+        query = "SELECT * FROM reports"
+        self.cursor.execute(query)
+        reports = []
+
+        for (report) in self.cursor:
+            reports.append(report)
+
+        return reports
+
 
 if __name__ == "__main__":
 

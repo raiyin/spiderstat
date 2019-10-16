@@ -1,16 +1,16 @@
 class StatPlotter:
 
-    def get_plot_string(self, columns_names, rows, x_title, y_title):
+    def get_plot_string(self, columns, rows, titles):
         out_text = """<script type="text/javascript">
         google.charts.load('current', {packages: ['corechart', 'line']});
         google.charts.setOnLoadCallback(drawLineColors);"""
         out_text += "\n"
 
         out_text += """        function drawLineColors() {
-            var data = new google.visualization.DataTable();"""
+            var data = new google.visualization.DataTable();\n"""
 
-        for column_name in columns_names:
-            out_text += "data.addColumn('number','" + column_name + "');\n"
+        for key in columns.keys():
+            out_text += "data.addColumn('"+columns[key]+"','" + key + "');\n"
 
         out_text += "data.addRows(["
         for row in rows:
@@ -23,12 +23,12 @@ class StatPlotter:
                 hAxis:
                 {
                     title: """
-        out_text += "'" + x_title + "'\n"
+        out_text += "'" + titles[0] + "'\n"
         out_text += """},
                 vAxis: 
                 {
                     title: """
-        out_text += "'" + y_title + "'\n"
+        out_text += "'" + titles[1] + "'\n"
         out_text += """ },
                 colors: ['#a52714', '#097138'],
                 backgroundColor: '#333'
@@ -42,7 +42,7 @@ class StatPlotter:
 
 
 if __name__ == "__main__":
-    c_names = ["X", "Dogs", "Cats"]
+    c_names = {"X": "number", "dogs": "number", "cats": "number"}
     data_rows = [[0, 0, 0], [1, 10, 5], [2, 23, 15], [3, 17, 9], [4, 18, 10], [5, 9, 5],
                  [6, 11, 3], [7, 27, 19], [8, 33, 25], [9, 40, 32], [10, 32, 24], [11, 35, 27],
                  [12, 30, 22], [13, 40, 32], [14, 42, 34], [15, 47, 39], [16, 44, 36], [17, 48, 40],
@@ -55,9 +55,8 @@ if __name__ == "__main__":
                  [54, 71, 63], [55, 72, 64], [56, 73, 65], [57, 75, 67], [58, 70, 62], [59, 68, 60],
                  [60, 64, 56], [61, 60, 52], [62, 65, 57], [63, 67, 59], [64, 68, 60], [65, 69, 61],
                  [66, 70, 62], [67, 72, 64], [68, 75, 67], [69, 80, 72]]
-    x_title = "Time"
-    y_title = "Popularity"
+    titles = ["Time", "Popularity"]
 
     plotter = StatPlotter()
-    text = plotter.get_plot_string(c_names, data_rows, x_title, y_title)
+    text = plotter.get_plot_string(c_names, data_rows, titles)
     print(text)
