@@ -2,8 +2,10 @@
 <html lang="ru">
     <head>
         <meta charset="utf-8">
-        <link type="text/css" rel="stylesheet" href="../static/css/theme.css"/>
-        <script src="../static/js/jquery-3.3.1.js"></script>
+        <link rel="stylesheet" type="text/css"  href="../static/css/theme.css"/>
+        <link rel="stylesheet" href="../static/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+        <script src="../static/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+        <script src="../static/js/jquery-3.4.1.js"></script>
         <script src="../static/js/loader.js"></script>
         <title>SpiderStat.ru</title>
     </head>
@@ -21,6 +23,10 @@
                     <button class="tablinks" onclick="openCity(event, 'London')">London</button>
                     <button class="tablinks" onclick="openCity(event, 'Paris')">Paris</button>
                     <button class="tablinks" onclick="openCity(event, 'Tokyo')">Tokyo</button>
+                    {% for report in reports %}
+                    <button class="tablinks" onclick="openCity(event, '{{report[1]}}')">{{ report[1] }}</button>
+                    {% endfor %}
+                    
                 </div>                
             </section>
 
@@ -39,6 +45,14 @@
                     <p>Tokyo is the capital of Japan.</p>
                 </div>
 
+                {% for report in reports %}                
+                <div id="{{report[1]}}" class="tabcontent">
+                    <h3>{{report[1]}}</h3>
+                    <p>Tokyo is the capital of Japan.</p>
+                    {{report}}
+                </div>
+                {% endfor %}
+                
             </section>
         </main>
 
@@ -50,12 +64,16 @@
             {
                 var data = new google.visualization.DataTable();
                 // 'string', 'number', 'boolean', 'date', 'datetime', 'timeofday'
-                data.addColumn('number', 'X');
-                data.addColumn('number', 'Dogs');
-                data.addColumn('number', 'Cats');
+                //data.addColumn('number', 'X');
+                //data.addColumn('number', 'Dogs');
+                //data.addColumn('number', 'Cats');
+                var options = {}
                 
                 if(city=='London')
-                {
+                {              
+                    data.addColumn('number', 'X');
+                    data.addColumn('number', 'Dogs');
+                    data.addColumn('number', 'Cats');      
                     data.addRows([
                         [0, 0, 0],    [1, 10, 5],   [2, 23, 15],  [3, 17, 9],   [4, 18, 10],  [5, 9, 5],
                         [6, 11, 3],   [7, 27, 19],  [8, 33, 25],  [9, 40, 32],  [10, 32, 24], [11, 35, 27],
@@ -69,9 +87,26 @@
                         [54, 71, 63], [55, 72, 64], [56, 73, 65], [57, 75, 67], [58, 70, 62], [59, 68, 60],
                         [60, 64, 56], [61, 60, 52], [62, 65, 57], [63, 67, 59], [64, 68, 60], [65, 69, 61],
                         [66, 70, 62], [67, 72, 64], [68, 75, 67], [69, 80, 72]]);
+                        
+                    options = 
+                    {
+                        hAxis:
+                        {
+                            title: 'Time'
+                        },
+                        vAxis: 
+                        {
+                            title: 'Popularity'
+                        },
+                        colors: ['#a52714', '#097138'],
+                        backgroundColor: '#333'
+                    };
                 }
-                else if(city=='Paris')
-                {
+                if(city=='Paris')
+                {       
+                    data.addColumn('number', 'X');
+                    data.addColumn('number', 'Dogs');
+                    data.addColumn('number', 'Cats');             
                     data.addRows([
                         [0, 0, 0],    [1, 10, 5],   [2, 23, 15],  [3, 17, 9],   [4, 18, 10],  [5, 9, 5],
                         [6, 11, 3],   [7, 27, 19],  [8, 33, 25],  [9, 40, 32],  [10, 32, 24], [11, 35, 27],
@@ -85,9 +120,26 @@
                         [54, 71, 63], [55, 72, 64], [56, 73, 65], [57, 75, 67], [58, 70, 62], [59, 68, 60],
                         [60, 64, 56], [61, 60, 52], [62, 65, 57], [63, 67, 59], [64, 68, 60], [65, 69, 61],
                         [66, 70, 62], [67, 72, 64], [68, 75, 67], [69, 80, 72]]);
+                        
+                    options = 
+                    {
+                        hAxis:
+                        {
+                            title: 'Time'
+                        },
+                        vAxis: 
+                        {
+                            title: 'Popularity'
+                        },
+                        colors: ['#a52714', '#097138'],
+                        backgroundColor: '#333'
+                    };
                 }
-                else if(city=='Tokyo')
-                {
+                if(city=='Tokyo')
+                {         
+                    data.addColumn('number', 'X');
+                    data.addColumn('number', 'Dogs');
+                    data.addColumn('number', 'Cats');           
                     data.addRows([
                         [0, 0, 0],    [1, 10, 5],   [2, 23, 15],  [3, 17, 9],   [4, 18, 10],  [5, 9, 5],
                         [6, 11, 3],   [7, 27, 19],  [8, 33, 25],  [9, 40, 32],  [10,  35, 27], [11,32, 24],
@@ -101,21 +153,51 @@
                         [54, 72, 64], [55, 71, 63], [56, 75, 67], [57, 73, 65], [58,  68, 60], [59,70, 62],
                         [60, 60, 52], [61, 64, 56], [62, 67, 59], [63, 65, 57], [64,  69, 61], [65,68, 60],
                         [66, 72, 64], [67, 70, 62], [68, 80, 72], [69, 75, 67]]);
+                        
+                    options = 
+                    {
+                        hAxis:
+                        {
+                            title: 'Time'
+                        },
+                        vAxis: 
+                        {
+                            title: 'Popularity'
+                        },
+                        colors: ['#a52714', '#097138'],
+                        backgroundColor: '#333'
+                    };
+                }                
+                {% for report in reports %}
+                if(city=='{{report[1]}}')
+                {           
+                    //data.addColumn('number', 'X');
+                    //data.addColumn('number', 'Dogs');
+                    //data.addColumn('number', 'Cats');
+                    {% for column, typename in report[3].items() %}                        
+                    data.addColumn('{{typename}}', '{{column}}');
+                    {% endfor %}
+
+
+                    data.addRows([{{report[6]}}]);
+                    
+                    options = 
+                    {
+                        hAxis:
+                        {
+                            title: '{{report[4]}}'
+                        },
+                        vAxis: 
+                        {
+                            title: '{{report[5]}}'
+                        },
+                        colors: ['#a52714', '#097138'],
+                        backgroundColor: '#333'
+                    };
                 }
+                {% endfor %}
              
-                var options = 
-                {
-                    hAxis:
-                    {
-                        title: 'Time'
-                    },
-                    vAxis: 
-                    {
-                        title: 'Popularity'
-                    },
-                    colors: ['#a52714', '#097138'],
-                    backgroundColor: '#333'
-                };
+                //var options = 
                 var chart = new google.visualization.LineChart(document.getElementById(city));
                 chart.draw(data, options);
             }
