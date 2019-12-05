@@ -22,7 +22,8 @@ class TestStringMethods(unittest.TestCase):
 
     def test_life_parser_1(self):
         my_parser = LifeParser.LifeParser()
-        success, article = my_parser.parse('https://life.ru/t/%D0%B8%D1%81%D1%82%D0%BE%D1%80%D0%B8%D1%8F/1165006/krushieniie_tsarskogho_poiezda_koghda_russkii_impierator_poviol_siebia_kak_nastoiashchii_muzhik')
+        success, article = my_parser.parse(
+            'https://life.ru/t/%D0%B8%D1%81%D1%82%D0%BE%D1%80%D0%B8%D1%8F/1165006/krushieniie_tsarskogho_poiezda_koghda_russkii_impierator_poviol_siebia_kak_nastoiashchii_muzhik')
         self.assertNotEqual(article, '')
 
     def test_mail_parser(self):
@@ -47,7 +48,8 @@ class TestStringMethods(unittest.TestCase):
 
     def test_iz_parser(self):
         my_parser = IzParser.IzParser()
-        success, article = my_parser.parse('https://iz.ru/805117/georgii-oltarzhevskii/vzryv-pokrovov-kto-podorval-linkor-novorossiisk')
+        success, article = my_parser.parse(
+            'https://iz.ru/805117/georgii-oltarzhevskii/vzryv-pokrovov-kto-podorval-linkor-novorossiisk')
         self.assertNotEqual(article, '')
 
     def test_pravda_parser(self):
@@ -56,5 +58,15 @@ class TestStringMethods(unittest.TestCase):
         self.assertNotEqual(article, '')
 
 
+def expanded_form(num):
+    xs = str(num).split('.')
+    return ' + '.join(
+        [f'{x}{"0" * i}' for i, x in enumerate(xs[0][::-1]) if x != '0'][::-1]
+        + [f'{x}/{10 ** i}' for i, x in enumerate(xs[1], 1) if x != '0']
+    )
+
+
 if __name__ == '__main__':
-    unittest.main()
+    print(expanded_form(70.04504))
+    # test.assert_equals(expanded_form(7.1304), '7 + 1/10 + 3/100 + 4/10000')
+    # unittest.main()
