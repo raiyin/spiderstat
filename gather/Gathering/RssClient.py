@@ -41,7 +41,7 @@ class RssClient:
                                                 'DNT': "1",
                                                 'Upgrade-Insecure-Requests': "1"})
         except Exception as e:
-            message = self.logger.make_message("RssClient parse error", e, self.link)
+            message = self.logger.make_message_link("RssClient parse error", e, self.link)
             self.logger.write_message(message)
             return
 
@@ -97,7 +97,7 @@ class RssClient:
                                                              (pub.description if hasattr(pub, 'description') else ""),
                                                              article, published_parsed, pub_id, self.source_id)
                         else:
-                            message = self.logger.make_message("RssClient parse error", e, self.link)
+                            message = self.logger.make_message_link("RssClient parse error", e, self.link)
                             self.logger.write_message(message)
                             return
                 else:

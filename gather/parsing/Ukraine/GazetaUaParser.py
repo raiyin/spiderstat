@@ -36,7 +36,7 @@ class GazetaUaParser:
             else:
                 return 0, ""
         except Exception as e:
-            message = self.logger.make_message("GazetaUaParser", e, url)
+            message = self.logger.make_message_link("GazetaUaParser", e, url)
             self.logger.write_message(message)
             return 0, ""
         article_text = StringCleaner.clean(article_text)

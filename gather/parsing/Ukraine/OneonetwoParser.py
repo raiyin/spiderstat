@@ -42,7 +42,7 @@ class OneonetwoParser:
                 for par in e:
                     article_text += "\n" + par.text_content()
         except Exception as e:
-            message = self.logger.make_message("OneonetwoParser", e, url)
+            message = self.logger.make_message_link("OneonetwoParser", e, url)
             self.logger.write_message(message)
             return 0, ""
         article_text = StringCleaner.clean(article_text)
@@ -55,8 +55,7 @@ if __name__ == "__main__":
     # success, article = my_parser.parse('https://112.ua/obshchestvo/opasnost-3-go-urovnya-goschs-preduprezhdaet'
     #                                    '-turistov-ob-ugroze-shoda-lavin-v-gorah-zakarpatskoy-oblasti-478389.html')
     # success, article = my_parser.parse('https://112.ua/avarii-chp/dva-goroda-v-lnr-ostalis-bez-vody-478390.html')
-    success, article = my_parser.parse('https://112.ua/glavnye-novosti/gladkovskiy-vyshel-iz-sizo-posle-vneseniya'
-                                       '-zaloga-v-106-mln-griven-511898.html')
+    success, article = my_parser.parse('https://112.ua/ato/mid-rf-dal-ocenku-zayavleniyu-ermaka-o-vozmozhnosti-stroitelstva-steny-s-ordlo-517558.html')
     # success, article = my_parser.parse(
     #     'https://tv.112.ua/112_minut/utrennee-shou-112-minut-vypusk-ot-28032019-485689.html')
     print(article)

@@ -1,6 +1,6 @@
-from db import DbManager
-from miscellanea import FakeTestLogger
-from datetime import datetime, date, time, timedelta
+from gather.db import DbManager
+from miscellanea.logging import FakeTestLogger
+from datetime import date, timedelta
 from miscellanea import ConfigManager
 import os.path
 from pathlib import Path
@@ -13,12 +13,12 @@ class QueryMaster:
 
     Attributes:
     """
-    def __init__(self, dbManager):
-        self.dbManager = dbManager
+    def __init__(self, db_manager):
+        self.dbManager = db_manager
 
-    def day_articles_count(self, date):
-        query = "SELECT COUNT(*) FROM publications WHERE %s<pub_date AND pub_date<%s"
-        return self.dbManager.query_executor(query, (date, date + timedelta(days=1)))
+    def day_articles_count(self, report_date):
+        query = 'SELECT COUNT(*) FROM publications WHERE %s<pub_date AND pub_date<%s'
+        return self.dbManager.query_executor(query, (report_date, report_date + timedelta(days=1)))
 
 
 if __name__ == "__main__":

@@ -31,7 +31,7 @@ class FactyuaParser:
             for element in paragraphs:
                 article_text += str(element.text)
         except Exception as e:
-            message = self.logger.make_message("FactyuaParser", e, url)
+            message = self.logger.make_message_link("FactyuaParser", e, url)
             self.logger.write_message(message)
             return 0, ""
         article_text = StringCleaner.clean(article_text)

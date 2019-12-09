@@ -33,7 +33,7 @@ class UkrinformParser:
                         for r in all_p:
                             article_text += "\n"+r.text_content()
         except Exception as e:
-            message = self.logger.make_message("UkrinformParser", e, url)
+            message = self.logger.make_message_link("UkrinformParser", e, url)
             self.logger.write_message(message)
             return 0, ""
         article_text = StringCleaner.clean(article_text)

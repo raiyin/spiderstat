@@ -32,7 +32,7 @@ class ZnajParser:
             for p in all_p:
                 article_text += "\n" + p.text_content()
         except Exception as e:
-            message = self.logger.make_message("ZnajParser", e, url)
+            message = self.logger.make_message_link("ZnajParser", e, url)
             self.logger.write_message(message)
             return 0, ""
         article_text = StringCleaner.clean(article_text)

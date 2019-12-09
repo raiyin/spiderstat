@@ -33,7 +33,7 @@ class NewsruParser:
                 return 0, ""
 
         except Exception as e:
-            message = self.logger.make_message("NewsruParser", e, url)
+            message = self.logger.make_message_link("NewsruParser", e, url)
             self.logger.write_message(message)
             return 0, ""
         article_text = StringCleaner.clean(article_text)

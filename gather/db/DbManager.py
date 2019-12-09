@@ -1,6 +1,6 @@
 import mysql.connector
 from datetime import datetime, date
-from miscellanea import FakeTestLogger
+from miscellanea.logging import FakeTestLogger
 from collections import namedtuple
 import mysql.connector
 import os.path
@@ -10,7 +10,7 @@ from miscellanea import ConfigManager
 
 class DbManager:
 
-    def __init__(self, config_manager, logger):
+    def __init__(self, config_manager, my_logger):
         self.user_name = config_manager.db_username
         self.password = config_manager.db_password
         self.host = config_manager.db_host
@@ -19,7 +19,7 @@ class DbManager:
         self.connection = mysql.connector.connect(user=self.user_name, password=self.password,
                                                   host=self.host, database=self.db_name)
         self.cursor = self.connection.cursor(buffered=True)
-        self.logger = logger
+        self.logger = my_logger
 
     def print_companies(self):
         query = "SELECT company_name FROM companies"
@@ -71,10 +71,10 @@ class DbManager:
         self.cursor.execute(query, (link,))
         return self.cursor.fetchone()[0]
 
-    def update_last_check_date(self, source_id, date):
+    def update_last_check_date(self, source_id, last_date):
         self.check_and_reconnect()
         query = "UPDATE info_sources SET last_check_date = %s WHERE source_id = %s"
-        self.cursor.execute(query, (date, str(source_id)))
+        self.cursor.execute(query, (last_date, str(source_id)))
         self.connection.commit()
 
     def check_publication_in_db(self, guid, source_id):
@@ -83,10 +83,23 @@ class DbManager:
             query = "SELECT COUNT(pub_id) FROM publications WHERE guid = %s AND info_source_id = %s"
             self.cursor.execute(query, (guid, str(source_id)))
         except Exception as e:
-            message = self.logger.make_message("Unexpected error in check_publication_in_db. Query is: " +
-                                               query + "\nsource_id is: " + str(source_id), e, "")
+            message = self.logger.make_message_link("Unexpected error in check_publication_in_db. Query is: " +
+                                                    query + "\nsource_id is: " + str(source_id), e, "")
             self.logger.write_message(message)
-            return 0, ""
+            return False
+
+        return self.cursor.fetchone()[0] > 0
+
+    def is_publication_in_db(self, link):
+        try:
+            self.check_and_reconnect()
+            query = "SELECT COUNT(*) FROM publications WHERE link = %s"
+            self.cursor.execute(query, link)
+        except Exception as e:
+            message = self.logger.make_message_link("Unexpected error in check_publication_in_db. Query is: " +
+                                                    query + "\nlink is: " + str(link), e, "")
+            self.logger.write_message(message)
+            return False
 
         return self.cursor.fetchone()[0] > 0
 
@@ -131,7 +144,7 @@ class DbManager:
                                         guid))
             self.connection.commit()
         except Exception as e:
-            message = self.logger.make_message("Unexpected error in save_publication. Query is: " + query + "\n" +
+            message = self.logger.make_message_link("Unexpected error in save_publication. Query is: " + query + "\n" +
                                                "title is: " + title + "\n" +
                                                "link is: " + link + "\n" +
                                                "description is: " + description + "\n" +

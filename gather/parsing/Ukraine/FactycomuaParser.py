@@ -33,7 +33,7 @@ class FactycomuaParser:
                         if el.name == 'p':
                             article_text += "\n" + str(el.text)
         except Exception as e:
-            message = self.logger.make_message("FactycomuaParser", e, url)
+            message = self.logger.make_message_link("FactycomuaParser", e, url)
             self.logger.write_message(message)
             return 0, ""
         article_text = StringCleaner.clean(article_text)
@@ -45,6 +45,5 @@ if __name__ == "__main__":
     my_parser = FactycomuaParser(logger)
     # success, article = my_parser.parse('https://fakty.com.ua/ua/proisshestvija/20190203-pozhezha-na-lisovij-ye'
     #                                    '-zagroza-obvalu-konstruktsij/')
-    success, article = my_parser.parse('https://fakty.com.ua/ua/ukraine/20190326-pravyla-i-tabu-yak-golosuvaty-na'
-                                       '-vyborah-2019/')
+    success, article = my_parser.parse('https://fakty.com.ua/ua/ukraine/20191206-v-ukrayini-vvedut-systemu-kontrolyu-nad-inozemnymy-investytsiyamy-v-opk-mzs/')
     print(article)

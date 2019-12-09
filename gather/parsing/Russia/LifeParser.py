@@ -66,7 +66,7 @@ class LifeParser:
                 return 1, article_text
 
             except Exception as e:
-                message = self.logger.make_message("LifeParser", e, url)
+                message = self.logger.make_message_link("LifeParser", e, url)
                 self.logger.write_message(message)
                 return 0, ""
         article_text = StringCleaner.clean(article_text)

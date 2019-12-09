@@ -42,7 +42,7 @@ class GatherManager:
                     self.db_manager.check_and_reconnect()
                     print(datetime.now())
                 except Exception as e:
-                    message = self.logger.make_message("Error in gather function", e, str(rss_client))
+                    message = self.logger.make_message_link("Error in gather function", e, str(rss_client))
                     self.logger.write_message(message)
                     self.db_manager.check_and_reconnect()
                     continue
@@ -622,7 +622,7 @@ if __name__ == "__main__":
         #         p_gather = Process(target=gather_manager.gather)
         #         p_gather.start()
     except Exception as e:
-        message = logger.make_message("Error in GatherManager", e, "")
+        message = logger.make_message_link("Error in GatherManager", e, "")
         logger.write_message(message)
         # p_gather.terminate()
         # if configManager.backup_enabled:
