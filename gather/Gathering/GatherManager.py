@@ -26,18 +26,19 @@ from miscellanea.backup import BackupManager
 
 
 class GatherManager:
-    def __init__(self, rss_clients, db_manager, pause_interval, my_logger):
+    def __init__(self, rss_clients, db_manager, pause_interval, my_logger, config_manager):
         self.rss_clients = rss_clients
         self.pause = pause_interval
         self.db_manager = db_manager
         self.logger = my_logger
+        self.config_manager = config_manager
 
     def gather(self):
         while True:
             for rss_client in self.rss_clients:
                 try:
                     print("load " + rss_client.link)
-                    rss_client.update_publications()
+                    rss_client.save_new_publications()
                     self.db_manager.update_last_check_date(rss_client.source_id, str(datetime.now()))
                     self.db_manager.check_and_reconnect()
                     print(datetime.now())
@@ -49,6 +50,8 @@ class GatherManager:
             print("Circle done...")
             print(datetime.now())
             time.sleep(self.pause)
+
+    # def gather(self, links_list):
 
     def add_russian_agencies(self, rss_clients, logger):
         rbc_parser = RbcParser.RbcParser(logger)
@@ -121,7 +124,7 @@ class GatherManager:
         znak_rss_client = RssClient.RssClient(db_manager, 'www.znak.com', '0001.01.01 01:01:01', znak_parser, 1, logger)
         rss_clients.append(znak_rss_client)
 
-    def add_azerbaijani_agencies(self, rss_clients, logger):
+    def add_azerbaijan_agencies(self, rss_clients, logger):
 
         # https://az.sputniknews.ru/export/rss2/archive/index.xml
         azsputniknews_parser = AzsputniknewsParser.AzsputniknewsParser(logger)
@@ -196,7 +199,7 @@ class GatherManager:
         rss_clients.append(regnumruaz_rss_client)
 
         # https://report.az/rss/
-        reportaz_parser = ReportazParser.ReportazParser(logger)
+        reportaz_parser = ReportazParser.ReportazParser(logger, self.config_manager)
         reportaz_rss_client = RssClient.RssClient(db_manager, 'report.az', '0001.01.01 01:01:01',
                                                   reportaz_parser, 1, logger)
         rss_clients.append(reportaz_rss_client)
@@ -585,9 +588,9 @@ if __name__ == "__main__":
 
     rss_clients = []
 
-    gather_manager = GatherManager(rss_clients, db_manager, 30 * 60, logger)
+    gather_manager = GatherManager(rss_clients, db_manager, 30 * 60, logger, configManager)
     gather_manager.add_russian_agencies(rss_clients, logger)
-    gather_manager.add_azerbaijani_agencies(rss_clients, logger)
+    gather_manager.add_azerbaijan_agencies(rss_clients, logger)
     gather_manager.add_georgian_agencies(rss_clients, logger)
     gather_manager.add_ukrainian_agencies(rss_clients, logger)
 
