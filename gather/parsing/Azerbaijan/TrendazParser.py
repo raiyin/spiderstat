@@ -3,7 +3,8 @@ from urllib.request import Request
 from lxml.html import fromstring
 from random import randint
 from miscellanea.logging import FakeTestLogger
-from text.StringCleaner import StringCleaner
+from ml.text.StringCleaner import StringCleaner
+from miscellanea.RequestHeaderGenerator import RequestHeaderGenerator
 
 
 class TrendazParser:
@@ -13,23 +14,21 @@ class TrendazParser:
 
     def parse(self, url):
         try:
-
-            request = Request(url, headers={'User-Agent': "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 " +
-                                                          "(KHTML, like Gecko) Chrome/"+str(randint(40, 70)) +
-                                                          ".0.2227.0 Safari/537.36"})
+            headers = RequestHeaderGenerator.get_headers()
+            request = Request(url, headers=headers)
             content = urllib.request.urlopen(request).read().decode('utf-8')
             doc = fromstring(content)
             doc.make_links_absolute(url)
             article_text = ""
 
-            ex_classes = doc.find_class('title-news')
+            ex_classes = doc.find_class('article-title')
             par = ex_classes[0]
             article_text += par.text_content()
 
-            ex_classes = doc.find_class('main-news')
+            ex_classes = doc.find_class('article-text')
             if len(ex_classes) != 0:
                 for par in ex_classes:
-                    all_p = par.findall("div/p")
+                    all_p = par.findall("p")
                     if all_p:
                         for r in all_p[:-1]:
                             article_text += "\n"+r.text_content()
@@ -45,5 +44,6 @@ if __name__ == "__main__":
     logger = FakeTestLogger.FakeTestLogger()
     my_parser = TrendazParser(logger)
     # success, article = my_parser.parse('https://www.trend.az/world/usa/3019220.html')
-    success, article = my_parser.parse('https://www.trend.az/world/3019221.html')
+    # success, article = my_parser.parse('https://www.trend.az/world/3019221.html')
+    success, article = my_parser.parse('https://www.trend.az/azerbaijan/society/3197054.html')
     print(article)

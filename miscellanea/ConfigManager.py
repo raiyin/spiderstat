@@ -23,6 +23,7 @@ class ConfigManager:
         self.backup_timeout = 0
         self.backup_source_dir = ""
         self.backup_dest_dir = ""
+        self.gecko_driver_path = ""
 
     def read_config(self, config_file):
         with open(config_file) as json_config_data:
@@ -45,6 +46,7 @@ class ConfigManager:
             self.backup_enabled = misc["backup_enable"]
             self.backup_source_dir = misc["backup_source_dir"]
             self.backup_dest_dir = misc["backup_dest_dir"]
+            self.gecko_driver_path = misc["gecko_driver_path"]
 
     def write_config(self):
         pass

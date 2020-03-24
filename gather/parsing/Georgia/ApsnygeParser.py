@@ -3,7 +3,8 @@ from urllib.request import Request
 from lxml.html import fromstring
 from random import randint
 from miscellanea.logging import FakeTestLogger
-from text.StringCleaner import StringCleaner
+from ml.text.StringCleaner import StringCleaner
+from miscellanea.RequestHeaderGenerator import RequestHeaderGenerator
 
 
 class ApsnygeParser:
@@ -13,10 +14,8 @@ class ApsnygeParser:
 
     def parse(self, url):
         try:
-
-            request = Request(url, headers={'User-Agent': "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 " +
-                                                          "(KHTML, like Gecko) Chrome/"+str(randint(40, 70)) +
-                                                          ".0.2227.0 Safari/537.36"})
+            headers = RequestHeaderGenerator.get_headers()
+            request = Request(url, headers=headers)
             content = urllib.request.urlopen(request).read()
             doc = fromstring(content)
             doc.make_links_absolute(url)
@@ -42,5 +41,5 @@ if __name__ == "__main__":
     logger = FakeTestLogger.FakeTestLogger()
     my_parser = ApsnygeParser(logger)
     # success, article = my_parser.parse('https://www.apsny.ge/2019/pol/1549427079.php')
-    success, article = my_parser.parse('https://www.apsny.ge/2019/eco/1549427740.php')
+    success, article = my_parser.parse('https://www.apsny.ge/2020/pol/1578442454.php')
     print(article)

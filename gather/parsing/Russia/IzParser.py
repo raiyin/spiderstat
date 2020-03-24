@@ -1,6 +1,6 @@
 from lxml.html import fromstring
 from miscellanea.logging import FakeTestLogger
-from text.StringCleaner import StringCleaner
+from ml.text.StringCleaner import StringCleaner
 import requests
 
 
@@ -11,12 +11,6 @@ class IzParser:
 
     def parse(self, url):
         try:
-
-            # request = Request(url, headers={'User-Agent': "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 " +
-            #                                               "(KHTML, like Gecko) Chrome/"+str(randint(40, 70)) +
-            #                                               ".0.2227.0 Safari/537.36"})
-            # content = urllib.request.urlopen(request).read()
-
             content = requests.get(url).text
 
             doc = fromstring(content)

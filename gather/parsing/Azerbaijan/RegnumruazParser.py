@@ -4,7 +4,8 @@ from lxml.html import fromstring
 from random import randint
 import zlib
 from miscellanea.logging import FakeTestLogger
-from text.StringCleaner import StringCleaner
+from ml.text.StringCleaner import StringCleaner
+from miscellanea.RequestHeaderGenerator import RequestHeaderGenerator
 
 
 class RegnumruazParser:
@@ -14,10 +15,8 @@ class RegnumruazParser:
 
     def parse(self, url):
         try:
-
-            request = Request(url, headers={'User-Agent': "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 " +
-                                                          "(KHTML, like Gecko) Chrome/"+str(randint(40, 70)) +
-                                                          ".0.2227.0 Safari/537.36"})
+            headers = RequestHeaderGenerator.get_headers()
+            request = Request(url, headers=headers)
             data = urllib.request.urlopen(request, timeout=80).read()
             content = zlib.decompressobj(16+zlib.MAX_WBITS).decompress(data).decode('utf-8')
             doc = fromstring(content)

@@ -1,7 +1,7 @@
 import urllib.request
 from lxml.html import fromstring
 from miscellanea.logging import FakeTestLogger
-from text.StringCleaner import StringCleaner
+from ml.text.StringCleaner import StringCleaner
 
 
 class MailParser:

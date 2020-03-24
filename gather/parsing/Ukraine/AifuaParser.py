@@ -3,7 +3,8 @@ from urllib.request import Request
 from lxml.html import fromstring
 from random import randint
 from miscellanea.logging import FakeTestLogger
-from text.StringCleaner import StringCleaner
+from ml.text.StringCleaner import StringCleaner
+from miscellanea.RequestHeaderGenerator import RequestHeaderGenerator
 
 
 class AifuaParser:
@@ -13,10 +14,8 @@ class AifuaParser:
 
     def parse(self, url):
         try:
-
-            request = Request(url, headers={'User-Agent': "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 " +
-                                                          "(KHTML, like Gecko) Chrome/" + str(randint(40, 70)) +
-                                                          ".0.2227.0 Safari/537.36"})
+            headers = RequestHeaderGenerator.get_headers()
+            request = Request(url, headers=headers)
             content = urllib.request.urlopen(request).read().decode('utf-8')
             doc = fromstring(content)
             doc.make_links_absolute(url)
@@ -27,7 +26,7 @@ class AifuaParser:
             article_class = ex_classes[0]
             article_text += (article_class.cssselect("h1")[0]).text_content()
 
-            ex_classes = doc.find_class('article_text js-mediator-article')
+            ex_classes = doc.find_class('article_text')
             if len(ex_classes) != 0:
                 for par in ex_classes:
                     all_p = par.findall("p")
@@ -66,9 +65,9 @@ class AifuaParser:
 if __name__ == "__main__":
     logger = FakeTestLogger.FakeTestLogger()
     my_parser = AifuaParser(logger)
-    success, article = my_parser.parse('http://www.aif.ua/incidents/v_kieve_taksist_umer_za_rulem_avto_s_passazhirami')
-    # success, article = my_parser.parse(
-    # 'http://www.aif.ua/vybory/rabinovich_my_provedem_uspeshnye_peregovory_o_snizhenii_cen_na_gaz') success,
+    # success, article = my_parser.parse('http://www.aif.ua/incidents/v_kieve_taksist_umer_za_rulem_avto_s_passazhirami')
+    success, article = my_parser.parse('https://aif.ua/society/v_krymu_pochti_140_tysyach_chelovek_imeyut_biometricheskie_pasporta_ukrainy')
+    # success, article = my_parser.parse(# 'http://www.aif.ua/vybory/rabinovich_my_provedem_uspeshnye_peregovory_o_snizhenii_cen_na_gaz') success,
     # article = my_parser.parse(
     # 'http://www.aif.ua/culture/festival_krasok_holi_2019_kak_v_indii_krasivo_vstrechayut_vesnu') success,
     # article = my_parser.parse('https://aif.ua/auto/pravitelstvo_gotovit_novuyu_formulu_rastamozhki_evroblyah')

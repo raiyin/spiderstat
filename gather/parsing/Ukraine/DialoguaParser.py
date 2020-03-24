@@ -2,8 +2,9 @@ import urllib.request
 from urllib.request import Request
 from lxml.html import fromstring
 from miscellanea.logging import FakeTestLogger
-from text.StringCleaner import StringCleaner
+from ml.text.StringCleaner import StringCleaner
 from random import randint
+from miscellanea.RequestHeaderGenerator import RequestHeaderGenerator
 
 
 class DialoguaParser:
@@ -13,9 +14,8 @@ class DialoguaParser:
 
     def parse(self, url):
         try:
-            request = Request(url, headers={'User-Agent': "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 " +
-                                                          "(KHTML, like Gecko) Chrome/"+str(randint(40, 70)) +
-                                                          ".0.2227.0 Safari/537.36"})
+            headers = RequestHeaderGenerator.get_headers()
+            request = Request(url, headers=headers)
             content = urllib.request.urlopen(request).read().decode('utf-8')
             doc = fromstring(content)
             doc.make_links_absolute(url)
@@ -51,7 +51,7 @@ class DialoguaParser:
 if __name__ == "__main__":
     logger = FakeTestLogger.FakeTestLogger()
     my_parser = DialoguaParser(logger)
-    success, article = my_parser.parse('https://www.dialog.ua/ukraine/196153_1575632234')
+    success, article = my_parser.parse('https://www.dialog.ua/ukraine/196223_1575723053')
     # success, article = my_parser.parse('https://www.dialog.ua/war/170677_1548841514')
     # success, article = my_parser.parse('https://www.dialog.ua/ukraine/175906_1554899454')
     print(article)

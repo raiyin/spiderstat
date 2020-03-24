@@ -1,9 +1,10 @@
 import urllib.request
 from urllib.request import Request
 from lxml.html import fromstring
-from random import randint
 from miscellanea.logging import FakeTestLogger
-from text.StringCleaner import StringCleaner
+from ml.text.StringCleaner import StringCleaner
+from miscellanea.RequestHeaderGenerator import RequestHeaderGenerator
+import zlib
 
 
 class OneonetwoParser:
@@ -13,11 +14,17 @@ class OneonetwoParser:
 
     def parse(self, url):
         try:
+            content = ""
+            headers = RequestHeaderGenerator.get_headers()
+            request = Request(url, headers=headers)
+            response = urllib.request.urlopen(request)
+            if response.info().get('Content-Encoding') == 'gzip':
+                buf = response.read()
+                data = zlib.decompress(buf, 16 + zlib.MAX_WBITS)
+                content = data.decode('utf-8')
+            else:
+                content = response.read().decode('utf-8')
 
-            request = Request(url, headers={'User-Agent': "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 " +
-                                                          "(KHTML, like Gecko) Chrome/" + str(randint(40, 70)) +
-                                                          ".0.2227.0 Safari/537.36"})
-            content = urllib.request.urlopen(request).read().decode('utf-8')
             doc = fromstring(content)
             doc.make_links_absolute(url)
             article_text = ""
@@ -55,7 +62,8 @@ if __name__ == "__main__":
     # success, article = my_parser.parse('https://112.ua/obshchestvo/opasnost-3-go-urovnya-goschs-preduprezhdaet'
     #                                    '-turistov-ob-ugroze-shoda-lavin-v-gorah-zakarpatskoy-oblasti-478389.html')
     # success, article = my_parser.parse('https://112.ua/avarii-chp/dva-goroda-v-lnr-ostalis-bez-vody-478390.html')
-    success, article = my_parser.parse('https://112.ua/ato/mid-rf-dal-ocenku-zayavleniyu-ermaka-o-vozmozhnosti-stroitelstva-steny-s-ordlo-517558.html')
+    success, article = my_parser.parse(
+        'https://112.ua/ekonomika/cena-na-zoloto-dostigla-maksimuma-za-poslednie-vosem-let-528536.html')
     # success, article = my_parser.parse(
     #     'https://tv.112.ua/112_minut/utrennee-shou-112-minut-vypusk-ot-28032019-485689.html')
     print(article)

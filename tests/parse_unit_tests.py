@@ -1,5 +1,5 @@
 import unittest
-from parsing.Russia import BbcParser, IzParser, LentaParser, LifeParser, MailParser, NewsruParser, PravdaParser, \
+from gather.parsing.Russia import BbcParser, IzParser, LentaParser, LifeParser, MailParser, NewsruParser, PravdaParser, \
     RbcParser, RgParser
 
 
@@ -58,15 +58,6 @@ class TestStringMethods(unittest.TestCase):
         self.assertNotEqual(article, '')
 
 
-def expanded_form(num):
-    xs = str(num).split('.')
-    return ' + '.join(
-        [f'{x}{"0" * i}' for i, x in enumerate(xs[0][::-1]) if x != '0'][::-1]
-        + [f'{x}/{10 ** i}' for i, x in enumerate(xs[1], 1) if x != '0']
-    )
-
-
 if __name__ == '__main__':
-    print(expanded_form(70.04504))
     # test.assert_equals(expanded_form(7.1304), '7 + 1/10 + 3/100 + 4/10000')
     # unittest.main()

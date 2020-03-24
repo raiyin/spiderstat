@@ -2,7 +2,7 @@ import urllib.request
 from urllib.request import Request
 from lxml.html import fromstring
 from miscellanea.logging import FakeTestLogger
-from text.StringCleaner import StringCleaner
+from ml.text.StringCleaner import StringCleaner
 
 
 class NewstbilisiParser:
@@ -24,11 +24,7 @@ class NewstbilisiParser:
                        "TE": "Trailers",
                        "Upgrade-Insecure-Requests": "1",
                        "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:68.0) Gecko/20100101 Firefox/68.0"}
-            # request = Request(url, headers={'User-Agent': "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 " +
-            #                                               "(KHTML, like Gecko) Chrome/" + str(randint(40, 70)) +
-            #                                               ".0.2227.0 Safari/537.36"})
             request = Request(url, headers=headers)
-            # content = urllib.request.urlopen(request).read().decode('utf-8')
             content = urllib.request.urlopen(request).read().strip().decode(errors='replace')
             doc = fromstring(content)
             doc.make_links_absolute(url)

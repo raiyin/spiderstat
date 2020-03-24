@@ -1,6 +1,8 @@
 import feedparser
 from gather.db import DbManager
+from gather.db import FakeDbManager
 from gather.parsing.Ukraine import GolosuaParser
+from gather.parsing.Georgia import EuronewsgeParser
 import time
 import datetime
 from miscellanea.logging import FakeTestLogger
@@ -9,6 +11,7 @@ from random import randint
 from miscellanea import ConfigManager
 from pathlib import Path
 import os.path
+import traceback
 
 
 class RssClient:
@@ -23,7 +26,7 @@ class RssClient:
         self.timeout = timeout
         self.logger = logger
 
-    def update_publications(self):
+    def save_new_publications(self):
         """Проверяет наличие публикации в базе и, если ее нет, то сохраняет в БД."""
         try:
             browser_rev = str(randint(60, 66))
@@ -42,6 +45,7 @@ class RssClient:
                                                 'Upgrade-Insecure-Requests': "1"})
         except Exception as e:
             message = self.logger.make_message_link("RssClient parse error", e, self.link)
+            message = message + "\n" + traceback.format_exc()
             self.logger.write_message(message)
             return
 
@@ -98,6 +102,7 @@ class RssClient:
                                                              article, published_parsed, pub_id, self.source_id)
                         else:
                             message = self.logger.make_message_link("RssClient parse error", e, self.link)
+                            message = message + "\n" + traceback.format_exc()
                             self.logger.write_message(message)
                             return
                 else:
@@ -108,12 +113,12 @@ if __name__ == "__main__":
     loc_logger = FakeTestLogger.FakeTestLogger()
     configManager = ConfigManager.ConfigManager()
 
-    main_dir = Path(__file__).parents[1]
+    main_dir = Path(__file__).parents[2]
     config_file = os.path.join(main_dir, "config.json")
     configManager.read_config(config_file)
 
-    loc_db_manager = DbManager.DbManager(configManager, loc_logger)
+    loc_db_manager = FakeDbManager.FakeDbManager()
 
-    my_parser = GolosuaParser.GolosuaParser(loc_logger)
-    rssClient = RssClient(loc_db_manager, 'golos.ua', '0001.01.01 01:01:01', my_parser, 5, loc_logger)
-    rssClient.update_publications()
+    my_parser = EuronewsgeParser.EuronewsgeParser(loc_logger)
+    rssClient = RssClient(loc_db_manager, 'http://euronews.ge/feed/', '0001.01.01 01:01:01', my_parser, 5, loc_logger)
+    rssClient.save_new_publications()

@@ -2,7 +2,6 @@ import mysql.connector
 from datetime import datetime, date
 from miscellanea.logging import FakeTestLogger
 from collections import namedtuple
-import mysql.connector
 import os.path
 from pathlib import Path
 from miscellanea import ConfigManager
@@ -90,7 +89,7 @@ class DbManager:
 
         return self.cursor.fetchone()[0] > 0
 
-    def is_publication_in_db(self, link):
+    def is_publication_in_db_by_link(self, link):
         try:
             self.check_and_reconnect()
             query = "SELECT COUNT(*) FROM publications WHERE link = %s"

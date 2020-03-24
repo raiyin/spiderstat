@@ -11,8 +11,11 @@ import os.path
 from werkzeug.debug import DebuggedApplication
 from flask import Flask
 import json
+import re
 
 app = Flask(__name__)
+
+
 # app.run(debug=True)
 
 
@@ -38,14 +41,11 @@ def index():
         reports.append(list(report))
         reports[i][3] = json.loads(report[3])
         i = i + 1
-        # reports_dict.append(
-        #    {'name': reports[1]},
-        #    {'decription': reports[2]},
-        #    {'columns': reports[3]},
-        #    {'x_title': reports[4]},
-        #    {'y_title': reports[5]},
-        #    {'body': reports[6]}
-        # )
+
+    for i in range(len(reports)):
+        if reports[i][4] == 'Date':
+            mystr = re.sub(r'(\d{4}?)-(\d{2}?)-(\d{2}?)', r'new Date(\1, \2, \3)', reports[i][6])
+            reports[i][6] = mystr
 
     # Передача в шаблон и его вызов.
     # return render_template("index.html", reports=reports_dict)

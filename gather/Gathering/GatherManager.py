@@ -26,11 +26,11 @@ from miscellanea.backup import BackupManager
 
 
 class GatherManager:
-    def __init__(self, rss_clients, db_manager, pause_interval, logger):
+    def __init__(self, rss_clients, db_manager, pause_interval, my_logger):
         self.rss_clients = rss_clients
         self.pause = pause_interval
         self.db_manager = db_manager
-        self.logger = logger
+        self.logger = my_logger
 
     def gather(self):
         while True:
@@ -41,9 +41,9 @@ class GatherManager:
                     self.db_manager.update_last_check_date(rss_client.source_id, str(datetime.now()))
                     self.db_manager.check_and_reconnect()
                     print(datetime.now())
-                except Exception as e:
-                    message = self.logger.make_message_link("Error in gather function", e, str(rss_client))
-                    self.logger.write_message(message)
+                except Exception as exception:
+                    error_message = self.logger.make_message_link("Error in gather function", exception, str(rss_client))
+                    self.logger.write_message(error_message)
                     self.db_manager.check_and_reconnect()
                     continue
             print("Circle done...")
@@ -603,7 +603,7 @@ if __name__ == "__main__":
         #     p_backup.start()
 
         # Запускаем
-        articles_prev_count = db_manager.get_articles_count()
+        # articles_prev_count = db_manager.get_articles_count()
         # В цикле каждые полчаса проверяем как хорошо добавляются записи в БД. Если плохо, то перезапускаем задачу.
         # while True:
         #     time.sleep(configManager.restore_work_timeout)

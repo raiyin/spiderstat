@@ -2,78 +2,25 @@
 <html lang="ru">
     <head>
         <meta charset="utf-8">
-        <link rel="stylesheet" type="text/css"  href="../static/css/theme.css"/>
-        <link rel="stylesheet" href="../static/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
-        <script src="../static/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
-        <script src="../static/js/jquery-3.4.1.js"></script>
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+        <link rel="stylesheet" type="text/css" href="../static/css/normalize.css">
+        <link rel="stylesheet" type="text/css" href="../static/css/theme.css"/>
         <script src="../static/js/loader.js"></script>
-        <title>SpiderStat.ru</title>
-    </head>
-    
-    <body>
-
-        <header>
-            <h2 class="caption">SpyderStat</h2>
-        </header>
-
-        <main>
-
-            <section id="left-section">
-                <div class="tab">
-                    <button class="tablinks" onclick="openCity(event, 'London')">London</button>
-                    <button class="tablinks" onclick="openCity(event, 'Paris')">Paris</button>
-                    <button class="tablinks" onclick="openCity(event, 'Tokyo')">Tokyo</button>
-                    {% for report in reports %}
-                    <button class="tablinks" onclick="openCity(event, '{{report[1]}}')">{{ report[1] }}</button>
-                    {% endfor %}
-                    
-                </div>                
-            </section>
-
-            <section id="main-plot">
-
-                <div id="London" class="tabcontent">
-                </div>
-                      
-                <div id="Paris" class="tabcontent">
-                    <h3>Paris</h3>
-                    <p>Paris is the capital of France.</p>
-                </div>
-                      
-                <div id="Tokyo" class="tabcontent">
-                    <h3>Tokyo</h3>
-                    <p>Tokyo is the capital of Japan.</p>
-                </div>
-
-                {% for report in reports %}                
-                <div id="{{report[1]}}" class="tabcontent">
-                    <h3>{{report[1]}}</h3>
-                    <p>Tokyo is the capital of Japan.</p>
-                    {{report}}
-                </div>
-                {% endfor %}
-                
-            </section>
-        </main>
-
-        <script type="text/javascript">            
+        <script>
             google.charts.load('current', {packages: ['corechart', 'line']});
             google.charts.setOnLoadCallback(drawLineColors);
 
-            function drawLineColors(city) 
+            function drawLineColors(city)
             {
                 var data = new google.visualization.DataTable();
-                // 'string', 'number', 'boolean', 'date', 'datetime', 'timeofday'
-                //data.addColumn('number', 'X');
-                //data.addColumn('number', 'Dogs');
-                //data.addColumn('number', 'Cats');
                 var options = {}
-                
+
                 if(city=='London')
-                {              
+                {
                     data.addColumn('number', 'X');
                     data.addColumn('number', 'Dogs');
-                    data.addColumn('number', 'Cats');      
+                    data.addColumn('number', 'Cats');
                     data.addRows([
                         [0, 0, 0],    [1, 10, 5],   [2, 23, 15],  [3, 17, 9],   [4, 18, 10],  [5, 9, 5],
                         [6, 11, 3],   [7, 27, 19],  [8, 33, 25],  [9, 40, 32],  [10, 32, 24], [11, 35, 27],
@@ -87,14 +34,14 @@
                         [54, 71, 63], [55, 72, 64], [56, 73, 65], [57, 75, 67], [58, 70, 62], [59, 68, 60],
                         [60, 64, 56], [61, 60, 52], [62, 65, 57], [63, 67, 59], [64, 68, 60], [65, 69, 61],
                         [66, 70, 62], [67, 72, 64], [68, 75, 67], [69, 80, 72]]);
-                        
-                    options = 
+
+                    options =
                     {
                         hAxis:
                         {
                             title: 'Time'
                         },
-                        vAxis: 
+                        vAxis:
                         {
                             title: 'Popularity'
                         },
@@ -103,10 +50,10 @@
                     };
                 }
                 if(city=='Paris')
-                {       
+                {
                     data.addColumn('number', 'X');
                     data.addColumn('number', 'Dogs');
-                    data.addColumn('number', 'Cats');             
+                    data.addColumn('number', 'Cats');
                     data.addRows([
                         [0, 0, 0],    [1, 10, 5],   [2, 23, 15],  [3, 17, 9],   [4, 18, 10],  [5, 9, 5],
                         [6, 11, 3],   [7, 27, 19],  [8, 33, 25],  [9, 40, 32],  [10, 32, 24], [11, 35, 27],
@@ -120,14 +67,14 @@
                         [54, 71, 63], [55, 72, 64], [56, 73, 65], [57, 75, 67], [58, 70, 62], [59, 68, 60],
                         [60, 64, 56], [61, 60, 52], [62, 65, 57], [63, 67, 59], [64, 68, 60], [65, 69, 61],
                         [66, 70, 62], [67, 72, 64], [68, 75, 67], [69, 80, 72]]);
-                        
-                    options = 
+
+                    options =
                     {
                         hAxis:
                         {
                             title: 'Time'
                         },
-                        vAxis: 
+                        vAxis:
                         {
                             title: 'Popularity'
                         },
@@ -136,10 +83,10 @@
                     };
                 }
                 if(city=='Tokyo')
-                {         
+                {
                     data.addColumn('number', 'X');
                     data.addColumn('number', 'Dogs');
-                    data.addColumn('number', 'Cats');           
+                    data.addColumn('number', 'Cats');
                     data.addRows([
                         [0, 0, 0],    [1, 10, 5],   [2, 23, 15],  [3, 17, 9],   [4, 18, 10],  [5, 9, 5],
                         [6, 11, 3],   [7, 27, 19],  [8, 33, 25],  [9, 40, 32],  [10,  35, 27], [11,32, 24],
@@ -153,41 +100,39 @@
                         [54, 72, 64], [55, 71, 63], [56, 75, 67], [57, 73, 65], [58,  68, 60], [59,70, 62],
                         [60, 60, 52], [61, 64, 56], [62, 67, 59], [63, 65, 57], [64,  69, 61], [65,68, 60],
                         [66, 72, 64], [67, 70, 62], [68, 80, 72], [69, 75, 67]]);
-                        
-                    options = 
+
+                    options =
                     {
                         hAxis:
                         {
                             title: 'Time'
                         },
-                        vAxis: 
+                        vAxis:
                         {
                             title: 'Popularity'
                         },
                         colors: ['#a52714', '#097138'],
                         backgroundColor: '#333'
                     };
-                }                
+                }
+
                 {% for report in reports %}
                 if(city=='{{report[1]}}')
-                {           
-                    //data.addColumn('number', 'X');
-                    //data.addColumn('number', 'Dogs');
-                    //data.addColumn('number', 'Cats');
-                    {% for column, typename in report[3].items() %}                        
+                {
+                    {% for column, typename in report[3].items() %}
                     data.addColumn('{{typename}}', '{{column}}');
                     {% endfor %}
 
 
                     data.addRows([{{report[6]}}]);
-                    
-                    options = 
+
+                    options =
                     {
                         hAxis:
                         {
                             title: '{{report[4]}}'
                         },
-                        vAxis: 
+                        vAxis:
                         {
                             title: '{{report[5]}}'
                         },
@@ -196,41 +141,123 @@
                     };
                 }
                 {% endfor %}
-             
-                //var options = 
+
                 var chart = new google.visualization.LineChart(document.getElementById(city));
                 chart.draw(data, options);
             }
-            
-        </script>
-
-        <script type="text/javascript">
 
             function openCity(evt, cityName)
             {
-                // Declare all variables
                 var i, tabcontent, tablinks;
 
-                // Get all elements with class="tabcontent" and hide them
                 tabcontent = document.getElementsByClassName("tabcontent");
-                for (i = 0; i < tabcontent.length; i++) 
+                for (i = 0; i < tabcontent.length; i++)
                 {
                     tabcontent[i].style.display = "none";
                 }
 
-                // Get all elements with class="tablinks" and remove the class "active"
                 tablinks = document.getElementsByClassName("tablinks");
-                for (i = 0; i < tablinks.length; i++) 
+                for (i = 0; i < tablinks.length; i++)
                 {
                     tablinks[i].className = tablinks[i].className.replace(" active", "");
                 }
 
-                // Show the current tab, and add an "active" class to the link that opened the tab
                 document.getElementById(cityName).style.display = "block";
                 evt.currentTarget.className += " active";
 
                 drawLineColors(cityName)
             }
-        </script>    
-    </body>    
+
+        </script>
+        <title>SpiderStat.ru</title>
+    </head>
+
+    <body>
+
+        <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+            <a class="navbar-brand" href="#">SpyderStat</a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+                    aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <ul class="navbar-nav mr-auto">
+                    <li class="nav-item active">
+                        <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">Link</a>
+                    </li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
+                           data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            Dropdown
+                        </a>
+                        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                            <a class="dropdown-item" href="#">Action</a>
+                            <a class="dropdown-item" href="#">Another action</a>
+                            <div class="dropdown-divider"></div>
+                            <a class="dropdown-item" href="#">Something else here</a>
+                        </div>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link disabled" href="#" tabindex="-1" aria-disabled="true">Disabled</a>
+                    </li>
+                </ul>
+                <form class="form-inline my-2 my-lg-0">
+                    <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
+                    <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+                </form>
+            </div>
+        </nav>
+
+        <div class="main container-fluid h-100">
+            <div class="row text-center h-100">
+
+                <div class="col-2 bg-dark">
+                    <div class="tab">
+                        <button class="tablinks" onclick="openCity(event, 'London')">London</button>
+                        <button class="tablinks" onclick="openCity(event, 'Paris')">Paris</button>
+                        <button class="tablinks" onclick="openCity(event, 'Tokyo')">Tokyo</button>
+                        {% for report in reports %}
+                        <button class="tablinks" onclick="openCity(event, '{{report[1]}}')">{{ report[1] }}</button>
+                        {% endfor %}
+                    </div>
+                </div>
+
+                <div class="col-1 bg-dark">
+                </div>
+
+                <div class="col-8 bg-dark">
+                    <div id="London" class="tabcontent">
+                        <h3>London</h3>
+                    </div>
+
+                    <div id="Paris" class="tabcontent">
+                        <h3>Paris</h3>
+                    </div>
+
+                    <div id="Tokyo" class="tabcontent">
+                        <h3>Tokyo</h3>
+                    </div>
+
+                    {% for report in reports %}
+                    <div id="{{report[1]}}" class="tabcontent">
+                        <h3>{{report[1]}}</h3>
+                    </div>
+                    {% endfor %}
+
+                </div>
+
+                <div class="col-1 bg-dark">
+                </div>
+
+            </div>
+        </div>
+
+        <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
+        <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
+    </body>
 </html>

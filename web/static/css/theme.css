@@ -1,12 +1,8 @@
 @import url(https://fonts.googleapis.com/css?family=Roboto:100,300,400,500,700|Poppins:500);
 
-body{
-    color: #878787;
-    font-family: "Roboto", sans-serif;
-    font-size: 14px;
-    font-style: normal;
-    margin: 0px;
-    padding: 0px;
+html,
+body {
+height: 100%;
 }
 
 header {
@@ -42,6 +38,7 @@ main{
     padding: 0px;
     float: left;
     font: 1em tahoma;
+    min-width: 200px;
 }
 
 #main-plot{
@@ -50,10 +47,7 @@ main{
     width: 88%;
     height: 90%;
     float: left;
-    margin-top: 15px;
-    margin-left: 15px;
-    margin-right: 15px;
-    margin-bottom: 15px;
+    margin: 15px;
 }
 
 li.navigation-header > span{
@@ -101,10 +95,8 @@ li.navigation-header > span{
 
 /* Style the tab */
 .tab {
-  float: left;
   background-color: #666666;
-  width: 100%;
-  height: 300px;
+  height: 200px;
 }
 
 /* Style the buttons that are used to open the tab content */

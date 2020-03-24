@@ -2,7 +2,8 @@ import urllib.request
 from urllib.request import Request
 from lxml.html import fromstring
 from miscellanea.logging import FakeTestLogger
-from text.StringCleaner import StringCleaner
+from ml.text.StringCleaner import StringCleaner
+from miscellanea.RequestHeaderGenerator import RequestHeaderGenerator
 
 
 class LifeParser:
@@ -15,10 +16,8 @@ class LifeParser:
     def parse(self, url):
         try:
             article_text = ""
-
-            request = Request(url, headers={'User-Agent': "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 " +
-                                                          "(KHTML, like Gecko) Chrome/41.0.2227.0 Safari/537.36"})
-
+            headers = RequestHeaderGenerator.get_headers()
+            request = Request(url, headers=headers)
             content = urllib.request.urlopen(request).read()
 
             doc = fromstring(content)
