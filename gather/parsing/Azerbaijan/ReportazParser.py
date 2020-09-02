@@ -23,9 +23,9 @@ class ReportazParser:
             executable_path = self.config_manager.gecko_driver_path
             driver = webdriver.Firefox(executable_path=executable_path, service_log_path=os.devnull)
             driver.get(url)
-            elem = driver.find_element_by_class_name("short-news-header")
+            elem = driver.find_element_by_class_name("news-title")
             article_text = elem.text + "\n"
-            elem = driver.find_element_by_class_name("post-text")
+            elem = driver.find_element_by_class_name("editor-body")
             article_text += elem.text
             driver.close()
         except Exception as e:
@@ -57,7 +57,10 @@ if __name__ == "__main__":
 
     logger = FakeTestLogger.FakeTestLogger()
     my_parser = ReportazParser(logger, configManager)
-    success, article = my_parser.parse('https://report.az/diger-olkeler/seudiyye-erebistaninda-da-koronavirusa-ilk-yoluxma-askarlandi/')
+
+    # success, article = my_parser.parse('https://report.az/diger-olkeler/seudiyye-erebistaninda-da-koronavirusa-ilk-yoluxma-askarlandi/')
+    # success, article = my_parser.parse('https://report.az/diger-olkeler/abs-da-immiqrasiya-muveqqeti-dayandirilacaq/')
+    success, article = my_parser.parse('https://report.az/az/xarici-siyaset/ceyhun-bayramov-kuveytin-azerbaycandaki-sefiri-ile-gorusub/')
     # success, article = my_parser.parse('https://report.az/ru/ikt/exxonmobil-mozhet-nachat-ispol-zovat-kvantovye-komp'
     #                                    '-yutery-ibm/')
     print(article)

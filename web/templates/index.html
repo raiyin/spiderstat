@@ -11,12 +11,12 @@
             google.charts.load('current', {packages: ['corechart', 'line']});
             google.charts.setOnLoadCallback(drawLineColors);
 
-            function drawLineColors(city)
+            function drawLineColors(report_name)
             {
                 var data = new google.visualization.DataTable();
                 var options = {}
 
-                if(city=='London')
+                if(report_name=='London')
                 {
                     data.addColumn('number', 'X');
                     data.addColumn('number', 'Dogs');
@@ -49,7 +49,7 @@
                         backgroundColor: '#333'
                     };
                 }
-                if(city=='Paris')
+                if(report_name=='Paris')
                 {
                     data.addColumn('number', 'X');
                     data.addColumn('number', 'Dogs');
@@ -82,7 +82,7 @@
                         backgroundColor: '#333'
                     };
                 }
-                if(city=='Tokyo')
+                if(report_name=='Tokyo')
                 {
                     data.addColumn('number', 'X');
                     data.addColumn('number', 'Dogs');
@@ -117,7 +117,7 @@
                 }
 
                 {% for report in reports %}
-                if(city=='{{report[1]}}')
+                if(report_name=='{{report[1]}}')
                 {
                     {% for column, typename in report[3].items() %}
                     data.addColumn('{{typename}}', '{{column}}');
@@ -142,11 +142,11 @@
                 }
                 {% endfor %}
 
-                var chart = new google.visualization.LineChart(document.getElementById(city));
+                var chart = new google.visualization.LineChart(document.getElementById(report_name));
                 chart.draw(data, options);
             }
 
-            function openCity(evt, cityName)
+            function open_report(evt, report_name)
             {
                 var i, tabcontent, tablinks;
 
@@ -162,10 +162,10 @@
                     tablinks[i].className = tablinks[i].className.replace(" active", "");
                 }
 
-                document.getElementById(cityName).style.display = "block";
+                document.getElementById(report_name).style.display = "block";
                 evt.currentTarget.className += " active";
 
-                drawLineColors(cityName)
+                drawLineColors(report_name)
             }
 
         </script>
@@ -173,55 +173,16 @@
     </head>
 
     <body>
-
-        <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-            <a class="navbar-brand" href="#">SpyderStat</a>
-            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
-                    aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-
-            <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                <ul class="navbar-nav mr-auto">
-                    <li class="nav-item active">
-                        <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#">Link</a>
-                    </li>
-                    <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
-                           data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                            Dropdown
-                        </a>
-                        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                            <a class="dropdown-item" href="#">Action</a>
-                            <a class="dropdown-item" href="#">Another action</a>
-                            <div class="dropdown-divider"></div>
-                            <a class="dropdown-item" href="#">Something else here</a>
-                        </div>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link disabled" href="#" tabindex="-1" aria-disabled="true">Disabled</a>
-                    </li>
-                </ul>
-                <form class="form-inline my-2 my-lg-0">
-                    <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
-                    <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
-                </form>
-            </div>
-        </nav>
-
         <div class="main container-fluid h-100">
             <div class="row text-center h-100">
 
                 <div class="col-2 bg-dark">
                     <div class="tab">
-                        <button class="tablinks" onclick="openCity(event, 'London')">London</button>
-                        <button class="tablinks" onclick="openCity(event, 'Paris')">Paris</button>
-                        <button class="tablinks" onclick="openCity(event, 'Tokyo')">Tokyo</button>
+                        <button class="tablinks" onclick="open_report(event, 'London')">London</button>
+                        <button class="tablinks" onclick="open_report(event, 'Paris')">Paris</button>
+                        <button class="tablinks" onclick="open_report(event, 'Tokyo')">Tokyo</button>
                         {% for report in reports %}
-                        <button class="tablinks" onclick="openCity(event, '{{report[1]}}')">{{ report[1] }}</button>
+                        <button class="tablinks" onclick="open_report(event, '{{report[1]}}')">{{ report[1] }}</button>
                         {% endfor %}
                     </div>
                 </div>

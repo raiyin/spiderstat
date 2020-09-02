@@ -42,6 +42,15 @@ class BbcParser:
                     text = par.text_content().strip()
                     if text:
                         article_text += "\n" + text
+            elif len(doc.find_class('GridItemConstrainedLarge-sc-12lwanc-4')) != 0:
+                ex_classes = doc.find_class('GridItemConstrainedLarge-sc-12lwanc-4')
+                e = ex_classes.pop()
+                article_text += e.text_content().strip()
+
+                # Текст новости
+                e = doc.find_class('Paragraph-k859h4-0 dSVJxu')
+                for item in e:
+                    article_text += item.text_content()
             else:
                 return 0, ""
 
@@ -57,6 +66,7 @@ if __name__ == "__main__":
     logger = FakeTestLogger.FakeTestLogger()
     my_parser = BbcParser(logger)
     success, article = my_parser.parse('https://www.bbc.com/russian/features-46067230')
+    #success, article = my_parser.parse('https://www.bbc.com/russian/media-53950711')
     # success, article = my_parser.parse('https://www.bbc.com/russian/av/media-45904959')
 
     print(article)

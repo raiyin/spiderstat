@@ -12,6 +12,7 @@ from werkzeug.debug import DebuggedApplication
 from flask import Flask
 import json
 import re
+from reporting import NewsCount
 
 app = Flask(__name__)
 
@@ -42,6 +43,8 @@ def index():
         reports[i][3] = json.loads(report[3])
         i = i + 1
 
+    # Костыль для верного отображения дат в js страницы.
+    # Переделать так, чтобы информация бралась из столбца "columns".
     for i in range(len(reports)):
         if reports[i][4] == 'Date':
             mystr = re.sub(r'(\d{4}?)-(\d{2}?)-(\d{2}?)', r'new Date(\1, \2, \3)', reports[i][6])
@@ -51,6 +54,29 @@ def index():
     # return render_template("index.html", reports=reports_dict)
     user = {'username': 'Miguel'}
     return render_template('index.html', title='Home', user=user, reports=reports)
+
+
+@app.route('/index_new')
+def index_new():
+
+    # Инициализация.
+    main_dir = Path(__file__).parents[1]
+    config_file = os.path.join(main_dir, "config.json")
+
+    config_manager = ConfigManager.ConfigManager()
+    config_manager.read_config(config_file)
+
+    news_count_report = NewsCount.NewsCount(config_manager)
+    report_shell = news_count_report.get_report_ui()
+
+    # Преобразование полученных данных в массив словарей.
+    reports = []
+    reports.append(report_shell)
+
+    # Передача в шаблон и его вызов.
+    # return render_template("index.html", reports=reports_dict)
+    user = {'username': 'Miguel'}
+    return render_template('index_new.html', title='Home', user=user, reports=reports)
 
 
 if __name__ == '__main__':
